@@ -1,13 +1,12 @@
-<!-- footer.html -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 <style>
     .footer-container {
-        background-color: #800020;  /* Burgundy background for footer */
-        color: #f5f0e6;             /* Light text for contrast */
+        background-color: #800020;
+        color: #f5f0e6;
         padding: 10px 0;
         text-align: center;
-        border-top: 2px solid #8d6e63;  /* Stylish border on top */
-        font-size: 0.9rem;          /* Slightly smaller text for a compact look */
+        border-top: 2px solid #8d6e63;
+        font-size: 0.9rem;
     }
 
     .footer-first-line {
@@ -41,13 +40,14 @@
     .footer-line {
         border-bottom: 1px solid #f5f0e6;
         margin: 10px auto;
-        width: 90%;  /* Line width for a cleaner look */
+        width: 90%;
     }
 
     .footer-links {
         display: flex;
         justify-content: center;
-        gap: 95px;  /* More space between page links */
+        flex-wrap: wrap;
+        gap: 30px;
         padding: 10px 0;
     }
 
@@ -63,35 +63,35 @@
 
     .footer-second-line {
         display: flex;
-        justify-content: space-between;  /* Space between contact info and social icons */
+        justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        padding: 5px 20px;  /* Padding for breathing room */
-        font-size: 0.95rem;  /* Smaller font for contact info and social media */
+        padding: 5px 20px;
+        font-size: 0.95rem;
     }
 
     .footer-contact-info {
         display: flex;
-        gap: 20px;          /* Space between items */
-        list-style: none;    /* Remove bullet points */
+        gap: 20px;
+        list-style: none;
         padding: 0;
         margin: 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
     }
 
     .footer-contact-info li {
-        margin: 10px;
+        margin: 5px;
         color: #f5f0e6;
-        font-size: 0.75rem;  /* 1/3 smaller font for contact info */
-    }
-
-    .footer-contact-info li::before {
-        content: "";         /* Remove any default list symbols */
+        font-size: 0.75rem;
     }
 
     .footer-social {
         display: flex;
-        gap: 15px;  /* Space between social media icons */
-        margin-right: 35px;  /* Move icons to the left */
+        gap: 15px;
+        justify-content: center;
+        margin: 10px 0;
     }
 
     .footer-social a {
@@ -100,7 +100,7 @@
     }
 
     .footer-social img {
-        max-height: 50px;         /* Increased size for social icons */
+        max-height: 40px;
         filter: brightness(90%);
         transition: filter 0.3s ease;
     }
@@ -111,6 +111,42 @@
 
     .cb {
         clear: both;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .footer-container {
+            font-size: 0.8rem;
+            padding: 15px 0;
+        }
+
+        .footer-first-line {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .footer-links {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-second-line {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .footer-contact-info {
+            flex-direction: column;
+        }
+
+        .footer-social {
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .footer-social img {
+            max-height: 35px;
+        }
     }
 </style>
 
@@ -146,12 +182,12 @@
     <!-- Contact Info and Social Media Links -->
     <div class="footer-second-line">
         <!-- Contact Info -->
-        <div class="footer-contact-info">
-            <li>&emsp;&emsp;&emsp;Copyright 2021 Downey United Lodge No. 220</li>
+        <ul class="footer-contact-info">
+            <li>&copy; 2021 Downey United Lodge No. 220</li>
             <li><a href="mailto:downeysec220@gmail.com" style="color: #f5f0e6;">downeysec220@gmail.com</a></li>
             <li>8244 E. 3rd St. Downey, California 90241</li>
             <li><a href="tel:+15628624176" style="color: #f5f0e6;">562-862-4176</a></li>
-        </div>
+        </ul>
 
         <!-- Social Media Icons on the Right Side -->
         <div class="footer-social">
