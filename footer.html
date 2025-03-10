@@ -46,7 +46,7 @@
     .footer-links {
         display: flex;
         justify-content: center;
-        gap: 15px; /* Reduced gap to fit more links on one line */
+        gap: 15px;
         padding: 10px 0;
         flex-wrap: wrap;
     }
@@ -55,7 +55,7 @@
         color: #f5f0e6;
         text-decoration: none;
         font-size: 0.9rem;
-        white-space: nowrap; /* Prevent links from breaking to a new line */
+        white-space: nowrap;
     }
 
     .footer-links a:hover {
@@ -119,24 +119,20 @@
     /* Mobile Adjustments */
     @media only screen and (max-width: 768px) {
         .footer-container {
-            font-size: 0.50rem; /* Slightly smaller font for mobile */
+            font-size: 0.75rem;
             padding: 5px 0;
         }
 
-        .footer-first-line {
-            flex-direction: column;
-            text-align: center;
+        .footer-first-line img:first-of-type {
+            display: none; /* Remove one logo on mobile */
         }
 
         .footer-links {
-            flex-wrap: nowrap; /* Prevent links from wrapping to a new line */
-            overflow-x: auto;   /* Allow horizontal scroll if needed */
-            gap: 10px;
-            padding: 5px 0;
+            display: none; /* Remove footer links on mobile */
         }
 
-        .footer-links a {
-            font-size: 0.75rem;
+        .footer-line {
+            display: none; /* Remove lines under sections on mobile */
         }
 
         .footer-second-line {
@@ -146,13 +142,7 @@
         }
 
         .footer-contact-info {
-            flex-direction: column;
-            gap: 5px;
-            text-align: center;
-        }
-
-        .footer-contact-info li {
-            font-size: 0.7rem;
+            display: none; /* Remove contact info on mobile */
         }
 
         .footer-social {
@@ -175,13 +165,12 @@
                 <a href="http://www.freemason.org" target="_blank" rel="noopener noreferrer">Masons of California website</a>
             </p>
         </span>
-        <img loading="lazy" src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo-footer.png" alt="Lodge Logo" />
     </div>
 
     <!-- Line Under Learn More Section -->
     <div class="footer-line"></div>
 
-    <!-- Spread Links Across the Page -->
+    <!-- Spread Links Across the Page (Desktop Only) -->
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -197,12 +186,9 @@
 
     <!-- Contact Info and Social Media Links -->
     <div class="footer-second-line">
-        <!-- Contact Info -->
+        <!-- Contact Info (Desktop Only) -->
         <ul class="footer-contact-info">
             <li>&copy; 2021 Downey United Lodge No. 220</li>
-            <li><a href="mailto:downeysec220@gmail.com" style="color: #f5f0e6;">downeysec220@gmail.com</a></li>
-            <li>8244 E. 3rd St. Downey, California 90241</li>
-            <li><a href="tel:+15628624176" style="color: #f5f0e6;">562-862-4176</a></li>
         </ul>
 
         <!-- Social Media Icons -->
