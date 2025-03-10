@@ -1,6 +1,13 @@
-<div id="site-header">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downey United Lodge #220</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body, html {
             margin: 0;
@@ -35,6 +42,7 @@
             max-height: 50px;
             border-radius: 50%;
             border: 2px solid #8d6e63;
+            object-fit: contain;
         }
 
         .hamburger-menu {
@@ -81,60 +89,104 @@
         .menu.active {
             display: block;
         }
-    </style>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <a href="index.html">
-            <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
-        </a>
-        <div class="hamburger-menu" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+        /* Mobile Adjustments */
+        @media only screen and (max-width: 768px) {
+            .navbar {
+                padding: 5px 10px;
+            }
 
-    <!-- Dropdown Menu -->
-    <div class="menu" id="dropdownMenu">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="calendar.html">Calendar</a>
-        <a href="contactus.html">Contact Us</a>
-        <a href="events.html">Events</a>
-        <a href="https://freemason.org" target="_blank">Freemason.org</a>
-        <a href="joinus.html">Join Us</a>
-        <a href="news.html">News</a>
-    </div>
+            .navbar img {
+                max-width: 40px;
+                max-height: 40px;
+            }
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById('dropdownMenu');
-            menu.classList.toggle('active');
+            .menu {
+                width: 90%;
+                top: 50px;
+                right: 5%;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            }
+
+            .menu a {
+                font-size: 0.85rem;
+                padding: 8px;
+            }
+
+            .hamburger-menu div {
+                width: 20px;
+                height: 2.5px;
+            }
         }
+    </style>
+</head>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const menuLinks = document.querySelectorAll('#dropdownMenu a');
+<body>
 
-            menuLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.style.display = 'none';
-                }
-            });
-
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('dropdownMenu');
-                const hamburger = document.querySelector('.hamburger-menu');
-
-                if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-
-                if (menu.contains(event.target) && event.target.tagName === 'A') {
-                    menu.classList.remove('active');
-                }
-            });
-        });
-    </script>
+<!-- Navbar -->
+<div class="navbar">
+    <a href="index.html">
+        <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
+    </a>
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
 </div>
+
+<!-- Dropdown Menu -->
+<div class="menu" id="dropdownMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="calendar.html">Calendar</a>
+    <a href="contactus.html">Contact Us</a>
+    <a href="events.html">Events</a>
+    <a href="https://freemason.org" target="_blank">Freemason.org</a>
+    <a href="joinus.html">Join Us</a>
+    <a href="news.html">News</a>
+</div>
+
+<!-- JavaScript for menu -->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('dropdownMenu');
+        menu.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const menuLinks = document.querySelectorAll('#dropdownMenu a');
+
+        menuLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('dropdownMenu');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+
+            if (menu.contains(event.target) && event.target.tagName === 'A') {
+                menu.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+<!-- Include Footer -->
+<div id="footer-placeholder"></div>
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading footer:', error));
+</script>
+
+</body>
+</html>
