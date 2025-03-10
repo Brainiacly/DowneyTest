@@ -43,7 +43,6 @@
             padding: 0;
         }
 
-        /* Transparent overlay to capture clicks */
         .click-overlay {
             position: absolute;
             top: 0;
@@ -79,8 +78,6 @@
         .then(response => response.text())
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
-
-            // Ensure menu opens correctly
             const hamburgerMenu = document.querySelector('.hamburger-menu');
             if (hamburgerMenu) {
                 hamburgerMenu.addEventListener('click', () => {
@@ -96,23 +93,23 @@
         .then(data => document.getElementById('footer-placeholder').innerHTML = data)
         .catch(error => console.error('Error loading footer:', error));
 
-    // Slide data
-    const slideURLs = [
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=0",
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=1",
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=2",
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=3"
-    ];
+    // Define presentation ID and slide count
+    const presentationId = "1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4";
+    const totalSlides = 20;  // Change this if the presentation has more or fewer slides
 
-    // Start with page 1 on the left and page 2 on the right
-    let leftIndex = 0;  // Start at Page 1 (index 0)
-    let rightIndex = 1; // Start at Page 2 (index 1)
+    // Generate slide URLs dynamically
+    const slideURLs = [];
+    for (let i = 0; i < totalSlides; i++) {
+        slideURLs.push(`https://docs.google.com/presentation/d/${presentationId}/embed?start=false&loop=false&rm=minimal&slide=${i}`);
+    }
+
+    let leftIndex = 0;
+    let rightIndex = 1;
 
     // Function to update the slides
     function updateSlides() {
         const leftSlide = document.getElementById('left-slide');
         const rightSlide = document.getElementById('right-slide');
-        
         leftSlide.src = slideURLs[leftIndex % slideURLs.length];
         rightSlide.src = slideURLs[rightIndex % slideURLs.length];
     }
