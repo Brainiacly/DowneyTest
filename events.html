@@ -14,7 +14,7 @@
             margin: 0;
             text-align: center;
             font-family: Arial, sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
         .header {
@@ -32,25 +32,19 @@
             background-color: #1a1a1a;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
         }
 
         iframe {
-            width: 100%;
-            height: 90vh; /* Adjusts to 90% of viewport height for full screen effect */
+            width: 45%;
+            height: 90vh;
             border: none;
             border-radius: 5px;
-            display: block;
-            margin: 0 auto 20px;
-            transform: scale(1.1); /* Stretch to fit the box size */
-            transform-origin: center; /* Keep centered when stretched */
-        }
-
-        .slide-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-y: auto;
-            scroll-behavior: smooth; /* Smooth scrolling */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -62,11 +56,9 @@
 
 <div class="header">Event Presentation</div>
 
-<div class="content-container slide-container">
-
-    <iframe src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=false" allowfullscreen></iframe>
-
-    <!-- Add more iframes for additional slides if needed -->
+<div class="content-container" onclick="nextSlide()">
+    <iframe id="left-slide" allowfullscreen></iframe>
+    <iframe id="right-slide" allowfullscreen></iframe>
 </div>
 
 <!-- Footer -->
@@ -94,6 +86,35 @@
         .then(response => response.text())
         .then(data => document.getElementById('footer-placeholder').innerHTML = data)
         .catch(error => console.error('Error loading footer:', error));
+
+    // Slide data
+    const slideURLs = [
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=0",
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=1",
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=2",
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=3"
+        // Add more slides if available
+    ];
+
+    let currentIndex = 0;
+
+    // Function to update the slides
+    function updateSlides() {
+        const leftSlide = document.getElementById('left-slide');
+        const rightSlide = document.getElementById('right-slide');
+        
+        leftSlide.src = slideURLs[currentIndex % slideURLs.length];
+        rightSlide.src = slideURLs[(currentIndex + 1) % slideURLs.length];
+    }
+
+    // Function to move to the next pair of slides
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slideURLs.length;
+        updateSlides();
+    }
+
+    // Initialize slides
+    updateSlides();
 </script>
 
 </body>
