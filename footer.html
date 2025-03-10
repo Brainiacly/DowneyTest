@@ -1,12 +1,13 @@
+<!-- footer.html --> 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 <style>
     .footer-container {
-        background-color: #800020;
-        color: #f5f0e6;
+        background-color: #800020;  /* Burgundy background for footer */
+        color: #f5f0e6;             /* Light text for contrast */
         padding: 10px 0;
         text-align: center;
-        border-top: 2px solid #8d6e63;
-        font-size: 0.9rem;
+        border-top: 2px solid #8d6e63;  /* Stylish border on top */
+        font-size: 0.9rem;          /* Slightly smaller text for a compact look */
     }
 
     .footer-first-line {
@@ -40,22 +41,20 @@
     .footer-line {
         border-bottom: 1px solid #f5f0e6;
         margin: 10px auto;
-        width: 90%;
+        width: 90%;  /* Line width for a cleaner look */
     }
 
     .footer-links {
         display: flex;
         justify-content: center;
-        gap: 15px;
+        gap: 95px;  /* More space between page links */
         padding: 10px 0;
-        flex-wrap: wrap;
     }
 
     .footer-links a {
         color: #f5f0e6;
         text-decoration: none;
         font-size: 0.9rem;
-        white-space: nowrap;
     }
 
     .footer-links a:hover {
@@ -64,37 +63,35 @@
 
     .footer-second-line {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-between;  /* Space between contact info and social icons */
         align-items: center;
-        flex-wrap: nowrap;
-        padding: 5px 20px;
-        font-size: 0.95rem;
-        max-width: 1200px;
-        margin: 0 auto;
+        flex-wrap: wrap;
+        padding: 5px 20px;  /* Padding for breathing room */
+        font-size: 0.95rem;  /* Smaller font for contact info and social media */
     }
 
     .footer-contact-info {
         display: flex;
-        gap: 20px;
-        list-style: none;
+        gap: 20px;          /* Space between items */
+        list-style: none;    /* Remove bullet points */
         padding: 0;
         margin: 0;
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
     }
 
     .footer-contact-info li {
         margin: 10px;
         color: #f5f0e6;
-        font-size: 0.75rem;
+        font-size: 0.75rem;  /* 1/3 smaller font for contact info */
+    }
+
+    .footer-contact-info li::before {
+        content: "";         /* Remove any default list symbols */
     }
 
     .footer-social {
         display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin: 10px 0;
+        gap: 15px;  /* Space between social media icons */
+        margin-right: 35px;  /* Move icons to the left */
     }
 
     .footer-social a {
@@ -103,7 +100,7 @@
     }
 
     .footer-social img {
-        max-height: 40px;
+        max-height: 50px;         /* Increased size for social icons */
         filter: brightness(90%);
         transition: filter 0.3s ease;
     }
@@ -115,56 +112,24 @@
     .cb {
         clear: both;
     }
-
-    /* Mobile Adjustments */
-    @media only screen and (max-width: 768px) {
-        .footer-container {
-            font-size: 0.75rem;
-            padding: 5px 0;
-        }
-
-        .footer-first-line img {
-            display: none; /* Remove both symbols on mobile */
-        }
-
-        .footer-contact-info {
-            display: none; /* Remove contact info on mobile */
-        }
-
-        .footer-line {
-            display: none; /* Remove lines under sections on mobile */
-        }
-
-        .footer-second-line {
-            justify-content: center; /* Center-align only social media icons */
-            padding: 5px;
-        }
-
-        .footer-social {
-            justify-content: center;
-            margin: 5px 0;
-        }
-
-        .footer-social img {
-            max-height: 35px;
-        }
-    }
 </style>
 
 <div class="footer-container">
-    <!-- First Line with Learn More Link -->
+    <!-- First Line with Logo and Learn More Link -->
     <div class="footer-first-line">
+        <img loading="lazy" src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo-footer.png" alt="Lodge Logo" />
         <span>
             <p>Learn more about Freemasonry at the 
                 <a href="http://www.freemason.org" target="_blank" rel="noopener noreferrer">Masons of California website</a>
             </p>
         </span>
+        <img loading="lazy" src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo-footer.png" alt="Lodge Logo" />
     </div>
 
     <!-- Line Under Learn More Section -->
     <div class="footer-line"></div>
 
-    <!-- Spread Links Across the Page (Desktop and Mobile) -->
+    <!-- Spread Links Across the Page -->
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -180,10 +145,15 @@
 
     <!-- Contact Info and Social Media Links -->
     <div class="footer-second-line">
-        <!-- Social Media Icons and Copyright -->
-        <div>
-            <span>&copy; 2021 Downey United Lodge No. 220</span>
+        <!-- Contact Info -->
+        <div class="footer-contact-info">
+            <li>&emsp;&emsp;&emsp;Copyright 2021 Downey United Lodge No. 220</li>
+            <li><a href="mailto:downeysec220@gmail.com" style="color: #f5f0e6;">downeysec220@gmail.com</a></li>
+            <li>8244 E. 3rd St. Downey, California 90241</li>
+            <li><a href="tel:+15628624176" style="color: #f5f0e6;">562-862-4176</a></li>
         </div>
+
+        <!-- Social Media Icons on the Right Side -->
         <div class="footer-social">
             <a aria-label="Go to Instagram Profile" href='https://www.instagram.com/downeyunited220' target='_blank'>
                 <img loading="lazy" src='https://lodge220.freemason.org/wp-content/themes/californialodges/images/instagram.png' alt="Instagram Logo" />
