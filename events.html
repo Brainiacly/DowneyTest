@@ -26,6 +26,7 @@
         }
 
         .content-container {
+            position: relative;
             max-width: 95%;
             margin: 20px auto;
             padding: 20px;
@@ -36,7 +37,6 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            position: relative;
         }
 
         iframe {
@@ -47,16 +47,15 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Transparent overlay to capture clicks */
         .click-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-color: rgba(0, 0, 0, 0);
             z-index: 10;
             cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -71,6 +70,7 @@
 <div class="content-container">
     <iframe id="left-slide" allowfullscreen></iframe>
     <iframe id="right-slide" allowfullscreen></iframe>
+    <!-- Transparent clickable overlay -->
     <div class="click-overlay" onclick="nextSlide()"></div>
 </div>
 
@@ -102,10 +102,10 @@
 
     // Slide data
     const slideURLs = [
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=0",
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=1",
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=2",
-        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=3"
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=0",
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=1",
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=2",
+        "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&rm=minimal&slide=3"
     ];
 
     // Start with page 1 on the left and page 2 on the right
