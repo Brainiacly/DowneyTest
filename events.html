@@ -26,7 +26,7 @@
         }
 
         .content-container {
-            max-width: 90%;
+            max-width: 95%;
             margin: 20px auto;
             padding: 20px;
             background-color: #1a1a1a;
@@ -40,7 +40,7 @@
         }
 
         iframe {
-            width: 45%;
+            width: 48%;
             height: 90vh;
             border: none;
             border-radius: 5px;
@@ -93,7 +93,6 @@
         "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=1",
         "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=2",
         "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=3"
-        // Add more slides if available
     ];
 
     let currentIndex = 0;
@@ -109,7 +108,7 @@
 
     // Function to move to the next pair of slides
     function nextSlide() {
-        currentIndex = (currentIndex + 1) % slideURLs.length;
+        currentIndex = (currentIndex + 2) % slideURLs.length;
         updateSlides();
     }
 
