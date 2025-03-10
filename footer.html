@@ -46,8 +46,7 @@
     .footer-links {
         display: flex;
         justify-content: center;
-        flex-wrap: wrap;
-        gap: 30px;
+        gap: 95px;
         padding: 10px 0;
     }
 
@@ -65,7 +64,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         padding: 5px 20px;
         font-size: 0.95rem;
     }
@@ -76,13 +75,10 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        flex-wrap: wrap;
-        justify-content: center;
-        text-align: center;
     }
 
     .footer-contact-info li {
-        margin: 5px;
+        margin: 10px;
         color: #f5f0e6;
         font-size: 0.75rem;
     }
@@ -90,8 +86,7 @@
     .footer-social {
         display: flex;
         gap: 15px;
-        justify-content: center;
-        margin: 10px 0;
+        margin-right: 35px;
     }
 
     .footer-social a {
@@ -100,7 +95,7 @@
     }
 
     .footer-social img {
-        max-height: 40px;
+        max-height: 50px;
         filter: brightness(90%);
         transition: filter 0.3s ease;
     }
@@ -113,39 +108,50 @@
         clear: both;
     }
 
+    /* Mobile Adjustments */
     @media only screen and (max-width: 768px) {
         .footer-container {
             font-size: 0.8rem;
-            padding: 15px 0;
+            padding: 5px 0;
         }
 
-        .footer-first-line {
-            flex-direction: column;
-            text-align: center;
+        .footer-first-line img {
+            max-height: 50px;
         }
 
         .footer-links {
-            flex-direction: column;
-            gap: 10px;
+            gap: 20px;
+            padding: 5px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
         }
 
         .footer-second-line {
             flex-direction: column;
             text-align: center;
-            gap: 10px;
+            padding: 5px;
         }
 
         .footer-contact-info {
             flex-direction: column;
+            gap: 5px;
+            text-align: center;
+        }
+
+        .footer-contact-info li {
+            font-size: 0.7rem;
         }
 
         .footer-social {
-            flex-direction: row;
             justify-content: center;
+            margin-right: 0;
         }
 
         .footer-social img {
-            max-height: 35px;
+            max-height: 40px;
         }
     }
 </style>
@@ -189,7 +195,7 @@
             <li><a href="tel:+15628624176" style="color: #f5f0e6;">562-862-4176</a></li>
         </ul>
 
-        <!-- Social Media Icons on the Right Side -->
+        <!-- Social Media Icons -->
         <div class="footer-social">
             <a aria-label="Go to Instagram Profile" href='https://www.instagram.com/downeyunited220' target='_blank'>
                 <img loading="lazy" src='https://lodge220.freemason.org/wp-content/themes/californialodges/images/instagram.png' alt="Instagram Logo" />
