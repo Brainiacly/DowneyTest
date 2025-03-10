@@ -36,7 +36,6 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            cursor: pointer;
         }
 
         iframe {
@@ -45,6 +44,7 @@
             border: none;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -56,9 +56,9 @@
 
 <div class="header">Event Presentation</div>
 
-<div class="content-container" onclick="nextSlide()">
-    <iframe id="left-slide" allowfullscreen></iframe>
-    <iframe id="right-slide" allowfullscreen></iframe>
+<div class="content-container">
+    <iframe id="left-slide" onclick="nextSlide()" allowfullscreen></iframe>
+    <iframe id="right-slide" onclick="nextSlide()" allowfullscreen></iframe>
 </div>
 
 <!-- Footer -->
@@ -95,20 +95,22 @@
         "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=3"
     ];
 
-    let currentIndex = 0;
+    let leftIndex = 0;
+    let rightIndex = 1;
 
     // Function to update the slides
     function updateSlides() {
         const leftSlide = document.getElementById('left-slide');
         const rightSlide = document.getElementById('right-slide');
         
-        leftSlide.src = slideURLs[currentIndex % slideURLs.length];
-        rightSlide.src = slideURLs[(currentIndex + 1) % slideURLs.length];
+        leftSlide.src = slideURLs[leftIndex % slideURLs.length];
+        rightSlide.src = slideURLs[rightIndex % slideURLs.length];
     }
 
     // Function to move to the next pair of slides
     function nextSlide() {
-        currentIndex = (currentIndex + 2) % slideURLs.length;
+        leftIndex = (leftIndex + 1) % slideURLs.length;
+        rightIndex = (rightIndex + 1) % slideURLs.length;
         updateSlides();
     }
 
