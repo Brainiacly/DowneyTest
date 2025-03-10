@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Downey United Lodge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #000000, #2f2f2f);
+            color: #fff;
+            margin: 0;
+        }
+
+        .form-container {
+            background: #fff;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            color: #333;
+        }
+
+        .sub-section {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #003366;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #00274d;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="header-placeholder"></div>
+
+<div class="form-container">
+    <h2><i class="fas fa-envelope"></i> Request Information</h2>
+    <form id="infoRequestForm">
+        <label>First Name</label>
+        <input type="text" name="firstName" placeholder="Enter your first name" required>
+
+        <label>Last Name</label>
+        <input type="text" name="lastName" placeholder="Enter your last name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter your email address" required>
+
+        <label>Phone Number</label>
+        <input type="tel" name="phone" placeholder="(555) 555-5555">
+
+        <label>Address</label>
+        <input type="text" name="address" placeholder="Enter your address">
+
+        <h3>Contact Preferences:</h3>
+        <label><input type="checkbox" value="email"> Email</label>
+        <label><input type="checkbox" value="call"> Call</label>
+        <label><input type="checkbox" value="text"> Text</label>
+        <label><input type="checkbox" value="socialMediaPref" onclick="handleRequestTypeChange()"> Social Media</label>
+        <label><input type="checkbox" value="otherContactPref" onclick="handleRequestTypeChange()"> Other</label>
+
+        <div id="contactOtherField" class="sub-section hidden">
+            <label>Please specify other contact preference:</label>
+            <input type="text" placeholder="Enter details here">
+        </div>
+
+        <h3>Request Options:</h3>
+        <label><input type="checkbox" value="infoRequest" onclick="handleRequestTypeChange()"> Request information about Freemasonry</label>
+        <div id="freemasonryFollowUp" class="sub-section hidden">
+            <label>Do we know you?</label>
+            <label><input type="radio" name="knownFreemasonry" value="yes"> Yes</label>
+            <label><input type="radio" name="knownFreemasonry" value="no"> No</label>
+        </div>
+
+        <label><input type="checkbox" value="socialMedia" onclick="handleRequestTypeChange()"> Request to be added to Social Media</label>
+        <div id="socialMediaOptions" class="sub-section hidden">
+            <label>Choose Social Media:</label>
+            <label><input type="checkbox" value="Facebook"> Facebook</label>
+            <label><input type="checkbox" value="Instagram"> Instagram</label>
+            <label><input type="checkbox" value="GroupMe"> GroupMe</label>
+            <label><input type="checkbox" value="Other"> Other</label>
+        </div>
+
+        <label><input type="checkbox" value="addRequest" onclick="handleRequestTypeChange()"> Request to be added to Email or Call Lists</label>
+        <div id="groupSelection" class="sub-section hidden">
+            <label>Which group?</label>
+            <select id="groupDropdown" onchange="handleGroupChange()">
+                <option value="">Select an option</option>
+                <option value="Downey Masonic Groups">Downey Masonic Groups</option>
+                <option value="Prospect">Prospect</option>
+            </select>
+        </div>
+
+        <div id="prospectQuestion" class="sub-section hidden">
+            <label>Do we know you?</label>
+            <label><input type="radio" name="knownProspect" value="yes"> Yes</label>
+            <label><input type="radio" name="knownProspect" value="no"> No</label>
+        </div>
+
+        <button type="submit">Submit Request</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+
+<script>
+    // Load header and footer
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+            // Ensure menu opens correctly
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener('click', () => {
+                    const menu = document.getElementById('dropdownMenu');
+                    if (menu) menu.classList.toggle('active');
+                });
+            }
+        })
+        .catch(error => console.error('Error loading header:', error));
+
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading footer:', error));
+
+    function handleRequestTypeChange() {
+        const elements = {
+            freemasonryFollowUp: document.getElementById('freemasonryFollowUp'),
+            contactOtherField: document.getElementById('contactOtherField'),
+            socialMediaOptions: document.getElementById('socialMediaOptions'),
+            groupSelection: document.getElementById('groupSelection')
+        };
+
+        elements.freemasonryFollowUp.classList.toggle('hidden', !document.querySelector('input[value="infoRequest"]').checked);
+        elements.contactOtherField.classList.toggle('hidden', !document.querySelector('input[value="otherContactPref"]').checked);
+        elements.socialMediaOptions.classList.toggle('hidden', !document.querySelector('input[value="socialMedia"]').checked);
+        elements.groupSelection.classList.toggle('hidden', !document.querySelector('input[value="addRequest"]').checked);
+    }
+
+    function handleGroupChange() {
+        const groupDropdown = document.getElementById('groupDropdown');
+        const prospectQuestion = document.getElementById('prospectQuestion');
+        prospectQuestion.classList.toggle('hidden', groupDropdown.value !== 'Prospect');
+    }
+</script>
+
+</body>
+</html>

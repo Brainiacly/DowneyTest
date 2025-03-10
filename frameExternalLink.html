@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downey United Lodge - External Link</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        iframe {
+            width: 100%;
+            height: calc(100vh - 200px); /* Adjust height to fit between header and footer */
+            border: none;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 20px;
+            color: #800020;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Include Header -->
+<div id="header-placeholder"></div>
+
+<!-- Main Content -->
+<div id="main-content">
+    <iframe id="external-frame" src="" loading="lazy"></iframe>
+    <div id="error-message" class="error-message" style="display: none;">Invalid or missing link.</div>
+</div>
+
+<!-- Include Footer -->
+<div id="footer-placeholder"></div>
+
+<!-- JavaScript to Load Header and Footer -->
+<script>
+    // Load header.html
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+
+            // Define and attach the toggleMenu function for the menu
+            function toggleMenu() {
+                const menu = document.getElementById('dropdownMenu');
+                menu.classList.toggle('active');
+            }
+
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            if (hamburgerMenu) {
+                hamburgerMenu.onclick = toggleMenu;
+            }
+        })
+        .catch(error => console.error('Error loading header:', error));
+
+    // Load footer.html
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading footer:', error));
+
+    // Get external link from URL query parameter
+    const params = new URLSearchParams(window.location.search);
+    const externalLink = params.get('link');
+
+    const iframe = document.getElementById('external-frame');
+    const errorMessage = document.getElementById('error-message');
+
+    // Validate and set the iframe source
+    if (externalLink && externalLink.startsWith('http')) {
+        iframe.src = externalLink;
+    } else {
+        iframe.style.display = 'none';
+        errorMessage.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

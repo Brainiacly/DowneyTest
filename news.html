@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASONIC NEWS</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .carousel-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .carousel img {
+            width: 100%;
+            /* height: auto; */
+            max-height: 400px;
+            border-radius: 1px;
+        }
+
+        .carousel .slide-content {
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .carousel h3 {
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        .carousel p {
+            color: #ccc;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0073e6;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="header-placeholder"></div>
+
+<div class="header">MASONIC NEWS</div>
+
+<div class="carousel-container">
+    <div class="carousel">
+        <div>
+            <img src="https://freemason.org/wp-content/uploads/2022/02/2_Why-Should-I-apply-1-300x200.jpg" alt="L.A. Fires and Resources">
+            <div class="slide-content">
+                <h3><a href="https://freemason.org/wildfires/">Update on L.A. Fires and Resources for Fire Victims</a></h3>
+                <p>Over the next three years, California Masons are committing $650,000 to the San Francisco Junior Giants in support of community programs aimed at championing local youth.</p>
+            </div>
+        </div>
+        <div>
+            <img src="https://freemason.org/wp-content/uploads/2025/01/Screen-Shot-2025-01-24-at-12.16.34-PM-300x300.jpg" alt="175th Anniversary">
+            <div class="slide-content">
+                <h3><a href="https://freemason.org/175gala/">Celebrate the 175th Anniversary of the Grand Lodge of California!</a></h3>
+                <p>Celebrate the 175th Anniversary of the Grand Lodge of California! Saturday, April 19, 5-9 p.m. BUY TICKETS Don your finest.</p>
+            </div>
+        </div>
+        <div>
+            <img src="https://freemason.org/wp-content/uploads/2025/01/Intl-Conf-25_v1-600sq-x2-300x300.jpg" alt="UCLA Conference">
+            <div class="slide-content">
+                <h3><a href="https://freemason.org/ucla/">The 13th Annual International Conference on Freemasonry</a></h3>
+                <p>2025 International Conference on Freemasonry: "Freemasonry in Popular Culture: 1700 to Yesterday, Part 1" Saturday, March 22 at the University.</p>
+            </div>
+        </div>
+        <div>
+            <img src="https://freemason.org/wp-content/uploads/2022/10/6.24-300x300.jpg" alt="2025 Proclamations">
+            <div class="slide-content">
+                <h3><a href="https://freemason.org/2025-proclamations/">Grand Master Salazar: 2025 Proclamations</a></h3>
+                <p>Grand Master G. Sean Metroka announced Monday his administration’s proclamations for the 2024 fraternal year.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+
+<script>
+    // Load header and footer
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading header:', error));
+
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading footer:', error));
+
+    // Carousel settings
+    $(document).ready(function () {
+        $('.carousel').slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: true
+        });
+    });
+</script>
+
+</body>
+</html>
