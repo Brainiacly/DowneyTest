@@ -43,6 +43,19 @@
             padding: 0;
         }
 
+        #right-slide {
+            display: block;
+        }
+
+        @media only screen and (max-width: 768px) {
+            iframe {
+                width: 100%;
+            }
+            #right-slide {
+                display: none;
+            }
+        }
+
         .click-overlay {
             position: absolute;
             top: 0;
@@ -64,9 +77,9 @@
 <div class="header">Event Presentation</div>
 
 <div class="content-container">
-    <iframe id="left-slide" allowfullscreen></iframe>
-    <iframe id="right-slide" allowfullscreen></iframe>
-    <div class="click-overlay" onclick="nextSlide()"></div>
+    <iframe id="left-slide" src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=true&rm=minimal&slide=1" allowfullscreen></iframe>
+    <iframe id="right-slide" src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=true&rm=minimal&slide=2" allowfullscreen></iframe>
+    <div class="click-overlay" onclick="clickSlides()"></div>
 </div>
 
 <!-- Footer -->
@@ -93,36 +106,19 @@
         .then(data => document.getElementById('footer-placeholder').innerHTML = data)
         .catch(error => console.error('Error loading footer:', error));
 
-    // Define presentation ID and slide count
-    const presentationId = "1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4";
-    const totalSlides = 20;  // Change this if the presentation has more or fewer slides
+    // Function to simulate clicks on both iframes
+    function clickSlides() {
+        const leftSlide = document.getElementById('left-slide').contentWindow;
+        const rightSlide = document.getElementById('right-slide').contentWindow;
 
-    // Generate slide URLs dynamically
-    const slideURLs = [];
-    for (let i = 0; i < totalSlides; i++) {
-        slideURLs.push(`https://docs.google.com/presentation/d/${presentationId}/embed?start=false&loop=false&rm=minimal&slide=${i}`);
+        // Click left slide first, then right slide if visible
+        leftSlide.postMessage('next', '*');
+        if (window.innerWidth > 768) {
+            setTimeout(() => {
+                rightSlide.postMessage('next', '*');
+            }, 200);  // Small delay to ensure sequential clicks
+        }
     }
-
-    let leftIndex = 0;
-    let rightIndex = 1;
-
-    // Function to update the slides
-    function updateSlides() {
-        const leftSlide = document.getElementById('left-slide');
-        const rightSlide = document.getElementById('right-slide');
-        leftSlide.src = slideURLs[leftIndex % slideURLs.length];
-        rightSlide.src = slideURLs[rightIndex % slideURLs.length];
-    }
-
-    // Function to move to the next pair of slides
-    function nextSlide() {
-        leftIndex = (leftIndex + 1) % slideURLs.length;
-        rightIndex = (rightIndex + 1) % slideURLs.length;
-        updateSlides();
-    }
-
-    // Initialize slides
-    updateSlides();
 </script>
 
 </body>
