@@ -123,12 +123,12 @@
             padding: 5px 0;
         }
 
-        .footer-first-line img:first-of-type {
-            display: none; /* Remove one logo on mobile */
+        .footer-first-line img {
+            display: none; /* Remove both symbols on mobile */
         }
 
-        .footer-links {
-            display: none; /* Remove footer links on mobile */
+        .footer-contact-info {
+            display: none; /* Remove contact info on mobile */
         }
 
         .footer-line {
@@ -136,13 +136,8 @@
         }
 
         .footer-second-line {
-            flex-direction: column;
-            text-align: center;
+            justify-content: center; /* Center-align only social media icons */
             padding: 5px;
-        }
-
-        .footer-contact-info {
-            display: none; /* Remove contact info on mobile */
         }
 
         .footer-social {
@@ -157,9 +152,8 @@
 </style>
 
 <div class="footer-container">
-    <!-- First Line with Logo and Learn More Link -->
+    <!-- First Line with Learn More Link -->
     <div class="footer-first-line">
-        <img loading="lazy" src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo-footer.png" alt="Lodge Logo" />
         <span>
             <p>Learn more about Freemasonry at the 
                 <a href="http://www.freemason.org" target="_blank" rel="noopener noreferrer">Masons of California website</a>
@@ -170,7 +164,7 @@
     <!-- Line Under Learn More Section -->
     <div class="footer-line"></div>
 
-    <!-- Spread Links Across the Page (Desktop Only) -->
+    <!-- Spread Links Across the Page (Desktop and Mobile) -->
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
@@ -186,12 +180,10 @@
 
     <!-- Contact Info and Social Media Links -->
     <div class="footer-second-line">
-        <!-- Contact Info (Desktop Only) -->
-        <ul class="footer-contact-info">
-            <li>&copy; 2021 Downey United Lodge No. 220</li>
-        </ul>
-
-        <!-- Social Media Icons -->
+        <!-- Social Media Icons and Copyright -->
+        <div>
+            <span>&copy; 2021 Downey United Lodge No. 220</span>
+        </div>
         <div class="footer-social">
             <a aria-label="Go to Instagram Profile" href='https://www.instagram.com/downeyunited220' target='_blank'>
                 <img loading="lazy" src='https://lodge220.freemason.org/wp-content/themes/californialodges/images/instagram.png' alt="Instagram Logo" />
