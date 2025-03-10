@@ -26,7 +26,7 @@
         }
 
         .content-container {
-            max-width: 80%;
+            max-width: 90%;
             margin: 20px auto;
             padding: 20px;
             background-color: #1a1a1a;
@@ -36,11 +36,13 @@
 
         iframe {
             width: 100%;
-            height: 100vh; /* Full screen height for each slide */
+            height: 90vh; /* Adjusts to 90% of viewport height for full screen effect */
             border: none;
             border-radius: 5px;
             display: block;
             margin: 0 auto 20px;
+            transform: scale(1.1); /* Stretch to fit the box size */
+            transform-origin: center; /* Keep centered when stretched */
         }
 
         .slide-container {
@@ -66,7 +68,7 @@
     <iframe src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=1" allowfullscreen></iframe>
     <iframe src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=2" allowfullscreen></iframe>
     <iframe src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&slide=3" allowfullscreen></iframe>
-    <!-- Add more iframes for additional slides -->
+    <!-- Add more iframes for additional slides if needed -->
 </div>
 
 <!-- Footer -->
