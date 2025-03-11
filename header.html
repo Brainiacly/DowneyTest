@@ -3,7 +3,6 @@
     <a href="index.html">
         <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
     </a>
-    THE MENU
     <div class="hamburger-menu" onclick="toggleMenu()">
         <div></div>
         <div></div>
@@ -13,50 +12,113 @@
 
 <!-- Dropdown Menu -->
 <div class="menu" id="dropdownMenu">
-    <a href="index.html" class="menu-item" data-page="index.html">Home</a>
-    <a href="about.html" class="menu-item" data-page="about.html">About</a>
-    <a href="calendar.html" class="menu-item" data-page="calendar.html">Calendar</a>
-    <a href="contactus.html" class="menu-item" data-page="contactus.html">Contact Us</a>
-    <a href="events.html" class="menu-item" data-page="events.html">Events</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="calendar.html">Calendar</a>
+    <a href="contactus.html">Contact Us</a>
+    <a href="events.html">Events</a>
     <a href="https://freemason.org" target="_blank">Freemason.org</a>
-    <a href="join.html" class="menu-item" data-page="join.html">Join Us</a>
-    <a href="meet.html" class="menu-item" data-page="meet.html">Meet the Officers</a>
-    <a href="news.html" class="menu-item" data-page="news.html">News</a>
+    <a href="join.html">Join Us</a>
+    <a href="meet.html">Meet the Officers</a>
+    <a href="news.html">News</a>
 </div>
 
 <script>
     function toggleMenu() {
-        const menu = document.getElementById('dropdownMenu');
-        menu.classList.toggle('active');
+        document.getElementById('dropdownMenu').classList.toggle('active');
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.addEventListener('click', function (event) {
+        const menu = document.getElementById('dropdownMenu');
+        const hamburger = document.querySelector('.hamburger-menu');
 
-        // Remove the current page from the menu
-        document.querySelectorAll(".menu-item").forEach(item => {
-            if (item.getAttribute("data-page") === currentPage) {
-                item.style.display = "none";
-            }
-        });
-
-        // Force a refresh if the page was loaded from cache (ensures menu update)
-        if (performance.navigation.type === 2) {
-            location.reload();
+        if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+            menu.classList.remove('active');
         }
 
-        // Close menu when clicking outside
-        document.addEventListener('click', function (event) {
-            const menu = document.getElementById('dropdownMenu');
-            const hamburger = document.querySelector('.hamburger-menu');
-
-            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                menu.classList.remove('active');
-            }
-
-            if (menu.contains(event.target) && event.target.tagName === 'A') {
-                menu.classList.remove('active');
-            }
-        });
+        if (menu.contains(event.target) && event.target.tagName === 'A') {
+            menu.classList.remove('active');
+        }
     });
 </script>
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #800020;
+        padding: 10px 20px;
+        color: #f5f0e6;
+        height: 60px;
+        border-bottom: 3px solid #8d6e63;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: #f5f0e6;
+    }
+
+    .navbar a:hover {
+        color: #d7ccc8;
+    }
+
+    .navbar img {
+        max-width: 50px;
+        max-height: 50px;
+        border-radius: 50%;
+        border: 2px solid #8d6e63;
+    }
+
+    .hamburger-menu {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .hamburger-menu div {
+        width: 25px;
+        height: 3px;
+        background-color: #f5f0e6;
+        margin: 4px 0;
+        transition: 0.3s;
+    }
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        background-color: #f5f0e6;
+        color: #3e2723;
+        width: 180px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        z-index: 20;
+    }
+
+    .menu a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: #5d4037;
+        border-bottom: 1px solid #8d6e63;
+        font-size: 0.9rem;
+    }
+
+    .menu a:hover {
+        background-color: #d7ccc8;
+    }
+
+    .menu.active {
+        display: block;
+    }
+</style>
