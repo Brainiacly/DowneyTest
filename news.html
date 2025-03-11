@@ -1,95 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MASONIC NEWS</title>
-    
-    <!-- jQuery and Slick Carousel -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+    <title>Join Us - Downey United Lodge #220</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
+        body, html {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             background-color: #000;
             color: #fff;
-            margin: 0;
-            text-align: center;
-            font-family: Arial, sans-serif;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .header {
-            font-size: 36px;
-            font-weight: bold;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-            margin-top: 20px;
-            color: #fff;
-        }
-
-        .carousel-container {
-            width: 90%;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .carousel img {
-            width: 100%;
-           
-            max-height: 300px;
-/*             object-fit: cover; */
-            border-radius: 5px;
-        }
-
-        .carousel .slide-content {
-            padding: 15px;
-            background: #1a1a1a;
-            border-radius: 5px;
+        .mainblock-inner {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            text-align: left;
-            color: white;
+            text-align: center;
         }
 
-        .carousel h3 {
-            margin: 10px 0;
+        .mainblock-inner h2 {
             color: #fff;
-            font-size: 1.3rem;
         }
 
-        .carousel p {
-            color: #ccc;
-            font-size: 1rem;
-            padding: 0 10px;
+        .mainblock-inner h4, .mainblock-inner p {
+            color: #ddd;
         }
 
-        a {
+        .mainblock-inner a.button {
+            background-color: #800020;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
             text-decoration: none;
-            color: #0073e6;
+            margin-top: 20px;
+            display: inline-block;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .mainblock-inner a.button:hover {
+            background-color: #5d0016;
+        }
+
+        /* Centered Image with Size Constraints */
+        .centered-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            margin: 20px auto;
+        }
+
+        .centered-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
         }
 
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
-            .carousel-container {
-                width: 95%;
-            }
-
-            .carousel img {
-                max-height: 350px;
-            }
-
-            .carousel h3 {
-                font-size: 1.1rem;
-            }
-
-            .carousel p {
-                font-size: 0.9rem;
+            .mainblock-inner {
+                margin: 20px;
+                padding: 20px;
             }
         }
     </style>
@@ -97,65 +82,52 @@
 
 <body>
 
-    <!-- Header -->
-    <div id="header-placeholder"></div>
+<!-- Load Header -->
+<div id="header-placeholder"></div>
+<script>
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
 
-    <div class="header">MASONIC NEWS</div>
+            // Ensure the menu toggle function works after header is loaded
+            function toggleMenu() {
+                const menu = document.getElementById('dropdownMenu');
+                menu.classList.toggle('active');
+            }
 
-    <div class="carousel-container">
-        <div id="news-carousel" class="carousel"></div>
-    </div>
+            const hamburger = document.querySelector('.hamburger-menu');
+            if (hamburger) {
+                hamburger.onclick = toggleMenu;
+            }
+        })
+        .catch(error => console.error('Error loading header:', error));
+</script>
 
-    <!-- Footer -->
-    <div id="footer-placeholder"></div>
+<!-- Centered Image -->
+<div class="centered-image">
+    <img src="your-image-url-here.jpg" alt="Join Freemasonry">
+</div>
 
-    <script>
-        // Load header and footer
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-                document.querySelector('.hamburger-menu').onclick = () => {
-                    document.getElementById('dropdownMenu').classList.toggle('active');
-                };
-            })
-            .catch(error => console.error('Error loading header:', error));
+<!-- Main Content -->
+<div class="mainblock-inner">
+    <h2>Join Us</h2>
+    <h4>
+        <p>Downey United Lodge membership is open to men 18 and older who meet the qualifications and standards of character and intention, and who believe in a Supreme Being. Men of all ethnic and religious backgrounds are welcome.</p>
+        <p>One of Freemasonry’s customs is not to solicit members – men must seek membership on their own initiative. Anyone is welcome to request information about the fraternity.</p>
+        <p>If you are interested in applying for membership to our lodge, now is a good time to start. Please contact us to schedule a visit during an event, or request more information.</p>
+    </h4>
+    <a href="contactus.html" class="button">Contact us</a>
+</div>
 
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-            .catch(error => console.error('Error loading footer:', error));
-
-        // Load news items from news_source.html
-        fetch('news_source.html')
-            .then(response => response.text())
-            .then(data => {
-                let parser = new DOMParser();
-                let doc = parser.parseFromString(data, 'text/html');
-                let newsItems = doc.querySelectorAll('.news-item');
-
-                let newsCarousel = document.getElementById('news-carousel');
-                newsItems.forEach(item => {
-                    item.style.display = 'block'; // Ensure visibility
-                    newsCarousel.appendChild(item.cloneNode(true)); // Append to carousel
-                });
-
-                // Initialize the Slick Carousel after loading news items
-                $(document).ready(function () {
-                    $('#news-carousel').slick({
-                        dots: true,
-                        infinite: true,
-                        speed: 500,
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        autoplay: true,
-                        autoplaySpeed: 3000,
-                        arrows: true
-                    });
-                });
-            })
-            .catch(error => console.error('Error loading news source:', error));
-    </script>
+<!-- Load Footer -->
+<div id="footer-placeholder"></div>
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading footer:', error));
+</script>
 
 </body>
 </html>
