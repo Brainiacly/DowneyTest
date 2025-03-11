@@ -217,16 +217,9 @@
         let newsItems = [];
 
         async function fetchGoogleNews() {
-    const today = new Date();
-    const sixMonthsAgo = new Date();
-    sixMonthsAgo.setMonth(today.getMonth() - 6);
-
-    const year = sixMonthsAgo.getFullYear();
-    const month = String(sixMonthsAgo.getMonth() + 1).padStart(2, '0'); // Ensure two-digit month
-    const day = String(sixMonthsAgo.getDate()).padStart(2, '0'); // Ensure two-digit day
-
-    const query = `California Freemasonry site:freemason.org OR Freemasonry California after:${year}-${month}-${day}`;
-    const 
+            const currentYear = new Date().getFullYear();
+            const query = `California Freemasonry site:freemason.org OR Freemasonry California after:${currentYear}-01-01`;
+            const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
 
             try {
                 let response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
