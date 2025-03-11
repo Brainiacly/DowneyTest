@@ -10,7 +10,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #2f2f2f;  /* Dark gray background to match the footer */
+            background-color: #2f2f2f; /* Dark gray background to match the footer */
         }
 
         #header-placeholder, #footer-placeholder {
@@ -58,81 +58,53 @@
 
 <body>
 
-<!-- Placeholder for the reusable header -->
-<div id="header-placeholder"></div>
+    <!-- Placeholder for the reusable header -->
+    <div id="header-placeholder"></div>
 
-<!-- Mission Section -->
-<div id="about-mission" class="mainblock">
-    <div class="mainblock-inner">
-        <h1>Our Mission and Our Lodge</h1><br>
-        <p>Downey United Lodge’s mission is to promote personal growth and improve the lives of others.</p><br>
-        <p>We take responsibility for the well-being of our brothers, our families, and the community as a whole.</p><br>
-        <p>We value respect, kindness, tolerance, and our differences.</p><br>
-        <p>As a lodge, we strive to be an active member of our community.</p>
-        <h3 style="color: white;">To sign up for our newsletter, please 
-            <strong>
-                <a href="contactus.html" target="_blank">👉CLICK HERE👈🏾</a>
-            </strong>
-        </h3>
-        <br>
+    <!-- Mission Section -->
+    <div id="about-mission" class="mainblock">
+        <div class="mainblock-inner">
+            <h1>Our Mission and Our Lodge</h1><br>
+            <p>Downey United Lodge’s mission is to promote personal growth and improve the lives of others.</p><br>
+            <p>We take responsibility for the well-being of our brothers, our families, and the community as a whole.</p><br>
+            <p>We value respect, kindness, tolerance, and our differences.</p><br>
+            <p>As a lodge, we strive to be an active member of our community.</p>
+            <h3 style="color: white;">To sign up for our newsletter, please 
+                <strong>
+                    <a href="contactus.html" target="_blank">👉CLICK HERE👈🏾</a>
+                </strong>
+            </h3>
+            <br>
+        </div>
     </div>
-</div>
 
-<!-- Include Footer inside the body -->
-<div id="footer-placeholder"></div>
+    <!-- Include Footer -->
+    <div id="footer-placeholder"></div>
 
-<!-- JavaScript to Load the Header and Footer -->
-<script>
-    // Load header.html into the placeholder
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
+    <!-- JavaScript to Load Header and Footer -->
+    <script>
+        // Load header dynamically
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
 
-            // Define the toggleMenu function for the hamburger menu
-            const toggleMenu = () => {
-                const menu = document.getElementById('dropdownMenu');
-                menu.classList.toggle('active');
-            };
-
-            // Attach toggle function to the hamburger menu after loading header
-            const hamburger = document.querySelector('.hamburger-menu');
-            if (hamburger) {
-                hamburger.onclick = toggleMenu;
-            }
-
-            // Hide the current page link in the menu
-            const currentPage = window.location.pathname.split('/').pop() || 'about.html';
-            const menuLinks = document.querySelectorAll('#dropdownMenu a');
-
-            menuLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.style.display = 'none'; // Hide link if it matches current page
+                // Ensure the menu toggles correctly
+                const hamburgerMenu = document.querySelector('.hamburger-menu');
+                if (hamburgerMenu) {
+                    hamburgerMenu.addEventListener('click', function () {
+                        document.getElementById('dropdownMenu').classList.toggle('active');
+                    });
                 }
-            });
+            })
+            .catch(error => console.error('Error loading header:', error));
 
-            // Close menu when clicking outside or on a link
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('dropdownMenu');
-                if (menu && !menu.contains(event.target) && !hamburger.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-                if (menu && menu.contains(event.target) && event.target.tagName === 'A') {
-                    menu.classList.remove('active');
-                }
-            });
-
-            // Make the toggleMenu function globally accessible
-            window.toggleMenu = toggleMenu;
-        })
-        .catch(error => console.error('Error loading header:', error));
-
-    // Load footer.html into the placeholder
-    fetch('footer.html')
-        .then(response => response.text())
-        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-        .catch(error => console.error('Error loading footer:', error));
-</script>
+        // Load footer dynamically
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
+    </script>
 
 </body>
 </html>
