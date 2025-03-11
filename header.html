@@ -10,7 +10,7 @@
             overflow-x: hidden;
         }
 
-        /* Remove white line at top */
+        /* Fixes the white line at the top */
         * {
             margin: 0;
             padding: 0;
@@ -21,7 +21,7 @@
             justify-content: space-between;
             align-items: center;
             background-color: #800020;
-            padding: 5px 20px;
+            padding: 10px 20px;
             color: #f5f0e6;
             position: relative;
             max-height: 60px;
@@ -42,6 +42,13 @@
             max-height: 50px;
             border-radius: 50%;
             border: 2px solid #8d6e63;
+        }
+
+        .navbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
         }
 
         .hamburger-menu {
@@ -88,16 +95,6 @@
         .menu.active {
             display: block;
         }
-
-        /* Page Title Banner */
-        .page-title {
-            background-color: #800020;
-            color: #f5f0e6;
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            padding: 10px 0;
-        }
     </style>
 
     <!-- Navbar -->
@@ -105,6 +102,7 @@
         <a href="index.html">
             <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
         </a>
+        <span class="navbar-title" id="pageTitle"></span>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -125,9 +123,6 @@
         <a href="news.html">News</a>
     </div>
 
-    <!-- Page Title Banner -->
-    <div class="page-title" id="pageTitle"></div>
-
     <script>
         function toggleMenu() {
             const menu = document.getElementById('dropdownMenu');
@@ -138,7 +133,7 @@
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             const menuLinks = document.querySelectorAll('#dropdownMenu a');
 
-            // Hide current page from the menu
+            // Hide the current page link from the menu
             menuLinks.forEach(link => {
                 if (link.getAttribute('href') === currentPage) {
                     link.style.display = 'none';
@@ -161,11 +156,11 @@
 
             // Page Titles
             const pageTitles = {
-                "index.html": "Home Page",
+                "index.html": "Home",
                 "about.html": "About Us",
-                "calendar.html": "Calendar Page",
+                "calendar.html": "Calendar",
                 "contactus.html": "Contact Us",
-                "events.html": "Upcoming Events",
+                "events.html": "Events",
                 "join.html": "Join Us",
                 "meet.html": "Meet the Officers",
                 "news.html": "Masonic News"
