@@ -62,7 +62,7 @@
 
 <body>
 
-<!-- Include Header -->
+<!-- Load Header -->
 <div id="header-placeholder"></div>
 <script>
     fetch('header.html')
@@ -70,13 +70,12 @@
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
 
-            // Rebind the menu toggle function after loading the header
+            // Ensure the menu toggle function works after header is loaded
             function toggleMenu() {
                 const menu = document.getElementById('dropdownMenu');
                 menu.classList.toggle('active');
             }
 
-            // Attach toggle function to the hamburger menu after loading header
             const hamburger = document.querySelector('.hamburger-menu');
             if (hamburger) {
                 hamburger.onclick = toggleMenu;
@@ -96,7 +95,7 @@
     <a href="contactus.html" class="button">Contact us</a>
 </div>
 
-<!-- Include Footer -->
+<!-- Load Footer -->
 <div id="footer-placeholder"></div>
 <script>
     fetch('footer.html')
