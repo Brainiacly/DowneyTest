@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Google Search</title>
+    <title>Search</title>
     
-    <!-- Styles and Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Basic Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 
     <style>
@@ -18,32 +17,50 @@
             text-align: center;
         }
 
-        .container {
+        .search-container {
             margin: 20px auto;
-            max-width: 900px;
+            max-width: 800px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        form {
+        #search-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
             margin-bottom: 20px;
         }
 
-        .form-group {
-            margin: 10px 0;
+        #search-bar input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #search-bar button:hover {
+            background-color: #ffd966;
         }
 
         .results {
             text-align: left;
-            margin: 20px 0;
+            margin-top: 20px;
         }
 
         .results a {
-            display: block;
-            text-decoration: underline;
             color: #ffcc00;
+            text-decoration: underline;
+            display: block;
             margin-bottom: 10px;
         }
 
@@ -66,50 +83,42 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Custom Google Search</h1>
-        
-        <form id="search-form">
-            <div class="form-group">
-                <label for="keywords">Keywords:</label>
-                <input type="text" id="keywords" name="keywords" placeholder="Enter keywords">
-            </div>
-            <div class="form-group">
-                <label for="phrases">Phrases:</label>
-                <input type="text" id="phrases" name="phrases" placeholder="Enter exact phrases">
-            </div>
-            <div class="form-group">
-                <label for="site">Similar Webpage Address:</label>
-                <input type="text" id="site" name="site" placeholder="Enter similar webpage">
-            </div>
-            <div class="form-group">
-                <label for="start-date">Start Date:</label>
-                <input type="date" id="start-date" name="start-date">
-            </div>
-            <div class="form-group">
-                <label for="end-date">End Date:</label>
-                <input type="date" id="end-date" name="end-date">
-            </div>
-            <div class="form-group">
-                <label for="search-type">Search Type:</label>
-                <select id="search-type" name="search-type">
-                    <option value="web">Web</option>
-                    <option value="images">Images</option>
-                    <option value="books">Books</option>
-                    <option value="news">News</option>
-                    <option value="ai">AI</option>
-                </select>
-            </div>
-            <button type="button" id="search-button">Search</button>
-        </form>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div id="search-bar">
+            <input type="text" id="search-query" placeholder="Enter your search">
+            <button id="search-button">Search</button>
+        </div>
+
+        <!-- Results Section -->
         <div class="results" id="results"></div>
-        <span id="load-more" class="load-more" style="display:none;">See More Results</span>
+        <span id="load-more" class="load-more" style="display:none;">See More...</span>
     </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
     <script>
         let startIndex = 1; // Start index for pagination
         const resultsPerPage = 10; // Number of results per page
+
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
 
         // Handle search
         document.getElementById("search-button").addEventListener("click", () => {
@@ -117,40 +126,24 @@
             performSearch();
         });
 
-        // Handle "See More Results"
+        // Handle "See More..." link
         document.getElementById("load-more").addEventListener("click", () => {
             performSearch();
         });
 
         async function performSearch() {
-            const keywords = document.getElementById("keywords").value;
-            const phrases = document.getElementById("phrases").value;
-            const site = document.getElementById("site").value;
-            const startDate = document.getElementById("start-date").value;
-            const endDate = document.getElementById("end-date").value;
-            const searchType = document.getElementById("search-type").value;
+            const query = document.getElementById("search-query").value;
 
-            // Construct the query string
-            let query = keywords;
-            if (phrases) query += ` "${phrases}"`;
-            if (site) query += ` site:${site}`;
-            if (startDate) query += ` after:${startDate}`;
-            if (endDate) query += ` before:${endDate}`;
+            if (!query) {
+                alert("Please enter a search query.");
+                return;
+            }
 
             const baseURL = "https://www.googleapis.com/customsearch/v1";
             const apiKey = "YOUR_API_KEY"; // Replace with your actual API key
             const cx = "YOUR_CUSTOM_SEARCH_ENGINE_ID"; // Replace with your Custom Search Engine ID
 
             let url = `${baseURL}?key=${apiKey}&cx=${cx}&q=${encodeURIComponent(query)}&start=${startIndex}`;
-
-            // Add specific search type
-            if (searchType === "images") {
-                url += "&searchType=image";
-            } else if (searchType === "news") {
-                url += "&tbm=nws";
-            } else if (searchType === "books") {
-                url += "&tbm=bks";
-            }
 
             try {
                 const response = await fetch(url);
