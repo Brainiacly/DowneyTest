@@ -45,11 +45,12 @@
         }
 
         .navbar-title {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             flex-grow: 1;
             text-align: center;
-            color: #f5f0e6; /* Ensure title matches navbar text */
+            color: #f5f0e6;
+            text-transform: uppercase;
         }
 
         .hamburger-menu {
@@ -134,9 +135,24 @@
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             const menuLinks = document.querySelectorAll('#dropdownMenu a');
 
+            // Page Titles
+            const pageTitles = {
+                "index.html": "Home",
+                "about.html": "About Us",
+                "calendar.html": "Calendar",
+                "contactus.html": "Contact Us",
+                "events.html": "Events",
+                "join.html": "Join Us",
+                "meet.html": "Meet the Officers",
+                "news.html": "Masonic News"
+            };
+
+            // Set the page title in the navbar
+            document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "Downey United Lodge #220";
+
             // Hide the current page link from the menu
             menuLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
+                if (link.getAttribute('href').includes(currentPage)) {
                     link.style.display = 'none';
                 }
             });
@@ -154,21 +170,6 @@
                     menu.classList.remove('active');
                 }
             });
-
-            // Page Titles
-            const pageTitles = {
-                "index.html": "Home",
-                "about.html": "About Us",
-                "calendar.html": "Calendar",
-                "contactus.html": "Contact Us",
-                "events.html": "Events",
-                "join.html": "Join Us",
-                "meet.html": "Meet the Officers",
-                "news.html": "Masonic News"
-            };
-
-            // Ensure the page title appears in the navbar
-            document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "Downey United Lodge #220";
         });
     </script>
 </div>
