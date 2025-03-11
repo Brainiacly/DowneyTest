@@ -156,10 +156,12 @@
             // Set the title in the navbar in LARGE WHITE TEXT
             document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "DOWNEY UNITED LODGE #220";
 
-            // Remove the current page from the menu
-            const menuItem = document.querySelector(`#menu-${currentPage.split(".")[0]}`);
-            if (menuItem) {
-                menuItem.style.display = "none";
+            // Remove the current page from the menu, but keep Home & About
+            if (currentPage !== "index.html" && currentPage !== "about.html") {
+                const menuItem = document.querySelector(`#menu-${currentPage.split(".")[0]}`);
+                if (menuItem) {
+                    menuItem.style.display = "none";
+                }
             }
 
             // Close menu when clicking outside
