@@ -10,7 +10,7 @@
             overflow-x: hidden;
         }
 
-        /* Fixes unwanted white space issue at the top */
+        /* Remove white line at top */
         * {
             margin: 0;
             padding: 0;
@@ -89,38 +89,14 @@
             display: block;
         }
 
-        /* Header Banner */
-        #header-container {
-            position: relative;
+        /* Page Title Banner */
+        .page-title {
+            background-color: #800020;
+            color: #f5f0e6;
             text-align: center;
-            background-image: url('https://lodge220.freemason.org/wp-content/uploads/sites/39/2016/09/main_image.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 200px;
-            border-bottom: 5px solid #8d6e63;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #header-text {
-            position: relative;
-            z-index: 2;
-            color: #f0e6d6;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 1.8rem;
             font-weight: bold;
-            font-size: 2rem;
-        }
-
-        #header-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.3);
-            z-index: 1;
+            padding: 10px 0;
         }
     </style>
 
@@ -149,11 +125,8 @@
         <a href="news.html">News</a>
     </div>
 
-    <!-- Dynamic Page Title in Header -->
-    <div id="header-container">
-        <div id="header-overlay"></div>
-        <div id="header-text"></div>
-    </div>
+    <!-- Page Title Banner -->
+    <div class="page-title" id="pageTitle"></div>
 
     <script>
         function toggleMenu() {
@@ -165,7 +138,7 @@
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             const menuLinks = document.querySelectorAll('#dropdownMenu a');
 
-            // Hide the current page from the menu
+            // Hide current page from the menu
             menuLinks.forEach(link => {
                 if (link.getAttribute('href') === currentPage) {
                     link.style.display = 'none';
@@ -186,11 +159,11 @@
                 }
             });
 
-            // Dynamically set page title in header
+            // Page Titles
             const pageTitles = {
-                "index.html": "Home",
+                "index.html": "Home Page",
                 "about.html": "About Us",
-                "calendar.html": "Calendar",
+                "calendar.html": "Calendar Page",
                 "contactus.html": "Contact Us",
                 "events.html": "Upcoming Events",
                 "join.html": "Join Us",
@@ -198,8 +171,7 @@
                 "news.html": "Masonic News"
             };
 
-            const headerText = document.getElementById("header-text");
-            headerText.textContent = pageTitles[currentPage] || "Downey United Lodge #220";
+            document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "Downey United Lodge #220";
         });
     </script>
 </div>
