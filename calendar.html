@@ -72,4 +72,19 @@
 
             // Reattach the menu toggle function
             function toggleMenu() {
-                const menu = document.getElem
+                const menu = document.getElementById('dropdownMenu');
+                menu.classList.toggle('active');
+            }
+
+            document.querySelector('.hamburger-menu').onclick = toggleMenu;
+        })
+        .catch(error => console.error('Error loading header:', error));
+
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading footer:', error));
+</script>
+
+</body>
+</html>
