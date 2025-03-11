@@ -90,6 +90,251 @@
 
         .google-news a {
             color: #fff;
+            text-decoration: underline;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .google-news a:visited {
+            color: #888; /* Change color of visited links */
+        }
+
+        .load-more-link {
+            color: #ffcc00;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: underline;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .load-more-link:hover {
+            color: #ffe680;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <div class="header">MASONIC NEWS</div>
+
+    <div class="carousel-container">
+        <div id="news-carousel" class="carousel"></div>
+    </div>
+
+    <!-- Google News Section -->
+    <div class="google-news">
+        <h2>More Masonic News from Google</h2>
+        <div id="google-news-articles"></div>
+        <a id="load-more-news" class="load-more-link">See More Articles</a>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+
+        // Load news items from news_source.html
+        fetch('news_source.html')
+            .then(response => response.text())
+            .then(data => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(data, 'text/html');
+                let newsItems = doc.querySelectorAll('.news-item');
+
+                let newsCarousel = document.getElementById('news-carousel');
+                newsItems.forEach(item => {
+                    let slide = document.createElement('div');
+                    slide.classList.add('news-slide');
+
+                    let img = item.querySelector('img').cloneNode(true);
+                    img.style.display = 'block';
+                    img.style.margin = 'auto';
+                    slide.appendChild(img);
+
+                    let content = document.createElement('div');
+                    content.classList.add('slide-content');
+
+                    let title = item.querySelector('h3').cloneNode(true);
+                    let desc = item.querySelector('p').cloneNode(true);
+
+                    content.appendChild(title);
+                    content.appendChild(desc);
+                    slide.appendChild(content);
+
+                    newsCarousel.appendChild(slide);
+                });
+
+                $(document).ready(function () {
+                    $('#news-carousel').slick({
+                        dots: true,
+                        infinite: true,
+                        speed: 500,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        arrows: true
+                    });
+                });
+            })
+            .catch(error => console.error('Error loading news source:', error));
+
+        // Google News Variables
+        let newsIndex = 0;
+        const newsBatchSize = 5;
+        let newsItems = [];
+
+        async function fetchGoogleNews() {
+            const currentYear = new Date().getFullYear();
+            const query = `California Freemasonry site:freemason.org OR Freemasonry California after:${currentYear}-01-01`;
+            const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
+
+            try {
+                let response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                let data = await response.json();
+                let parser = new DOMParser();
+                let xml = parser.parseFromString(data.contents, "application/xml");
+                newsItems = xml.querySelectorAll("item");
+                displayNews();
+            } catch (error) {
+                console.error("Error fetching Google News:", error);
+            }
+        }
+
+        function displayNews() {
+            let newsHTML = "";
+            const newsContainer = document.getElementById("google-news-articles");
+
+            for (let i = newsIndex; i < newsIndex + newsBatchSize && i < newsItems.length; i++) {
+                let title = newsItems[i].querySelector("title").textContent;
+                let link = newsItems[i].querySelector("link").textContent;
+                newsHTML += `<a href="${link}" target="_blank">${title}</a>`;
+            }
+            newsIndex += newsBatchSize;
+            newsContainer.innerHTML += newsHTML;
+
+            if (newsIndex >= newsItems.length) {
+                document.getElementById("load-more-news").style.display = "none";
+            }
+        }
+
+        document.getElementById("load-more-news").addEventListener("click", displayNews);
+
+        fetchGoogleNews();
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASONIC NEWS</title>
+    
+    <!-- jQuery and Slick Carousel -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #111 0%, #222 100%);
+            color: #fff;
+            margin: 0;
+            text-align: center;
+            font-family: "Merriweather", sans-serif;
+            overflow-x: hidden;
+        }
+
+        .header {
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        .carousel .news-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .carousel img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .carousel .slide-content {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .carousel h3 {
+            margin: 10px 0;
+            color: #ffcc00;
+            font-size: 1.5rem;
+        }
+
+        .carousel p {
+            color: #ddd;
+            font-size: 1rem;
+            padding: 0 10px;
+        }
+
+        .google-news {
+            margin-top: 30px;
+            text-align: left;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .google-news h2 {
+            color: #ffcc00;
+        }
+
+        .google-news a {
+            color: #fff;
             display: block;
             margin-bottom: 5px;
         }
