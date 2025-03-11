@@ -72,7 +72,7 @@
     <div class="google-news">
         <h2>More Masonic News from Google</h2>
         <div id="google-news-articles"></div>
-        <span id="load-more-news" class="load-more-link">See More Articles</span>
+        <a id="load-more-news" class="load-more-link">See More Articles</a>
     </div>
 
     <!-- Footer -->
@@ -92,7 +92,9 @@
 
         fetch('footer.html')
             .then(response => response.text())
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
             .catch(error => console.error('Error loading footer:', error));
 
         // Google News Variables
