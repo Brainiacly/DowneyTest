@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MASONIC NEWS</title>
+    
+    <!-- jQuery and Slick Carousel -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
     <style>
         body {
             background-color: #000;
@@ -14,6 +21,7 @@
             font-family: Arial, sans-serif;
             overflow-x: hidden;
         }
+
         .header {
             font-size: 36px;
             font-weight: bold;
@@ -21,136 +29,133 @@
             margin-top: 20px;
             color: #fff;
         }
-        .news-container {
+
+        .carousel-container {
             width: 90%;
             margin: auto;
             padding: 20px;
         }
-        .news-item {
-            margin-bottom: 20px;
+
+        .carousel img {
+            width: 90%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .carousel .slide-content {
             padding: 15px;
             background: #1a1a1a;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             text-align: left;
+            color: white;
         }
-        .news-item img {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .news-item h3 {
+
+        .carousel h3 {
             margin: 10px 0;
             color: #fff;
             font-size: 1.3rem;
         }
-        .news-item p {
+
+        .carousel p {
             color: #ccc;
             font-size: 1rem;
+            padding: 0 10px;
         }
+
         a {
             text-decoration: none;
             color: #0073e6;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
-            .news-container {
+            .carousel-container {
                 width: 95%;
             }
-            .news-item img {
+
+            .carousel img {
                 max-height: 350px;
             }
-            .news-item h3 {
+
+            .carousel h3 {
                 font-size: 1.1rem;
             }
-            .news-item p {
+
+            .carousel p {
                 font-size: 0.9rem;
             }
         }
     </style>
 </head>
+
 <body>
 
-<!-- Header -->
-<div id="header-placeholder"></div>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-<div class="header">MASONIC NEWS</div>
+    <div class="header">MASONIC NEWS</div>
 
-<div class="news-container" id="news-container">
-    <!-- News items will be loaded here -->
-</div>
+    <div class="carousel-container">
+        <div id="news-carousel" class="carousel"></div>
+    </div>
 
-<!-- Footer -->
-<div id="footer-placeholder"></div>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-<script>
-    // Function to load external HTML content
-    function loadHTML(url, callback) {
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.text();
-            })
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
             .then(data => {
-                callback(data);
+                document.getElementById('header-placeholder').innerHTML = data;
+                document.querySelector('.hamburger-menu').onclick = () => {
+                    document.getElementById('dropdownMenu').classList.toggle('active');
+                };
             })
-            .catch(error => {
-                console.error('Error loading HTML:', error);
-            });
-    }
+            .catch(error => console.error('Error loading header:', error));
 
-    // Load header
-    loadHTML('header.html', function(data) {
-        document.getElementById('header-placeholder').innerHTML = data;
-        // Reattach the toggle menu function if necessary
-        const hamburger = document.querySelector('.hamburger-menu');
-        if (hamburger) {
-            hamburger.addEventListener('click', function() {
-                const menu = document.getElementById('dropdownMenu');
-                menu.classList.toggle('active');
-            });
-        }
-    });
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
 
-    // Load footer
-    loadHTML('footer.html', function(data) {
-        document.getElementById('footer-placeholder').innerHTML = data;
-    });
+        // Load news items from news_source.html
+        fetch('news_source.html')
+            .then(response => response.text())
+            .then(data => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(data, 'text/html');
+                let newsItems = doc.querySelectorAll('.news-item');
 
-    // Load news items
-    loadHTML('news_source.html', function(data) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const newsItems = doc.querySelectorAll('.news-item');
-        const newsContainer = document.getElementById('news-container');
-        newsItems.forEach(item => {
-            item.style.display = 'block'; // Ensure the item is visible
-            newsContainer.appendChild(item);
-        });
+                let newsCarousel = document.getElementById('news-carousel');
+                newsItems.forEach(item => {
+                    item.style.display = 'block'; // Ensure visibility
+                    newsCarousel.appendChild(item.cloneNode(true)); // Append to carousel
+                });
 
-        // Access the newsItemCount variable from news_source.html
-        const newsItemCount = doc.querySelector('script').textContent.match(/newsItemCount\s*=\s*(\d+);/)[1];
-        console.log('Number of news items:', newsItemCount);
-
-        // Initialize carousel if necessary
-        if (typeof initializeCarousel === 'function') {
-            initializeCarousel(newsItemCount);
-        }
-    });
-
-    // Example function to initialize a carousel
-    function initializeCarousel(itemCount) {
-        // Logic to initialize the carousel based on itemCount
-        console.log('Initializing carousel with', itemCount, 'items.');
-        // Implement carousel initialization here
-    }
-</script>
+                // Initialize the Slick Carousel after loading news items
+                $(document).ready(function () {
+                    $('#news-carousel').slick({
+                        dots: true,
+                        infinite: true,
+                        speed: 500,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        arrows: true
+                    });
+                });
+            })
+            .catch(error => console.error('Error loading news source:', error));
+    </script>
 
 </body>
 </html>
