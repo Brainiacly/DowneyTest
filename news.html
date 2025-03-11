@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MASONIC NEWS</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background-color: #000;
@@ -20,7 +14,6 @@
             font-family: Arial, sans-serif;
             overflow-x: hidden;
         }
-
         .header {
             font-size: 36px;
             font-weight: bold;
@@ -28,71 +21,58 @@
             margin-top: 20px;
             color: #fff;
         }
-
-        .carousel-container {
+        .news-container {
             width: 90%;
             margin: auto;
             padding: 20px;
         }
-
-        .carousel img {
-            width: 90%;
-            height: 90%;
-            max-height: 500px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-
-        .carousel .slide-content {
+        .news-item {
+            margin-bottom: 20px;
             padding: 15px;
             background: #1a1a1a;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            text-align: center;
+            text-align: left;
         }
-
-        .carousel h3 {
+        .news-item img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .news-item h3 {
             margin: 10px 0;
             color: #fff;
             font-size: 1.3rem;
         }
-
-        .carousel p {
+        .news-item p {
             color: #ccc;
             font-size: 1rem;
-            padding: 0 10px;
         }
-
         a {
             text-decoration: none;
             color: #0073e6;
         }
-
         a:hover {
             text-decoration: underline;
         }
-
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
-            .carousel-container {
+            .news-container {
                 width: 95%;
             }
-
-            .carousel img {
+            .news-item img {
                 max-height: 350px;
             }
-
-            .carousel h3 {
+            .news-item h3 {
                 font-size: 1.1rem;
             }
-
-            .carousel p {
+            .news-item p {
                 font-size: 0.9rem;
             }
         }
     </style>
 </head>
-
 <body>
 
 <!-- Header -->
@@ -100,46 +80,60 @@
 
 <div class="header">MASONIC NEWS</div>
 
-<div class="carousel-container">
-    <div class="carousel">
-        <div>
-            <img src="https://freemason.org/wp-content/uploads/2025/01/Screen-Shot-2025-01-24-at-12.16.34-PM-300x300.jpg" alt="175th Anniversary">
-            <div class="slide-content">
-                <h3><a href="https://freemason.org/175gala/">Celebrate the 175th Anniversary of the Grand Lodge of California!</a></h3>
-                <p>Celebrate the 175th Anniversary of the Grand Lodge of California! Saturday, April 19, 5-9 p.m. Don your finest attire and join us for an extraordinary evening commemorating 175 years of Freemasonry in California.</p>
-            </div>
-        </div>
-        <div>
-            <img src="https://freemason.org/wp-content/uploads/2025/01/Intl-Conf-25_v1-600sq-x2-300x300.jpg" alt="UCLA Conference">
-            <div class="slide-content">
-                <h3><a href="https://freemason.org/ucla/">The 13th Annual International Conference on Freemasonry</a></h3>
-                <p>2025 International Conference on Freemasonry: "Freemasonry in Popular Culture: 1700 to Yesterday, Part 1" Saturday, March 22 at the University of California, Los Angeles.</p>
-            </div>
-        </div>
-        <div>
-            <img src="https://freemason.org/wp-content/uploads/2022/10/6.24-300x300.jpg" alt="2025 Proclamations">
-            <div class="slide-content">
-                <h3><a href="https://freemason.org/2025-proclamations/">Grand Master Salazar: 2025 Proclamations</a></h3>
-                <p>Grand Master G. Sean Metroka announced his administration’s proclamations for the 2024 fraternal year.</p>
-            </div>
-        </div>
-        <div>
-            <img src="https://freemason.org/wp-content/uploads/2024/10/Screen-Shot-2024-10-24-at-9.12.34-AM-300x300.jpg" alt="175th Annual Communication">
-            <div class="slide-content">
-                <h3><a href="https://freemason.org/175th-annual-communication/">175th Annual Communication of the Grand Lodge of California</a></h3>
-                <p>The 175th Annual Communications commences on October 25–27, 2024 at the California Masonic Memorial Temple in San Francisco.</p>
-            </div>
-        </div>
-        <div>
-            <img src="https://freemason.org/wp-content/uploads/2024/09/Screen-Shot-2024-09-15-at-10.45.12-AM-300x300.jpg" alt="Giants Community Fund">
-            <div class="slide-content">
-                <h3><a href="https://freemason.org/giants-community-fund/">Masons Make Three-Year, $650,000 Pledge to Giants Community Fund</a></h3>
-                <p>Over the next three years, California Masons are committing $650,000 to the San Francisco Junior Giants in support of community programs aimed at championing local youth.</p>
-            </div>
-        </div>
-        <div>
-            <img src="https://freemason.org/wp-content/uploads/2024/08/Screen-Shot-2024-08-20-at-2.30.15-PM-300x300.jpg" alt="Grant to San Diego Schools">
-            <div class="slide-content">
-                <h3
-::contentReference[oaicite:2]{index=2}
- 
+<div class="news-container" id="news-container">
+    <!-- News items will be loaded here -->
+</div>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+
+<script>
+    // Function to load external HTML content
+    function loadHTML(url, callback) {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                callback(data);
+            })
+            .catch(error => {
+                console.error('Error loading HTML:', error);
+            });
+    }
+
+    // Load header
+    loadHTML('header.html', function(data) {
+        document.getElementById('header-placeholder').innerHTML = data;
+        // Reattach the toggle menu function if necessary
+        const hamburger = document.querySelector('.hamburger-menu');
+        if (hamburger) {
+            hamburger.addEventListener('click', function() {
+                const menu = document.getElementById('dropdownMenu');
+                menu.classList.toggle('active');
+            });
+        }
+    });
+
+    // Load footer
+    loadHTML('footer.html', function(data) {
+        document.getElementById('footer-placeholder').innerHTML = data;
+    });
+
+    // Load news items
+    loadHTML('news_source.html', function(data) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const newsItems = doc.querySelectorAll('.news-item');
+        const newsContainer = document.getElementById('news-container');
+        newsItems.forEach(item => {
+            newsContainer.appendChild(item);
+        });
+    });
+</script>
+
+</body>
+</html>
