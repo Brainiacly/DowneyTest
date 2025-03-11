@@ -1,188 +1,72 @@
-<div id="site-header">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
-
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            overflow-x: hidden;
-        }
-
-        /* Fixes unwanted white space */
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #800020;
-            padding: 10px 20px;
-            color: #f5f0e6;
-            position: relative;
-            height: 80px; /* Adjusted height */
-            border-bottom: 3px solid #8d6e63;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #f5f0e6;
-        }
-
-        .navbar a:hover {
-            color: #d7ccc8;
-        }
-
-        .navbar img {
-            max-width: 50px;
-            max-height: 50px;
-            border-radius: 50%;
-            border: 2px solid #8d6e63;
-        }
-
-        /* Large White Title Centered */
-        .navbar-title {
-            font-size: 2rem; /* Large text */
-            font-weight: bold;
-            flex-grow: 1;
-            text-align: center;
-            color: #fff; /* White text */
-            text-transform: uppercase;
-            position: absolute;
-            width: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .hamburger-menu {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .hamburger-menu div {
-            width: 25px;
-            height: 3px;
-            background-color: #f5f0e6;
-            margin: 4px 0;
-            transition: 0.3s;
-        }
-
-        .menu {
-            display: none;
-            position: absolute;
-            top: 80px; /* Adjusted for navbar height */
-            right: 10px;
-            background-color: #f5f0e6;
-            color: #3e2723;
-            width: 180px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-            z-index: 20;
-        }
-
-        .menu a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #5d4037;
-            border-bottom: 1px solid #8d6e63;
-            font-size: 0.9rem;
-        }
-
-        .menu a:hover {
-            background-color: #d7ccc8;
-        }
-
-        .menu.active {
-            display: block;
-        }
-    </style>
-
-    <!-- Navbar -->
-    <div class="navbar">
-        <a href="index.html">
-            <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
-        </a>
-        <span class="navbar-title" id="pageTitle"></span>
-        <div class="hamburger-menu" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+<!-- Navbar -->
+<div class="navbar">
+    <a href="index.html">
+        <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
+    </a>
+    <span class="navbar-title" id="pageTitle"></span>
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
+</div>
 
-    <!-- Dropdown Menu -->
-    <div class="menu" id="dropdownMenu">
-        <a href="index.html" id="menu-index">Home</a>
-        <a href="about.html" id="menu-about">About</a>
-        <a href="calendar.html" id="menu-calendar">Calendar</a>
-        <a href="contactus.html" id="menu-contactus">Contact Us</a>
-        <a href="events.html" id="menu-events">Events</a>
-        <a href="https://freemason.org" target="_blank">Freemason.org</a>
-        <a href="join.html" id="menu-join">Join Us</a>
-        <a href="meet.html" id="menu-meet">Meet the Officers</a>
-        <a href="news.html" id="menu-news">News</a>
-    </div>
+<!-- Dropdown Menu -->
+<div class="menu" id="dropdownMenu">
+    <a href="index.html" class="menu-item" data-page="index.html">Home</a>
+    <a href="about.html" class="menu-item" data-page="about.html">About</a>
+    <a href="calendar.html" class="menu-item" data-page="calendar.html">Calendar</a>
+    <a href="contactus.html" class="menu-item" data-page="contactus.html">Contact Us</a>
+    <a href="events.html" class="menu-item" data-page="events.html">Events</a>
+    <a href="https://freemason.org" target="_blank">Freemason.org</a>
+    <a href="join.html" class="menu-item" data-page="join.html">Join Us</a>
+    <a href="meet.html" class="menu-item" data-page="meet.html">Meet the Officers</a>
+    <a href="news.html" class="menu-item" data-page="news.html">News</a>
+</div>
 
-    <script>
-        function toggleMenu() {
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('dropdownMenu');
+        menu.classList.toggle('active');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+        // Page Titles
+        const pageTitles = {
+            "index.html": "HOME",
+            "about.html": "ABOUT US",
+            "calendar.html": "CALENDAR",
+            "contactus.html": "CONTACT US",
+            "events.html": "EVENTS",
+            "join.html": "JOIN US",
+            "meet.html": "MEET THE OFFICERS",
+            "news.html": "MASONIC NEWS"
+        };
+
+        // Set the title in the navbar in LARGE WHITE TEXT
+        document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "DOWNEY UNITED LODGE #220";
+
+        // Remove the current page from the menu
+        document.querySelectorAll(".menu-item").forEach(item => {
+            if (item.getAttribute("data-page") === currentPage) {
+                item.style.display = "none";
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (event) {
             const menu = document.getElementById('dropdownMenu');
-            menu.classList.toggle('active');
-        }
+            const hamburger = document.querySelector('.hamburger-menu');
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-            // Page Titles
-            const pageTitles = {
-                "index.html": "HOME",
-                "about.html": "ABOUT US",
-                "calendar.html": "CALENDAR",
-                "contactus.html": "CONTACT US",
-                "events.html": "EVENTS",
-                "join.html": "JOIN US",
-                "meet.html": "MEET THE OFFICERS",
-                "news.html": "MASONIC NEWS"
-            };
-
-            // Set the title in the navbar in LARGE WHITE TEXT
-            document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "DOWNEY UNITED LODGE #220";
-
-            // Remove the current page from the menu, but always keep Home & About
-            const menuItems = {
-                "calendar.html": "menu-calendar",
-                "contactus.html": "menu-contactus",
-                "events.html": "menu-events",
-                "join.html": "menu-join",
-                "meet.html": "menu-meet",
-                "news.html": "menu-news"
-            };
-
-            if (menuItems[currentPage]) {
-                document.getElementById(menuItems[currentPage]).style.display = "none";
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove('active');
             }
 
-            // Close menu when clicking outside
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('dropdownMenu');
-                const hamburger = document.querySelector('.hamburger-menu');
-
-                if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-
-                if (menu.contains(event.target) && event.target.tagName === 'A') {
-                    menu.classList.remove('active');
-                }
-            });
+            if (menu.contains(event.target) && event.target.tagName === 'A') {
+                menu.classList.remove('active');
+            }
         });
-    </script>
-</div>
+    });
+</script>
