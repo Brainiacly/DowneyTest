@@ -6,100 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downey United Lodge - About Us</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #2f2f2f; /* Dark gray background to match the footer */
-        }
-
-        #header-placeholder, #footer-placeholder {
-            width: 100%;
-        }
-
-        #about-mission .mainblock-inner {
-            margin: 0 auto;
-            text-align: center;
-            padding: 20px;
-        }
-
-        #about-mission .mainblock-inner h1,
-        #about-mission .mainblock-inner h2,
-        #about-mission .mainblock-inner p {
-            line-height: 1.3;
-            margin: 0;
-            color: white;
-        }
-
-        #about-mission {
-            background-image: url("https://lodge220.freemason.org/wp-content/uploads/sites/39/2016/09/mission-background.jpg");
-            text-align: center;
-            padding: 20px;
-            background-size: cover;
-            background-position: center;
-        }
-
-        @media print {
-            #about-mission .mainblock-inner {
-                margin: 0 1in;
-            }
-        }
-
-        a {
-            text-decoration: none;
-            color: red;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 
 <body>
 
-    <!-- Placeholder for the reusable header -->
+    <!-- Load Header -->
     <div id="header-placeholder"></div>
 
     <!-- Mission Section -->
-    <div id="about-mission" class="mainblock">
-        <div class="mainblock-inner">
-            <h1>Our Mission and Our Lodge</h1><br>
-            <p>Downey United Lodge’s mission is to promote personal growth and improve the lives of others.</p><br>
-            <p>We take responsibility for the well-being of our brothers, our families, and the community as a whole.</p><br>
-            <p>We value respect, kindness, tolerance, and our differences.</p><br>
-            <p>As a lodge, we strive to be an active member of our community.</p>
+    <div id="about-mission" class="mainblock" style="
+        background-image: url('https://lodge220.freemason.org/wp-content/uploads/sites/39/2016/09/mission-background.jpg');
+        text-align: center;
+        padding: 20px;
+        background-size: cover;
+        background-position: center;
+    ">
+        <div class="mainblock-inner" style="margin: 0 auto; text-align: center; padding: 20px;">
+            <h1 style="color: white;">Our Mission and Our Lodge</h1><br>
+            <p style="color: white;">Downey United Lodge’s mission is to promote personal growth and improve the lives of others.</p><br>
+            <p style="color: white;">We take responsibility for the well-being of our brothers, our families, and the community as a whole.</p><br>
+            <p style="color: white;">We value respect, kindness, tolerance, and our differences.</p><br>
+            <p style="color: white;">As a lodge, we strive to be an active member of our community.</p>
             <h3 style="color: white;">To sign up for our newsletter, please 
                 <strong>
-                    <a href="contactus.html" target="_blank">👉CLICK HERE👈🏾</a>
+                    <a href="contactus.html" target="_blank" style="color: red; text-decoration: none;">👉CLICK HERE👈🏾</a>
                 </strong>
             </h3>
-            <br>
         </div>
     </div>
 
-    <!-- Include Footer -->
+    <!-- Load Footer -->
     <div id="footer-placeholder"></div>
 
     <!-- JavaScript to Load Header and Footer -->
     <script>
-        // Load header dynamically
+        // Load the header
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
 
-                // Ensure the menu toggles correctly
-                const hamburgerMenu = document.querySelector('.hamburger-menu');
-                if (hamburgerMenu) {
-                    hamburgerMenu.addEventListener('click', function () {
-                        document.getElementById('dropdownMenu').classList.toggle('active');
-                    });
-                }
+                // Ensure the hamburger menu works after loading header
+                document.querySelector('.hamburger-menu')?.addEventListener('click', function () {
+                    document.getElementById('dropdownMenu').classList.toggle('active');
+                });
             })
             .catch(error => console.error('Error loading header:', error));
 
-        // Load footer dynamically
+        // Load the footer
         fetch('footer.html')
             .then(response => response.text())
             .then(data => document.getElementById('footer-placeholder').innerHTML = data)
