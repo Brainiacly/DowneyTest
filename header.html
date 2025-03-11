@@ -45,11 +45,11 @@
         }
 
         .navbar-title {
-            font-size: 1.5rem;
+            font-size: 2rem; /* Larger text */
             font-weight: bold;
             flex-grow: 1;
             text-align: center;
-            color: #f5f0e6;
+            color: #fff; /* Bright white */
             text-transform: uppercase;
         }
 
@@ -114,15 +114,15 @@
 
     <!-- Dropdown Menu -->
     <div class="menu" id="dropdownMenu">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="calendar.html">Calendar</a>
-        <a href="contactus.html">Contact Us</a>
-        <a href="events.html">Events</a>
+        <a href="index.html" id="menu-home">Home</a>
+        <a href="about.html" id="menu-about">About</a>
+        <a href="calendar.html" id="menu-calendar">Calendar</a>
+        <a href="contactus.html" id="menu-contactus">Contact Us</a>
+        <a href="events.html" id="menu-events">Events</a>
         <a href="https://freemason.org" target="_blank">Freemason.org</a>
-        <a href="join.html">Join Us</a>
-        <a href="meet.html">Meet the Officers</a>
-        <a href="news.html">News</a>
+        <a href="join.html" id="menu-join">Join Us</a>
+        <a href="meet.html" id="menu-meet">Meet the Officers</a>
+        <a href="news.html" id="menu-news">News</a>
     </div>
 
     <script>
@@ -133,31 +133,29 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const menuLinks = document.querySelectorAll('#dropdownMenu a');
 
             // Page Titles
             const pageTitles = {
-                "index.html": "Home",
-                "about.html": "About Us",
-                "calendar.html": "Calendar",
-                "contactus.html": "Contact Us",
-                "events.html": "Events",
-                "join.html": "Join Us",
-                "meet.html": "Meet the Officers",
-                "news.html": "Masonic News"
+                "index.html": "HOME",
+                "about.html": "ABOUT US",
+                "calendar.html": "CALENDAR",
+                "contactus.html": "CONTACT US",
+                "events.html": "EVENTS",
+                "join.html": "JOIN US",
+                "meet.html": "MEET THE OFFICERS",
+                "news.html": "MASONIC NEWS"
             };
 
-            // Set the page title in the navbar
-            document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "Downey United Lodge #220";
+            // Set the title in the navbar in LARGE WHITE TEXT
+            document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "DOWNEY UNITED LODGE #220";
 
-            // Hide the current page link from the menu
-            menuLinks.forEach(link => {
-                if (link.getAttribute('href').includes(currentPage)) {
-                    link.style.display = 'none';
-                }
-            });
+            // Remove the current page from the menu
+            const menuItem = document.querySelector(`#menu-${currentPage.split(".")[0]}`);
+            if (menuItem) {
+                menuItem.style.display = "none";
+            }
 
-            // Click outside to close menu
+            // Close menu when clicking outside
             document.addEventListener('click', function (event) {
                 const menu = document.getElementById('dropdownMenu');
                 const hamburger = document.querySelector('.hamburger-menu');
