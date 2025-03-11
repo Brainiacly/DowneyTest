@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     
     <style>
-        /* Same styling provided earlier */
         body {
             background: linear-gradient(135deg, #111 0%, #222 100%);
             color: #fff;
@@ -34,8 +33,7 @@
             margin-top: 30px;
             text-align: left;
             max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: auto;
         }
 
         .google-news h2 {
@@ -48,19 +46,17 @@
             margin-bottom: 5px;
         }
 
-        .load-more-btn {
-            background-color: #ffcc00;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
+        .load-more-link {
+            color: #ffcc00;
             font-size: 1rem;
             cursor: pointer;
+            text-decoration: underline;
+            display: inline-block;
             margin-top: 10px;
-            border-radius: 5px;
         }
 
-        .load-more-btn:hover {
-            background-color: #ffe680;
+        .load-more-link:hover {
+            color: #ffe680;
         }
     </style>
 </head>
@@ -76,7 +72,7 @@
     <div class="google-news">
         <h2>More Masonic News from Google</h2>
         <div id="google-news-articles"></div>
-        <button id="load-more-news" class="load-more-btn">Load More</button>
+        <span id="load-more-news" class="load-more-link">See More Articles</span>
     </div>
 
     <!-- Footer -->
@@ -135,13 +131,13 @@
             newsIndex += newsBatchSize; // Update index
             newsContainer.innerHTML += newsHTML;
 
-            // Hide the button if no more news
+            // Hide the link if no more news
             if (newsIndex >= newsItems.length) {
                 document.getElementById("load-more-news").style.display = "none";
             }
         }
 
-        // Event Listener for the "Load More" Button
+        // Event Listener for the "See More Articles" Link
         document.getElementById("load-more-news").addEventListener("click", displayNews);
 
         // Initial News Fetch
