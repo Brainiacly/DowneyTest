@@ -4,78 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Trestleboard</title>
-
-    <!-- jQuery and Slick Carousel -->
+    
+    <!-- jQuery for potential enhancements -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+
+    <!-- Pico CSS for styling -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     
     <style>
-        /* Fullscreen background */
         body, html {
             margin: 0;
             padding: 0;
-            background: #000;
-            color: #fff;
+            box-sizing: border-box;
+            background-color: black;
+            color: white;
             text-align: center;
-            font-family: "Merriweather", sans-serif;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            overflow: hidden; /* Prevents scrolling */
         }
 
-        /* Fullscreen Carousel */
+        .header {
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.3);
+            margin: 10px 0;
+        }
+
         .trestleboard-container {
             width: 100vw;
-            height: 100vh;
+            height: 90vh; /* Takes full viewport height minus header/footer */
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: #000;
+            align-items: center;
         }
 
-        .trestleboard-carousel {
+        iframe {
             width: 100%;
             height: 100%;
-        }
-
-        .trestleboard-carousel img {
-            width: 100%;
-            height: 100vh;
-            object-fit: contain;
-            display: block;
-        }
-
-        /* Slick carousel custom styles */
-        .slick-prev, .slick-next {
-            z-index: 10;
-            font-size: 24px;
-            color: #ffcc00 !important;
-        }
-
-        .slick-dots li button:before {
-            color: #ffcc00 !important;
+            border: none;
         }
     </style>
 </head>
-
 <body>
 
     <!-- Header -->
     <div id="header-placeholder"></div>
 
-    <!-- Fullscreen Trestleboard -->
+    <div class="header">Digital Trestleboard</div>
+
+    <!-- Google Slides Embed (Auto-play & Loop) -->
     <div class="trestleboard-container">
-        <div id="trestleboard-carousel" class="trestleboard-carousel"></div>
+        <iframe 
+            src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=true&delayms=5000"
+            allowfullscreen>
+        </iframe>
     </div>
 
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
     <script>
-        // Load header and footer
+        // Load Header and Footer
         fetch('header.html')
             .then(response => response.text())
             .then(data => document.getElementById('header-placeholder').innerHTML = data)
@@ -85,34 +73,6 @@
             .then(response => response.text())
             .then(data => document.getElementById('footer-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading footer:', error));
-
-        // Load Trestleboard images
-        const trestleboardPages = [
-            "trestleboard1.jpg",
-            "trestleboard2.jpg",
-            "trestleboard3.jpg",
-            "trestleboard4.jpg"
-        ]; // Replace with actual image paths
-
-        let trestleboardCarousel = document.getElementById("trestleboard-carousel");
-        trestleboardPages.forEach(src => {
-            let img = document.createElement("img");
-            img.src = src;
-            trestleboardCarousel.appendChild(img);
-        });
-
-        $(document).ready(function () {
-            $('#trestleboard-carousel').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 3000,
-                arrows: true
-            });
-        });
     </script>
 
 </body>
