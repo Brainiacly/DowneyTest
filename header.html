@@ -10,7 +10,7 @@
             overflow-x: hidden;
         }
 
-        /* Fixes any unwanted white space */
+        /* Fixes unwanted white space */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +24,7 @@
             padding: 10px 20px;
             color: #f5f0e6;
             position: relative;
-            height: 80px; /* Increased height for better text display */
+            height: 80px; /* Adjusted height */
             border-bottom: 3px solid #8d6e63;
         }
 
@@ -78,7 +78,7 @@
         .menu {
             display: none;
             position: absolute;
-            top: 80px; /* Adjusted for new navbar height */
+            top: 80px; /* Adjusted for navbar height */
             right: 10px;
             background-color: #f5f0e6;
             color: #3e2723;
@@ -121,7 +121,7 @@
 
     <!-- Dropdown Menu -->
     <div class="menu" id="dropdownMenu">
-        <a href="index.html" id="menu-home">Home</a>
+        <a href="index.html" id="menu-index">Home</a>
         <a href="about.html" id="menu-about">About</a>
         <a href="calendar.html" id="menu-calendar">Calendar</a>
         <a href="contactus.html" id="menu-contactus">Contact Us</a>
@@ -156,12 +156,18 @@
             // Set the title in the navbar in LARGE WHITE TEXT
             document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "DOWNEY UNITED LODGE #220";
 
-            // Remove the current page from the menu, but keep Home & About
-            if (currentPage !== "index.html" && currentPage !== "about.html") {
-                const menuItem = document.querySelector(`#menu-${currentPage.split(".")[0]}`);
-                if (menuItem) {
-                    menuItem.style.display = "none";
-                }
+            // Remove the current page from the menu, but always keep Home & About
+            const menuItems = {
+                "calendar.html": "menu-calendar",
+                "contactus.html": "menu-contactus",
+                "events.html": "menu-events",
+                "join.html": "menu-join",
+                "meet.html": "menu-meet",
+                "news.html": "menu-news"
+            };
+
+            if (menuItems[currentPage]) {
+                document.getElementById(menuItems[currentPage]).style.display = "none";
             }
 
             // Close menu when clicking outside
