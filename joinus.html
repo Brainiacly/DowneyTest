@@ -18,80 +18,6 @@
             overflow-x: hidden;
         }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #800020;
-            padding: 5px 20px;
-            color: #f5f0e6;
-            position: relative;
-            max-height: 60px;
-            border-bottom: 3px solid #8d6e63;
-        }
-
-        .navbar a {
-            text-decoration: none;
-            color: #f5f0e6;
-        }
-
-        .navbar a:hover {
-            color: #d7ccc8;
-        }
-
-        .navbar img {
-            max-width: 50px;
-            max-height: 50px;
-            border-radius: 50%;
-            border: 2px solid #8d6e63;
-            object-fit: contain;
-        }
-
-        .hamburger-menu {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .hamburger-menu div {
-            width: 25px;
-            height: 3px;
-            background-color: #f5f0e6;
-            margin: 4px 0;
-            transition: 0.3s;
-        }
-
-        .menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 10px;
-            background-color: #f5f0e6;
-            color: #3e2723;
-            width: 180px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-            z-index: 20;
-        }
-
-        .menu a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #5d4037;
-            border-bottom: 1px solid #8d6e63;
-            font-size: 0.9rem;
-        }
-
-        .menu a:hover {
-            background-color: #d7ccc8;
-        }
-
-        .menu.active {
-            display: block;
-        }
-
         .mainblock-inner {
             max-width: 800px;
             margin: 50px auto;
@@ -126,30 +52,9 @@
 
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
-            .navbar {
-                padding: 5px 10px;
-            }
-
-            .navbar img {
-                max-width: 40px;
-                max-height: 40px;
-            }
-
-            .menu {
-                width: 90%;
-                top: 50px;
-                right: 5%;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            }
-
-            .menu a {
-                font-size: 0.85rem;
-                padding: 8px;
-            }
-
-            .hamburger-menu div {
-                width: 20px;
-                height: 2.5px;
+            .mainblock-inner {
+                margin: 20px;
+                padding: 20px;
             }
         }
     </style>
@@ -157,29 +62,14 @@
 
 <body>
 
-<!-- Navbar -->
-<div class="navbar">
-    <a href="index.html">
-        <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
-    </a>
-    <div class="hamburger-menu" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</div>
-
-<!-- Dropdown Menu -->
-<div class="menu" id="dropdownMenu">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="calendar.html">Calendar</a>
-    <a href="contactus.html">Contact Us</a>
-    <a href="events.html">Events</a>
-    <a href="https://freemason.org" target="_blank">Freemason.org</a>
-    <a href="joinus.html">Join Us</a>
-    <a href="news.html">News</a>
-</div>
+<!-- Include Header -->
+<div id="header-placeholder"></div>
+<script>
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data)
+        .catch(error => console.error('Error loading header:', error));
+</script>
 
 <!-- Main Content -->
 <div class="mainblock-inner">
@@ -191,38 +81,6 @@
     </h4>
     <a href="contactus.html" class="button">Contact us</a>
 </div>
-
-<!-- JavaScript for menu -->
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById('dropdownMenu');
-        menu.classList.toggle('active');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-        const menuLinks = document.querySelectorAll('#dropdownMenu a');
-
-        menuLinks.forEach(link => {
-            if (link.getAttribute('href') === currentPage) {
-                link.style.display = 'none';
-            }
-        });
-
-        document.addEventListener('click', function (event) {
-            const menu = document.getElementById('dropdownMenu');
-            const hamburger = document.querySelector('.hamburger-menu');
-
-            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                menu.classList.remove('active');
-            }
-
-            if (menu.contains(event.target) && event.target.tagName === 'A') {
-                menu.classList.remove('active');
-            }
-        });
-    });
-</script>
 
 <!-- Include Footer -->
 <div id="footer-placeholder"></div>
