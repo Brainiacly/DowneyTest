@@ -3,122 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trestle Board - Downey United Lodge</title>
+    <title>Digital Trestleboard</title>
+
+    <!-- Styles and Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         body {
-            background-color: #000;
+            background: linear-gradient(135deg, #111 0%, #222 100%);
             color: #fff;
             margin: 0;
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: "Merriweather", sans-serif;
             overflow-x: hidden;
         }
 
         .header {
             font-size: 36px;
             font-weight: bold;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.3);
             margin-top: 20px;
-            color: #fff;
         }
 
-        .content-container {
-            max-width: 100%;
-            margin: 0 auto;
-            background-color: #1a1a1a;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        iframe {
-            width: 50%;
-            height: 95vh;
-            border: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        #right-slide {
-            display: block;
-        }
-
-        @media only screen and (max-width: 768px) {
-            iframe {
-                width: 100%;
-            }
-            #right-slide {
-                display: none;
-            }
-        }
-
-        .click-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .trestleboard-container {
             width: 100%;
-            height: 100%;
-            z-index: 10;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .trestleboard {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+            display: block;
+            margin: auto;
+        }
+
+        .maximize-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
             cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .maximize-button:hover {
+            background: #ffe680;
+        }
+
+        /* Fullscreen mode */
+        .fullscreen .trestleboard {
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            max-height: none;
+        }
+
+        /* Mobile Adjustments */
+        @media only screen and (max-width: 768px) {
+            .trestleboard-container {
+                width: 95%;
+            }
+
+            .header {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<!-- Header -->
-<div id="header-placeholder"></div>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-<div class="header">Downey United Masonic Lodge #220 <br>Trestle Board - January 2025</div>
+    <div class="header">Digital Trestleboard</div>
 
-<div class="content-container">
-<iframe id="left-slide" src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&autostart=true&loop=true&rm=minimal&delayms=5000&" allowfullscreen></iframe>
-<iframe id="left-slide" src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&autostart=true&loop=true&rm=minimal&delayms=4999&slide=2" allowfullscreen></iframe>
-    <div class="click-overlay" onclick="clickSlides()"></div>
-</div>
+    <div class="trestleboard-container">
+        <button class="maximize-button" onclick="toggleFullscreen()">Maximize</button>
+        <div id="trestleboard-carousel" class="carousel"></div>
+    </div>
 
-<!-- Footer -->
-<div id="footer-placeholder"></div>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-<script>
-    // Load header and footer
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
-            const hamburgerMenu = document.querySelector('.hamburger-menu');
-            if (hamburgerMenu) {
-                hamburgerMenu.addEventListener('click', () => {
-                    const menu = document.getElementById('dropdownMenu');
-                    if (menu) menu.classList.toggle('active');
-                });
-            }
-        })
-        .catch(error => console.error('Error loading header:', error));
+    <script>
+        // Load header and footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
 
-    fetch('footer.html')
-        .then(response => response.text())
-        .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-        .catch(error => console.error('Error loading footer:', error));
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
 
-    // Function to simulate clicks on both iframes
-    function clickSlides() {
-        const leftSlide = document.getElementById('left-slide').contentWindow;
-        const rightSlide = document.getElementById('right-slide').contentWindow;
+        // Load Trestleboard images
+        const trestleboardPages = [
+            "trestleboard1.jpg",
+            "trestleboard2.jpg",
+            "trestleboard3.jpg",
+            "trestleboard4.jpg"
+        ]; // Replace with actual image paths
 
-        // Click left slide first, then right slide if visible
-        leftSlide.postMessage('next', '*');
-        if (window.innerWidth > 768) {
-            setTimeout(() => {
-                rightSlide.postMessage('next', '*');
-            }, 200);  // Small delay to ensure sequential clicks
+        let trestleboardCarousel = document.getElementById("trestleboard-carousel");
+        trestleboardPages.forEach(src => {
+            let img = document.createElement("img");
+            img.src = src;
+            img.classList.add("trestleboard");
+            trestleboardCarousel.appendChild(img);
+        });
+
+        $(document).ready(function () {
+            $('#trestleboard-carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                arrows: true
+            });
+        });
+
+        // Maximize/Fullscreen Toggle
+        function toggleFullscreen() {
+            document.querySelector(".trestleboard-container").classList.toggle("fullscreen");
         }
-    }
-</script>
+    </script>
 
 </body>
 </html>
