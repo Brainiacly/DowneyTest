@@ -29,6 +29,54 @@
             margin-top: 20px;
         }
 
+        .carousel-container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+        }
+
+        .carousel .news-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .carousel img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .carousel .slide-content {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .carousel h3 {
+            margin: 10px 0;
+            color: #ffcc00;
+            font-size: 1.5rem;
+        }
+
+        .carousel p {
+            color: #ddd;
+            font-size: 1rem;
+            padding: 0 10px;
+        }
+
         .google-news {
             margin-top: 30px;
             text-align: left;
@@ -68,6 +116,10 @@
 
     <div class="header">MASONIC NEWS</div>
 
+    <div class="carousel-container">
+        <div id="news-carousel" class="carousel"></div>
+    </div>
+
     <!-- Google News Section -->
     <div class="google-news">
         <h2>More Masonic News from Google</h2>
@@ -84,9 +136,6 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
-                document.querySelector('.hamburger-menu').onclick = () => {
-                    document.getElementById('dropdownMenu').classList.toggle('active');
-                };
             })
             .catch(error => console.error('Error loading header:', error));
 
@@ -97,12 +146,57 @@
             })
             .catch(error => console.error('Error loading footer:', error));
 
-        // Google News Variables
-        let newsIndex = 0; // Start index
-        const newsBatchSize = 5; // Number of articles per batch
-        let newsItems = []; // Stores fetched news items
+        // Load news items from news_source.html
+        fetch('news_source.html')
+            .then(response => response.text())
+            .then(data => {
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(data, 'text/html');
+                let newsItems = doc.querySelectorAll('.news-item');
 
-        // Fetch Google News Articles
+                let newsCarousel = document.getElementById('news-carousel');
+                newsItems.forEach(item => {
+                    let slide = document.createElement('div');
+                    slide.classList.add('news-slide');
+
+                    let img = item.querySelector('img').cloneNode(true);
+                    img.style.display = 'block';
+                    img.style.margin = 'auto';
+                    slide.appendChild(img);
+
+                    let content = document.createElement('div');
+                    content.classList.add('slide-content');
+
+                    let title = item.querySelector('h3').cloneNode(true);
+                    let desc = item.querySelector('p').cloneNode(true);
+
+                    content.appendChild(title);
+                    content.appendChild(desc);
+                    slide.appendChild(content);
+
+                    newsCarousel.appendChild(slide);
+                });
+
+                $(document).ready(function () {
+                    $('#news-carousel').slick({
+                        dots: true,
+                        infinite: true,
+                        speed: 500,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        arrows: true
+                    });
+                });
+            })
+            .catch(error => console.error('Error loading news source:', error));
+
+        // Google News Variables
+        let newsIndex = 0;
+        const newsBatchSize = 5;
+        let newsItems = [];
+
         async function fetchGoogleNews() {
             const query = "California Freemasonry site:freemason.org OR Freemasonry California";
             const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
@@ -112,37 +206,32 @@
                 let data = await response.json();
                 let parser = new DOMParser();
                 let xml = parser.parseFromString(data.contents, "application/xml");
-                newsItems = xml.querySelectorAll("item"); // Store items
-                displayNews(); // Display initial batch
+                newsItems = xml.querySelectorAll("item");
+                displayNews();
             } catch (error) {
                 console.error("Error fetching Google News:", error);
             }
         }
 
-        // Display News Articles
         function displayNews() {
             let newsHTML = "";
             const newsContainer = document.getElementById("google-news-articles");
 
-            // Limit display to the current batch
             for (let i = newsIndex; i < newsIndex + newsBatchSize && i < newsItems.length; i++) {
                 let title = newsItems[i].querySelector("title").textContent;
                 let link = newsItems[i].querySelector("link").textContent;
                 newsHTML += `<a href="${link}" target="_blank">${title}</a>`;
             }
-            newsIndex += newsBatchSize; // Update index
+            newsIndex += newsBatchSize;
             newsContainer.innerHTML += newsHTML;
 
-            // Hide the link if no more news
             if (newsIndex >= newsItems.length) {
                 document.getElementById("load-more-news").style.display = "none";
             }
         }
 
-        // Event Listener for the "See More Articles" Link
         document.getElementById("load-more-news").addEventListener("click", displayNews);
 
-        // Initial News Fetch
         fetchGoogleNews();
     </script>
 
