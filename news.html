@@ -130,9 +130,26 @@
         const newsItems = doc.querySelectorAll('.news-item');
         const newsContainer = document.getElementById('news-container');
         newsItems.forEach(item => {
+            item.style.display = 'block'; // Ensure the item is visible
             newsContainer.appendChild(item);
         });
+
+        // Access the newsItemCount variable from news_source.html
+        const newsItemCount = doc.querySelector('script').textContent.match(/newsItemCount\s*=\s*(\d+);/)[1];
+        console.log('Number of news items:', newsItemCount);
+
+        // Initialize carousel if necessary
+        if (typeof initializeCarousel === 'function') {
+            initializeCarousel(newsItemCount);
+        }
     });
+
+    // Example function to initialize a carousel
+    function initializeCarousel(itemCount) {
+        // Logic to initialize the carousel based on itemCount
+        console.log('Initializing carousel with', itemCount, 'items.');
+        // Implement carousel initialization here
+    }
 </script>
 
 </body>
