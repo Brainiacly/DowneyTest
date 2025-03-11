@@ -14,27 +14,31 @@
     
     <style>
         body {
-            background-color: #000;
+            background: linear-gradient(135deg, #111 0%, #222 100%);
             color: #fff;
             margin: 0;
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: "Merriweather", sans-serif;
             overflow-x: hidden;
         }
 
         .header {
             font-size: 36px;
             font-weight: bold;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.3);
             margin-top: 20px;
-            color: #fff;
         }
 
         .carousel-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            padding: 20px;
         }
 
         .carousel .news-slide {
@@ -48,40 +52,58 @@
             width: 100%;
             max-width: 100%;
             height: auto;
-            max-height: 80vh;
+            max-height: 70vh;
             object-fit: contain;
             border-radius: 10px;
         }
 
         .carousel .slide-content {
             padding: 15px;
-            background: #1a1a1a;
+            background: rgba(0, 0, 0, 0.7);
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            color: white;
             width: 100%;
             max-width: 800px;
         }
 
         .carousel h3 {
             margin: 10px 0;
-            color: #fff;
-            font-size: 1.3rem;
+            color: #ffcc00;
+            font-size: 1.5rem;
         }
 
         .carousel p {
-            color: #ccc;
+            color: #ddd;
             font-size: 1rem;
             padding: 0 10px;
         }
 
         a {
             text-decoration: none;
-            color: #0073e6;
+            color: #ffcc00;
+            font-weight: bold;
         }
 
         a:hover {
             text-decoration: underline;
+        }
+
+        /* Google News Section */
+        .google-news {
+            margin-top: 30px;
+            text-align: left;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .google-news h2 {
+            color: #ffcc00;
+        }
+
+        .google-news a {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
         }
 
         /* Mobile Adjustments */
@@ -90,8 +112,12 @@
                 width: 95%;
             }
 
+            .carousel img {
+                max-height: 350px;
+            }
+
             .carousel h3 {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
 
             .carousel p {
@@ -110,6 +136,12 @@
 
     <div class="carousel-container">
         <div id="news-carousel" class="carousel"></div>
+    </div>
+
+    <!-- Google News Section -->
+    <div class="google-news">
+        <h2>More Masonic News from Google</h2>
+        <div id="google-news-articles"></div>
     </div>
 
     <!-- Footer -->
@@ -180,6 +212,31 @@
                 });
             })
             .catch(error => console.error('Error loading news source:', error));
+
+        // Fetch Google News Articles
+        async function fetchGoogleNews() {
+            const query = "Freemasonry";
+            const url = `https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`;
+            try {
+                let response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+                let data = await response.json();
+                let parser = new DOMParser();
+                let xml = parser.parseFromString(data.contents, "application/xml");
+                let items = xml.querySelectorAll("item");
+                let newsHTML = "";
+                items.forEach((item, index) => {
+                    if (index < 5) {
+                        let title = item.querySelector("title").textContent;
+                        let link = item.querySelector("link").textContent;
+                        newsHTML += `<a href="${link}" target="_blank">${title}</a><br>`;
+                    }
+                });
+                document.getElementById("google-news-articles").innerHTML = newsHTML;
+            } catch (error) {
+                console.error("Error fetching Google News:", error);
+            }
+        }
+        fetchGoogleNews();
     </script>
 
 </body>
