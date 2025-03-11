@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet The Officers - Downey United Lodge #220</title>
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
-    
+
     <style>
         body {
             background-color: #000;
@@ -43,14 +43,6 @@
             object-fit: cover;
         }
 
-        .carousel .slide-content {
-            padding: 15px;
-            background: #1a1a1a;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel img {
@@ -68,23 +60,8 @@
 <div class="header">MEET THE OFFICERS</div>
 
 <div class="carousel-container">
-    <div class="carousel">
-        <!-- Corrected Google Drive Image Links -->
-        <div>
-            <img src="https://drive.google.com/uc?export=view&id=YOUR_IMAGE_ID_1" alt="Officer Image 1">
-        </div>
-        <div>
-            <img src="https://drive.google.com/uc?export=view&id=YOUR_IMAGE_ID_2" alt="Officer Image 2">
-        </div>
-        <div>
-            <img src="https://drive.google.com/uc?export=view&id=YOUR_IMAGE_ID_3" alt="Officer Image 3">
-        </div>
-        <div>
-            <img src="https://drive.google.com/uc?export=view&id=YOUR_IMAGE_ID_4" alt="Officer Image 4">
-        </div>
-        <div>
-            <img src="https://drive.google.com/uc?export=view&id=YOUR_IMAGE_ID_5" alt="Officer Image 5">
-        </div>
+    <div class="carousel" id="carousel-content">
+        <!-- Images will be loaded dynamically -->
     </div>
 </div>
 
@@ -95,13 +72,48 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
 <script>
-    // Load header and footer properly
-    function loadHeaderAndFooter() {
+    const FOLDER_ID = "1qflvwc9HcjUlb_MME0n6Q0JTVeKMesr_"; // Your folder ID
+    const API_KEY = "YOUR_GOOGLE_DRIVE_API_KEY"; // Replace with actual API Key
+
+    async function loadDriveImages() {
+        const url = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            const images = data.files.filter(file => file.mimeType.startsWith("image/"));
+
+            const carousel = document.getElementById("carousel-content");
+            images.forEach(image => {
+                const imgUrl = `https://drive.google.com/uc?export=view&id=${image.id}`;
+                const slide = document.createElement("div");
+                slide.innerHTML = `<img src="${imgUrl}" alt="${image.name}">`;
+                carousel.appendChild(slide);
+            });
+
+            $(".carousel").slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                arrows: true
+            });
+
+        } catch (error) {
+            console.error("Error loading images from Google Drive:", error);
+        }
+    }
+
+    // Load header, footer, and images
+    document.addEventListener("DOMContentLoaded", function () {
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
-                attachMenuListener(); // Ensure menu works after loading
+                attachMenuListener();
             })
             .catch(error => console.error('Error loading header:', error));
 
@@ -109,9 +121,10 @@
             .then(response => response.text())
             .then(data => document.getElementById('footer-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading footer:', error));
-    }
 
-    // Function to reattach menu event listener after loading header
+        loadDriveImages();
+    });
+
     function attachMenuListener() {
         const menuButton = document.querySelector('.hamburger-menu');
         const menu = document.getElementById('dropdownMenu');
@@ -128,23 +141,6 @@
             });
         }
     }
-
-    // Load header and footer on DOM load
-    document.addEventListener("DOMContentLoaded", function () {
-        loadHeaderAndFooter();
-
-        // Initialize Slick Carousel after the page loads
-        $('.carousel').slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            arrows: true
-        });
-    });
 </script>
 
 </body>
