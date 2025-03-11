@@ -113,6 +113,11 @@
             margin-right: 10px;
         }
 
+        .load-more-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
         .load-more-link {
             color: #ffcc00;
             font-size: 1rem;
@@ -143,7 +148,9 @@
     <div class="google-news">
         <h2>More Masonic News from Google</h2>
         <div id="google-news-articles"></div>
-        <a id="load-more-news" class="load-more-link">See More Articles</a>
+        <div class="load-more-container">
+            <a id="load-more-news" class="load-more-link">See More Articles</a>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -155,6 +162,11 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
+
+                // Fix menu functionality after header loads
+                document.querySelector('.hamburger-menu').onclick = function () {
+                    document.getElementById('dropdownMenu').classList.toggle('active');
+                };
             })
             .catch(error => console.error('Error loading header:', error));
 
@@ -217,8 +229,7 @@
         let newsItems = [];
 
         async function fetchGoogleNews() {
-            const currentYear = new Date().getFullYear();
-            const query = `California Freemasonry site:freemason.org OR Freemasonry California after:${currentYear}-01-01`;
+            const query = "Freemasonry California after:2023-01-01";
             const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
 
             try {
@@ -234,20 +245,16 @@
         }
 
         function displayNews() {
-            let newsHTML = "";
-            const newsContainer = document.getElementById("google-news-articles");
+            let newsContainer = document.getElementById("google-news-articles");
+            newsContainer.innerHTML = "";
 
             for (let i = newsIndex; i < newsIndex + newsBatchSize && i < newsItems.length; i++) {
                 let title = newsItems[i].querySelector("title").textContent;
                 let link = newsItems[i].querySelector("link").textContent;
-                newsHTML += `<div class="news-item"><a href="${link}" target="_blank">${title}</a></div>`;
+                newsContainer.innerHTML += `<div class="news-item"><a href="${link}" target="_blank">${title}</a></div>`;
             }
-            newsIndex += newsBatchSize;
-            newsContainer.innerHTML += newsHTML;
 
-            if (newsIndex >= newsItems.length) {
-                document.getElementById("load-more-news").style.display = "none";
-            }
+            newsIndex += newsBatchSize;
         }
 
         document.getElementById("load-more-news").addEventListener("click", displayNews);
