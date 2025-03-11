@@ -10,7 +10,7 @@
             overflow-x: hidden;
         }
 
-        /* Fixes the white line at the top */
+        /* Fixes any unwanted white space */
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +24,7 @@
             padding: 10px 20px;
             color: #f5f0e6;
             position: relative;
-            height: 60px;
+            height: 80px; /* Increased height for better text display */
             border-bottom: 3px solid #8d6e63;
         }
 
@@ -44,13 +44,20 @@
             border: 2px solid #8d6e63;
         }
 
+        /* Large White Title Centered */
         .navbar-title {
-            font-size: 2rem; /* Larger text */
+            font-size: 2rem; /* Large text */
             font-weight: bold;
             flex-grow: 1;
             text-align: center;
-            color: #fff; /* Bright white */
+            color: #fff; /* White text */
             text-transform: uppercase;
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .hamburger-menu {
@@ -71,7 +78,7 @@
         .menu {
             display: none;
             position: absolute;
-            top: 60px;
+            top: 80px; /* Adjusted for new navbar height */
             right: 10px;
             background-color: #f5f0e6;
             color: #3e2723;
