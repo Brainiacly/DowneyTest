@@ -3,7 +3,6 @@
     <a href="index.html">
         <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
     </a>
-    <span class="navbar-title" id="pageTitle"></span>
     <div class="hamburger-menu" onclick="toggleMenu()">
         <div></div>
         <div></div>
@@ -33,27 +32,17 @@
     document.addEventListener('DOMContentLoaded', () => {
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
-        // Page Titles
-        const pageTitles = {
-            "index.html": "HOME",
-            "about.html": "ABOUT US",
-            "calendar.html": "CALENDAR",
-            "contactus.html": "CONTACT US",
-            "events.html": "EVENTS",
-            "join.html": "JOIN US",
-            "meet.html": "MEET THE OFFICERS",
-            "news.html": "MASONIC NEWS"
-        };
-
-        // Set the title in the navbar in LARGE WHITE TEXT
-        document.getElementById("pageTitle").textContent = pageTitles[currentPage] || "DOWNEY UNITED LODGE #220";
-
         // Remove the current page from the menu
         document.querySelectorAll(".menu-item").forEach(item => {
             if (item.getAttribute("data-page") === currentPage) {
                 item.style.display = "none";
             }
         });
+
+        // Force a refresh if the page was loaded from cache (ensures menu update)
+        if (performance.navigation.type === 2) {
+            location.reload();
+        }
 
         // Close menu when clicking outside
         document.addEventListener('click', function (event) {
