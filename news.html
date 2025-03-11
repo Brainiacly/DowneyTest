@@ -31,17 +31,26 @@
         }
 
         .carousel-container {
-            width: 90%;
+            width: 100%;
+            max-width: 800px;
             margin: auto;
             padding: 10px;
         }
 
-        .carousel img {
-            width:85%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
+        .carousel .news-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
+        .carousel img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
         }
 
         .carousel .slide-content {
@@ -49,12 +58,13 @@
             background: #1a1a1a;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            text-align: left;
             color: white;
+            width: 100%;
+            max-width: 800px;
         }
 
         .carousel h3 {
-            margin: 10px 10px;
+            margin: 10px 0;
             color: #fff;
             font-size: 1.3rem;
         }
@@ -78,10 +88,6 @@
         @media only screen and (max-width: 768px) {
             .carousel-container {
                 width: 95%;
-            }
-
-            .carousel img {
-                max-height: 350px;
             }
 
             .carousel h3 {
@@ -136,8 +142,27 @@
 
                 let newsCarousel = document.getElementById('news-carousel');
                 newsItems.forEach(item => {
-                    item.style.display = 'block'; // Ensure visibility
-                    newsCarousel.appendChild(item.cloneNode(true)); // Append to carousel
+                    let slide = document.createElement('div');
+                    slide.classList.add('news-slide');
+
+                    // Clone and style image
+                    let img = item.querySelector('img').cloneNode(true);
+                    img.style.display = 'block';
+                    img.style.margin = 'auto';
+                    slide.appendChild(img);
+
+                    // Clone and style content
+                    let content = document.createElement('div');
+                    content.classList.add('slide-content');
+
+                    let title = item.querySelector('h3').cloneNode(true);
+                    let desc = item.querySelector('p').cloneNode(true);
+
+                    content.appendChild(title);
+                    content.appendChild(desc);
+                    slide.appendChild(content);
+
+                    newsCarousel.appendChild(slide);
                 });
 
                 // Initialize the Slick Carousel after loading news items
