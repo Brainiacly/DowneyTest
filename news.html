@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     
     <style>
+        /* Same styling you provided */
         body {
             background: linear-gradient(135deg, #111 0%, #222 100%);
             color: #fff;
@@ -215,8 +216,8 @@
 
         // Fetch Google News Articles
         async function fetchGoogleNews() {
-            const query = "California Freemasonry Freemason.org News 2025";
-            const url = `https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`;
+            const query = "California Freemasonry site:freemason.org OR Freemasonry California";
+            const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
             try {
                 let response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
                 let data = await response.json();
