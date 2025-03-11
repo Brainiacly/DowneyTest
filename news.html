@@ -94,6 +94,13 @@
             margin-bottom: 5px;
         }
 
+        .google-news img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
         .load-more-link {
             color: #ffcc00;
             font-size: 1rem;
@@ -198,7 +205,7 @@
         let newsItems = [];
 
         async function fetchGoogleNews() {
-            const query = "California Freemasonry site:freemason.org OR Freemasonry California";
+            const query = "California Freemasonry site:freemason.org OR Freemasonry California after:2024-03-11";
             const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=en-US&gl=US&ceid=US:en`;
 
             try {
@@ -220,7 +227,8 @@
             for (let i = newsIndex; i < newsIndex + newsBatchSize && i < newsItems.length; i++) {
                 let title = newsItems[i].querySelector("title").textContent;
                 let link = newsItems[i].querySelector("link").textContent;
-                newsHTML += `<a href="${link}" target="_blank">${title}</a>`;
+                let image = newsItems[i].querySelector("media\\:content")?.getAttribute("url") || "default-icon.png";
+                newsHTML += `<a href="${link}" target="_blank"><img src="${image}" alt="News Image">${title}</a>`;
             }
             newsIndex += newsBatchSize;
             newsContainer.innerHTML += newsHTML;
