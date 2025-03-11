@@ -118,23 +118,17 @@
             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             const menuLinks = document.querySelectorAll('#dropdownMenu a');
 
-            // menuLinks.forEach(link => {
-            //     if (link.getAttribute('href') === currentPage) {
-            //         link.style.display = 'none';
-            //     }
-            // });
-
             document.addEventListener('click', function (event) {
                 const menu = document.getElementById('dropdownMenu');
                 const hamburger = document.querySelector('.hamburger-menu');
 
-                // if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                //     menu.classList.remove('active');
-                // }
+                if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                    menu.classList.remove('active');
+                }
 
-                // if (menu.contains(event.target) && event.target.tagName === 'A') {
-                //     menu.classList.remove('active');
-                // }
+                if (menu.contains(event.target) && event.target.tagName === 'A') {
+                    menu.classList.remove('active');
+                }
             });
         });
     </script>
