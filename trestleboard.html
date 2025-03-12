@@ -44,18 +44,24 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* Fullscreen Link */
-        .fullscreen-link {
-            color: #ffcc00;
-            font-size: 1rem;
+        /* Fullscreen Button */
+        .fullscreen-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
             cursor: pointer;
-            text-decoration: underline;
-            display: block;
-            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 10;
+            transition: background 0.3s;
         }
 
-        .fullscreen-link:hover {
-            color: #ffe680;
+        .fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
         /* Arrows for Navigation */
@@ -102,6 +108,10 @@
 
         <!-- Google Slides Embed (Auto-play & Loop) -->
         <div class="trestleboard-container">
+            <!-- Fullscreen Button -->
+            <button class="fullscreen-btn" onclick="toggleFullScreen()">🔲</button>
+
+            <!-- Navigation Arrows -->
             <span class="nav-arrow prev-slide" onclick="prevSlide()">❮</span>
             
             <iframe id="trestleboard" 
@@ -111,9 +121,6 @@
 
             <span class="nav-arrow next-slide" onclick="nextSlide()">❯</span>
         </div>
-
-        <!-- Fullscreen Link -->
-        <a class="fullscreen-link" onclick="toggleFullScreen()">📺 Full Screen</a>
 
         <!-- Footer Placeholder -->
         <div id="footer-placeholder"></div>
@@ -147,13 +154,16 @@
         // Fullscreen Toggle Function
         function toggleFullScreen() {
             let iframe = document.getElementById("trestleboard");
+            let fullscreenBtn = document.querySelector(".fullscreen-btn");
 
             if (!document.fullscreenElement) {
                 iframe.requestFullscreen().catch(err => {
                     console.error(`Error trying to enable full-screen mode: ${err.message}`);
                 });
+                fullscreenBtn.textContent = "❌"; // Minimize Button
             } else {
                 document.exitFullscreen();
+                fullscreenBtn.textContent = "🔲"; // Fullscreen Button
             }
         }
 
