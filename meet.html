@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 
     <style>
-        /* Your existing CSS remains unchanged */
         body {
             background-color: #000;
             color: #fff;
@@ -66,7 +65,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: flex;
         }
 
         .officer-card img {
@@ -104,7 +102,7 @@
 
 <body>
 
-    <div id="header-placeholder"></div>
+    <div id="header-placeholder">Loading header...</div>
 
     <div class="content-wrapper">
         <div class="header">MEET THE OFFICERS</div>
@@ -116,13 +114,13 @@
         </div>
     </div>
 
-    <div id="footer-placeholder"></div>
+    <div id="footer-placeholder">Loading footer...</div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        // Load Header and Footer with improved error handling
+        // Load Header and Footer with detailed error logging
         fetch('header.html?nocache=' + new Date().getTime())
             .then(response => {
                 if (!response.ok) {
@@ -180,4 +178,12 @@
                         <div class="officer-position">${officer.position}</div>
                     </div>`;
                 });
-                $(`#carousel${i + 1}`).slick({ slidesToShow: 1, autoplay: true, autoplaySpeed: 3000 + i * 0.00000001, arrows: true, pauseOnHover: false });
+                $(`#carousel${i + 1}`).slick({ slidesToShow: 1, autoplay: true, autoplaySpeed: 3000 + i, arrows: true, pauseOnHover: false });
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", loadCarousels);
+    </script>
+</body>
+
+</html>
