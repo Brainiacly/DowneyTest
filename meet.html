@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 
     <style>
+        /* Global Scale Adjustments - 95% */
         body {
             background-color: #000;
             color: #fff;
@@ -19,10 +20,12 @@
             margin: 0;
             font-family: Arial, sans-serif;
             overflow-x: hidden;
+            transform: scale(0.95);
+            transform-origin: top center;
         }
 
         .header {
-            font-size: 36px;
+            font-size: 34px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
@@ -41,33 +44,39 @@
         }
 
         .carousel {
-            width: 48%;
-            max-width: 500px;
+            width: 46%;
+            max-width: 475px;
             border-radius: 10px;
             overflow: hidden;
         }
 
         .carousel img {
             width: 100%;
-            max-height: 500px;
+            max-height: 475px;
             height: auto;
             border-radius: 10px;
             object-fit: contain;
         }
 
-        .officer-info {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            border-radius: 5px;
+        .officer-card {
             text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
             color: white;
-            font-size: 1.2rem;
         }
 
         .officer-name {
-            font-size: 1rem;
-            margin-top: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
             color: #ffcc00;
+        }
+
+        .officer-position {
+            font-size: 1rem;
+            margin-top: 8px;
+            color: #ccc;
         }
 
         .view-button {
@@ -85,7 +94,7 @@
             background-color: #800020;
             padding: 5px 10px;
             border-radius: 5px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .view-button a:hover {
@@ -93,9 +102,9 @@
         }
 
         .view-button img {
-            width: 30px;
-            height: 30px;
-            margin-left: 8px;
+            width: 28px;
+            height: 28px;
+            margin-left: 6px;
             border-radius: 5px;
             border: 1px solid #fff;
         }
@@ -141,7 +150,7 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
-                
+
                 // Fix menu toggle for hamburger
                 let menuButton = document.querySelector('.hamburger-menu');
                 if (menuButton) {
@@ -186,28 +195,20 @@
                     let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
                     let slide = document.createElement("div");
                     slide.innerHTML = `
-                        <div class="officer-info">${officer.position}</div>
-                        <img src="${imgUrl}" alt="${officer.name}">
-                        <div class="officer-name">${officer.name}</div>
-                        <div class="view-button">
-                            <a href="${imgUrl}" target="_blank">Full Screen <img src="${imgUrl}" alt="Thumbnail"></a>
+                        <div class="officer-card">
+                            <div class="officer-name">${officer.name}</div>
+                            <img src="${imgUrl}" alt="${officer.name}">
+                            <div class="officer-position">${officer.position}</div>
                         </div>
                     `;
-                    if (index % 2 === 0) {
-                        carousel1.appendChild(slide);
-                    } else {
-                        carousel2.appendChild(slide);
-                    }
+                    (index % 2 === 0) ? carousel1.appendChild(slide) : carousel2.appendChild(slide);
                 }
             });
 
-            $("#carousel1").slick({ autoplay: true, autoplaySpeed: 3000, arrows: true });
-            $("#carousel2").slick({ autoplay: true, autoplaySpeed: 5000, arrows: true });
+            $("#carousel1, #carousel2").slick({ autoplay: true, autoplaySpeed: 4000, arrows: true });
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            loadOfficerImages();
-        });
+        document.addEventListener("DOMContentLoaded", loadOfficerImages);
     </script>
 
 </body>
