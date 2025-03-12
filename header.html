@@ -105,14 +105,14 @@
 
         /* Running Left to Right */
         @keyframes runRight {
-            0% { left: -50px; opacity: 1; }
-            100% { left: calc(100% + 50px); opacity: 1; }
+            0% { left: -50px; transform: scaleX(1); opacity: 1; }
+            100% { left: calc(100% + 50px); transform: scaleX(1); opacity: 1; }
         }
 
         /* Running Right to Left */
         @keyframes runLeft {
-            0% { right: -50px; opacity: 1; }
-            100% { right: calc(100% + 50px); opacity: 1; }
+            0% { right: -50px; transform: scaleX(-1); opacity: 1; }
+            100% { right: calc(100% + 50px); transform: scaleX(-1); opacity: 1; }
         }
 
     </style>
@@ -123,8 +123,7 @@
         </a>
         <div class="navbar-title">
             DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
-            <span class="running-man" id="running-man-right" style="display:none;">🏃🏾</span>
-            <span class="running-man" id="running-man-left" style="display:none;">🏃🏾</span>
+            <span class="running-man" id="running-man" style="display:none;">🏃🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -171,25 +170,24 @@
             });
 
             // Running Man Logic
-            let runningManRight = document.getElementById("running-man-right");
-            let runningManLeft = document.getElementById("running-man-left");
+            let runningMan = document.getElementById("running-man");
 
             function runRight() {
-                runningManRight.style.display = "inline";
-                runningManRight.style.left = "-50px"; // Start off-screen
-                runningManRight.style.animation = "runRight 5s linear forwards"; // Run right
+                runningMan.style.display = "inline";
+                runningMan.style.left = "-50px"; // Start off-screen
+                runningMan.style.animation = "runRight 5s linear forwards"; // Run right
                 setTimeout(() => {
-                    runningManRight.style.display = "none";
+                    runningMan.style.display = "none";
                     setTimeout(runLeft, 10000); // Wait 10s before left runner starts
                 }, 5000);
             }
 
             function runLeft() {
-                runningManLeft.style.display = "inline";
-                runningManLeft.style.right = "-50px"; // Start off-screen
-                runningManLeft.style.animation = "runLeft 5s linear forwards"; // Run left
+                runningMan.style.display = "inline";
+                runningMan.style.right = "-50px"; // Start off-screen
+                runningMan.style.animation = "runLeft 5s linear forwards"; // Run left
                 setTimeout(() => {
-                    runningManLeft.style.display = "none";
+                    runningMan.style.display = "none";
                     setTimeout(runRight, 10000); // Wait 10s before right runner starts again
                 }, 5000);
             }
