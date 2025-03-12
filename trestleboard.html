@@ -19,6 +19,7 @@
             background-color: black;
             color: white;
             text-align: center;
+            overflow: hidden;
         }
 
         .content-wrapper {
@@ -39,22 +40,22 @@
         iframe {
             width: 90%;
             max-width: 900px;
-            height: 75vh;
+            height: 80vh;
             border: none;
             transition: all 0.3s ease-in-out;
         }
 
-        /* Fullscreen Button (Above Right Arrow) */
+        /* Fullscreen Button (Far Right Corner) */
         .fullscreen-btn {
-            position: absolute;
+            position: fixed;
             top: 10px;
-            right: 5%;
+            right: 10px;
             background: none;
             border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 2rem;
             cursor: pointer;
-            z-index: 10;
+            z-index: 1000;
             transition: opacity 0.3s;
         }
 
@@ -64,7 +65,7 @@
 
         /* Arrows for Navigation */
         .nav-arrow {
-            position: absolute;
+            position: fixed;
             top: 50%;
             transform: translateY(-50%);
             font-size: 2rem;
@@ -73,7 +74,7 @@
             background: rgba(0, 0, 0, 0.5);
             padding: 10px;
             border-radius: 50%;
-            z-index: 10;
+            z-index: 1000;
         }
 
         .nav-arrow:hover {
@@ -107,14 +108,14 @@
         <!-- Google Slides Embed (Auto-play & Loop) -->
         <div class="trestleboard-container">
             
-            <!-- Fullscreen Button (Above Right Arrow) -->
+            <!-- Fullscreen Button (Far Right Corner) -->
             <button class="fullscreen-btn" onclick="toggleFullScreen()">🔲</button>
 
             <!-- Navigation Arrows -->
             <span class="nav-arrow prev-slide" onclick="prevSlide()">❮</span>
             
             <iframe id="trestleboard" 
-                src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=true&delayms=5000"
+                src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&delayms=5000&slide=1"
                 allowfullscreen>
             </iframe>
 
@@ -162,7 +163,7 @@
         }
 
         // Slide Navigation for Google Slides
-        let currentSlide = 0; // Track current slide
+        let currentSlide = 1; // Track current slide
 
         function nextSlide() {
             currentSlide++;
@@ -170,7 +171,7 @@
         }
 
         function prevSlide() {
-            if (currentSlide > 0) {
+            if (currentSlide > 1) {
                 currentSlide--;
                 updateSlide();
             }
