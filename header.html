@@ -125,7 +125,8 @@
         </a>
         <div class="navbar-title">
             DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
-            <span class="running-man" id="running-man">🏃🏾</span>
+            <span class="running-man" id="running-man-right">🏃🏾‍➡️</span>
+            <span class="running-man" id="running-man-left" style="display: none;">🏃🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -173,17 +174,20 @@
             });
 
             // Running Man Logic
-            let runningMan = document.getElementById("running-man");
+            let runningManRight = document.getElementById("running-man-right");
+            let runningManLeft = document.getElementById("running-man-left");
 
             function runRight() {
-                runningMan.textContent = "🏃🏾‍➡️";
-                runningMan.style.animation = "runRight 10s linear forwards";
+                runningManRight.style.display = "inline";
+                runningManLeft.style.display = "none";
+                runningManRight.style.animation = "runRight 10s linear forwards";
                 setTimeout(runLeft, 20000); // Wait 20s before running left
             }
 
             function runLeft() {
-                runningMan.textContent = "🏃🏾";
-                runningMan.style.animation = "runLeft 10s linear forwards";
+                runningManRight.style.display = "none";
+                runningManLeft.style.display = "inline";
+                runningManLeft.style.animation = "runLeft 10s linear forwards";
                 setTimeout(runRight, 20000); // Wait 20s before running right
             }
 
