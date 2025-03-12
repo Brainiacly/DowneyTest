@@ -29,38 +29,47 @@
         }
 
         .carousel-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
             width: 90%;
             margin: auto;
             padding: 20px;
-            max-width: 900px;
-            display: flex;
-            gap: 20px;
+            max-width: 1200px;
         }
 
         .carousel {
-            width: 50%;
+            width: 48%;
+            max-width: 500px;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         .carousel img {
             width: 100%;
-            height: auto;
+            max-height: 500px;
             border-radius: 10px;
-            object-fit: contain;
+            object-fit: cover;
         }
 
-        .officer-caption {
-            font-size: 1rem;
-            color: #ffcc00;
-            margin-top: 10px;
+        .officer-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
         }
 
+        /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel-container {
                 flex-direction: column;
+                align-items: center;
             }
 
             .carousel {
-                width: 100%;
+                width: 90%;
             }
         }
     </style>
@@ -75,13 +84,13 @@
 
 <div class="carousel-container">
     <!-- First Carousel -->
-    <div class="carousel" id="carousel-left">
-        <!-- Officer images will be loaded dynamically -->
+    <div class="carousel" id="carousel1">
+        <!-- Images will be loaded dynamically -->
     </div>
 
     <!-- Second Carousel -->
-    <div class="carousel" id="carousel-right">
-        <!-- Officer images will be loaded dynamically -->
+    <div class="carousel" id="carousel2">
+        <!-- Images will be loaded dynamically -->
     </div>
 </div>
 
@@ -92,6 +101,74 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
 <script>
+    // List of Officer Data and Corresponding Google Drive Image Links
+    const officers = [
+        { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+        { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" },
+        { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4JrPSaDDnng7L" },
+        { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+        { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+        { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
+        { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
+        { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
+        { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
+        { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
+        { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
+        { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" }
+    ];
+
+    function loadOfficerImages() {
+        const carousel1 = document.getElementById("carousel1");
+        const carousel2 = document.getElementById("carousel2");
+
+        officers.forEach((officer, index) => {
+            let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
+            let slide = document.createElement("div");
+            slide.innerHTML = `
+                <img src="${imgUrl}" alt="${officer.name}">
+                <div class="officer-info">
+                    <strong>${officer.name}</strong><br>${officer.position}
+                </div>
+            `;
+            // Alternate between the two carousels
+            if (index % 2 === 0) {
+                carousel1.appendChild(slide);
+            } else {
+                carousel2.appendChild(slide);
+            }
+        });
+
+        // Initialize Slick Carousel for both
+        $("#carousel1").slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000, // Starts with 3s
+            arrows: true
+        });
+
+        $("#carousel2").slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000, // Starts with 5s
+            arrows: true
+        });
+
+        // Swap speeds after first cycle
+        setInterval(() => {
+            $("#carousel1").slick("slickSetOption", "autoplaySpeed", 5000, true);
+            $("#carousel2").slick("slickSetOption", "autoplaySpeed", 3000, true);
+        }, 8000); // Swap every 8 seconds
+    }
+
+    // Load header, footer, and images
     document.addEventListener("DOMContentLoaded", function () {
         fetch('header.html')
             .then(response => response.text())
@@ -106,7 +183,7 @@
             .then(data => document.getElementById('footer-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading footer:', error));
 
-        loadOfficers();
+        loadOfficerImages();
     });
 
     function attachMenuListener() {
@@ -124,66 +201,6 @@
                 }
             });
         }
-    }
-
-    function loadOfficers() {
-        const officers = [
-            { name: "Paul Griffith", position: "Junior Steward", img: "https://drive.google.com/uc?export=view&id=1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
-            { name: "Officers", position: "Officers", img: "https://drive.google.com/uc?export=view&id=1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" },
-            { name: "Michael Strong", position: "Tiler", img: "https://drive.google.com/uc?export=view&id=1opGVdWz2YyXrulzz4JrPSaDDnng7L" },
-            { name: "Michael Barry", position: "Chaplain", img: "https://drive.google.com/uc?export=view&id=1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-            { name: "Howard Phillips", position: "Assistant Secretary", img: "https://drive.google.com/uc?export=view&id=1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
-            { name: "Gustavo Najera III", position: "Treasurer", img: "https://drive.google.com/uc?export=view&id=1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
-            { name: "Gary Phillips", position: "Secretary", img: "https://drive.google.com/uc?export=view&id=1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-            { name: "Edwin Velazquez", position: "Senior Steward", img: "https://drive.google.com/uc?export=view&id=1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
-            { name: "David Wehmeyer", position: "Marshal", img: "https://drive.google.com/uc?export=view&id=16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
-            { name: "David Olmedo", position: "Senior Deacon", img: "https://drive.google.com/uc?export=view&id=1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-            { name: "Brian Phillips", position: "Master", img: "https://drive.google.com/uc?export=view&id=1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-            { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "https://drive.google.com/uc?export=view&id=1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-        ];
-
-        const carouselLeft = document.getElementById("carousel-left");
-        const carouselRight = document.getElementById("carousel-right");
-
-        officers.forEach((officer, index) => {
-            const slide = `<div>
-                <img src="${officer.img}" alt="${officer.name}">
-                <div class="officer-caption">${officer.name} - ${officer.position}</div>
-            </div>`;
-
-            if (index % 2 === 0) {
-                carouselLeft.innerHTML += slide;
-            } else {
-                carouselRight.innerHTML += slide;
-            }
-        });
-
-        $("#carousel-left").slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            arrows: true
-        });
-
-        $("#carousel-right").slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 5000,
-            arrows: true
-        });
-
-        setInterval(() => {
-            $("#carousel-left").slick("slickSetOption", "autoplaySpeed", 5000, true);
-            $("#carousel-right").slick("slickSetOption", "autoplaySpeed", 3000, true);
-        }, 8000);
     }
 </script>
 
