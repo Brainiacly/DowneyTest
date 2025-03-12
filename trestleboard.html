@@ -45,15 +45,15 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* Maximize Button - Now Correctly in the Top Right Corner */
+        /* Maximize Button - Now Fixed in the Top Right Corner */
         .fullscreen-btn {
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 20px;  /* Ensures it's above the iframe */
+            right: 30px;
             background: none;
             border: none;
             color: white;
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
             z-index: 2000;
             transition: opacity 0.3s;
@@ -65,7 +65,7 @@
 
         /* Arrows for Navigation */
         .nav-arrow {
-            position: fixed;
+            position: absolute;
             top: 50%;
             transform: translateY(-50%);
             font-size: 2rem;
@@ -108,7 +108,7 @@
         <!-- Google Slides Embed (Auto-play & Loop) -->
         <div class="trestleboard-container">
 
-            <!-- Maximize Button (Top Right Corner) -->
+            <!-- Maximize Button (Now Correctly Positioned in the Top-Right Corner) -->
             <button class="fullscreen-btn" onclick="toggleFullScreen()">🔲</button>
 
             <!-- Navigation Arrows -->
