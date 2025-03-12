@@ -127,7 +127,7 @@
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
                 
-                // Reattach the menu toggle function to ensure it works
+                // Ensure Menu Works
                 const toggleMenu = () => {
                     const menu = document.getElementById('dropdownMenu');
                     menu.classList.toggle('active');
@@ -157,15 +157,24 @@
             }
         }
 
-        // Function to Navigate Slides
+        // Slide Navigation for Google Slides
+        let currentSlide = 0; // Track current slide
+
         function nextSlide() {
-            let iframe = document.getElementById("trestleboard");
-            iframe.src = iframe.src.replace("start=true", "start=false") + "&slide=id.p";
+            currentSlide++;
+            updateSlide();
         }
 
         function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function updateSlide() {
             let iframe = document.getElementById("trestleboard");
-            iframe.src = iframe.src.replace("start=true", "start=false") + "&slide=id.p";
+            iframe.src = `https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&delayms=5000&slide=${currentSlide}`;
         }
     </script>
 
