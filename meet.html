@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 
     <style>
-        /* Keep Header and Footer Normal Size */
+        /* Keep Header & Footer Normal */
         body {
             background-color: #000;
             color: #fff;
@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* Scale Everything Below Header & Above Footer */
+        /* Scale All Content Except Header/Footer */
         .content-wrapper {
             transform: scale(0.85);
             transform-origin: top center;
@@ -44,13 +44,6 @@
             width: 90%;
             margin: auto;
             max-width: 1200px;
-        }
-
-        .carousel {
-            display: flex;
-            justify-content: center;
-            max-width: 1200px;
-            margin: auto;
         }
 
         .carousel img {
@@ -109,24 +102,20 @@
                 flex-direction: column;
                 align-items: center;
             }
-
-            .carousel {
-                width: 90%;
-            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Header (Full Size) -->
+    <!-- Header -->
     <div id="header-placeholder"></div>
 
-    <!-- Content Wrapper (Shrinks to 85%) -->
+    <!-- Content Wrapper (85% Scale) -->
     <div class="content-wrapper">
         <div class="header">MEET THE OFFICERS</div>
 
-        <!-- Toggle View Button -->
+        <!-- Toggle Button -->
         <button class="toggle-view-btn" id="toggleView">Show All</button>
 
         <!-- Carousel View -->
@@ -134,7 +123,7 @@
             <div class="carousel" id="officer-carousel"></div>
         </div>
 
-        <!-- Full List View (Hidden by Default) -->
+        <!-- Full List View (Hidden Initially) -->
         <div class="full-list" id="full-list-view">
             <div class="carousel-container">
                 <div id="full-list"></div>
@@ -142,7 +131,7 @@
         </div>
     </div>
 
-    <!-- Footer (Full Size) -->
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -163,11 +152,11 @@
         // Lodge Logo Placeholder
         const lodgeLogo = "https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png";
 
-        // Officer Data
+        // Officer Data (Displayed in Groups of 3)
         const officers = [
             { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
             { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-            { name: "Junior Warden", position: "Junior Warden", img: lodgeLogo }, 
+            { name: "Junior Warden", position: "Junior Warden", img: lodgeLogo },
 
             { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
             { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
@@ -177,7 +166,7 @@
             { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
             { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
 
-            { name: "Junior Deacon", position: "Junior Deacon", img: lodgeLogo }, 
+            { name: "Junior Deacon", position: "Junior Deacon", img: lodgeLogo },
             { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
             { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
         ];
@@ -212,6 +201,12 @@
         }
 
         document.addEventListener("DOMContentLoaded", loadOfficerImages);
+
+        document.getElementById("toggleView").addEventListener("click", function() {
+            document.getElementById("carousel-view").classList.toggle("hidden");
+            document.getElementById("full-list-view").classList.toggle("hidden");
+            this.textContent = this.textContent === "Show All" ? "Show Carousel" : "Show All";
+        });
     </script>
 
 </body>
