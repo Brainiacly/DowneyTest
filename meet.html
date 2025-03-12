@@ -41,21 +41,16 @@
         }
 
         .carousel-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
             width: 90%;
             margin: auto;
-            padding: 20px;
             max-width: 1200px;
         }
 
         .carousel {
-            width: 30%;
-            max-width: 400px;
-            border-radius: 10px;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: auto;
         }
 
         .carousel img {
@@ -88,6 +83,26 @@
             color: #ccc;
         }
 
+        .toggle-view-btn {
+            background-color: #800020;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        .toggle-view-btn:hover {
+            background-color: #a00028;
+        }
+
+        /* Hide Full List Initially */
+        .full-list {
+            display: none;
+        }
+
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel-container {
@@ -111,26 +126,19 @@
     <div class="content-wrapper">
         <div class="header">MEET THE OFFICERS</div>
 
-        <div class="carousel-container">
-            <!-- First Row -->
-            <div class="carousel" id="carousel1"></div>
-            <div class="carousel" id="carousel2"></div>
-            <div class="carousel" id="carousel3"></div>
+        <!-- Toggle View Button -->
+        <button class="toggle-view-btn" id="toggleView">Show All</button>
 
-            <!-- Second Row -->
-            <div class="carousel" id="carousel4"></div>
-            <div class="carousel" id="carousel5"></div>
-            <div class="carousel" id="carousel6"></div>
+        <!-- Carousel View -->
+        <div class="carousel-container" id="carousel-view">
+            <div class="carousel" id="officer-carousel"></div>
+        </div>
 
-            <!-- Third Row -->
-            <div class="carousel" id="carousel7"></div>
-            <div class="carousel" id="carousel8"></div>
-            <div class="carousel" id="carousel9"></div>
-
-            <!-- Fourth Row -->
-            <div class="carousel" id="carousel10"></div>
-            <div class="carousel" id="carousel11"></div>
-            <div class="carousel" id="carousel12"></div>
+        <!-- Full List View (Hidden by Default) -->
+        <div class="full-list" id="full-list-view">
+            <div class="carousel-container">
+                <div id="full-list"></div>
+            </div>
         </div>
     </div>
 
@@ -152,11 +160,14 @@
             .then(data => document.getElementById('footer-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading footer:', error));
 
+        // Lodge Logo Placeholder
+        const lodgeLogo = "https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png";
+
         // Officer Data
         const officers = [
             { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
             { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-            { name: "Junior Warden", position: "Junior Warden", img: "" }, // Placeholder
+            { name: "Junior Warden", position: "Junior Warden", img: lodgeLogo }, 
 
             { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
             { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
@@ -166,7 +177,7 @@
             { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
             { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
 
-            { name: "Junior Deacon", position: "Junior Deacon", img: "" }, // Placeholder
+            { name: "Junior Deacon", position: "Junior Deacon", img: lodgeLogo }, 
             { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
             { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
         ];
@@ -176,19 +187,27 @@
         }
 
         function loadOfficerImages() {
-            officers.forEach((officer, index) => {
-                let carousel = document.getElementById(`carousel${index + 1}`);
-                let imgUrl = officer.img ? `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000` : "https://via.placeholder.com/400";
+            const carousel = document.getElementById("officer-carousel");
+            const fullList = document.getElementById("full-list");
 
-                let slide = document.createElement("div");
-                slide.innerHTML = `<div class="officer-card">
+            officers.forEach(officer => {
+                let imgUrl = officer.img.includes("google") ? `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000` : officer.img;
+
+                let card = `<div class="officer-card">
                     <div class="officer-name">${officer.name}</div>
                     <img src="${imgUrl}" alt="${officer.name}" onclick="window.open('${imgUrl}', '_blank')">
                     <div class="officer-position">${officer.position}</div>
                 </div>`;
 
-                carousel.appendChild(slide);
-                $(`#carousel${index + 1}`).slick({ autoplay: true, autoplaySpeed: getRandomSpeed(), arrows: true });
+                carousel.innerHTML += card;
+                fullList.innerHTML += card;
+            });
+
+            $("#officer-carousel").slick({
+                slidesToShow: 3,
+                autoplay: true,
+                autoplaySpeed: getRandomSpeed(),
+                arrows: true,
             });
         }
 
