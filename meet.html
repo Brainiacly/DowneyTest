@@ -120,6 +120,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
+        // Function to initialize the menu or other JavaScript features after loading the header
+        function initializeHeaderFeatures() {
+            console.log("Header features initialized!");
+            // Add any custom JavaScript for your header menu here
+        }
+
         // Load Header and Footer with detailed error logging
         fetch('header.html?nocache=' + new Date().getTime())
             .then(response => {
@@ -128,7 +134,12 @@
                 }
                 return response.text();
             })
-            .then(data => document.getElementById('header-placeholder').innerHTML = data)
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+
+                // Call initialization function after loading header
+                initializeHeaderFeatures();
+            })
             .catch(error => console.error('Error loading header:', error));
 
         fetch('footer.html?nocache=' + new Date().getTime())
@@ -178,12 +189,20 @@
                         <div class="officer-position">${officer.position}</div>
                     </div>`;
                 });
-                $(`#carousel${i + 1}`).slick({ slidesToShow: 1, autoplay: true, autoplaySpeed: 3000 + i, arrows: true, pauseOnHover: false });
+                $(`#carousel${i + 1}`).slick({
+                    slidesToShow: 1,
+                    autoplay: true,
+                    autoplaySpeed: 3000 + i,
+                    arrows: true,
+                    pauseOnHover: false
+                });
             });
         }
 
+        // Ensure carousels are loaded after DOM is fully ready
         document.addEventListener("DOMContentLoaded", loadCarousels);
     </script>
+
 </body>
 
 </html>
