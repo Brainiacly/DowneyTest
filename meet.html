@@ -50,6 +50,7 @@
         .carousel img {
             width: 100%;
             max-height: 500px;
+            height: auto;
             border-radius: 10px;
             object-fit: cover;
         }
@@ -123,7 +124,7 @@
         { name: "Junior Deacon", position: "Junior Deacon", img: "" },  // Leave space for Junior Deacon
         { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
         { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
-        { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4JrPSaDDnng7L" },
+        { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
         { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
     ];
 
@@ -140,10 +141,10 @@
                 let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
                 let slide = document.createElement("div");
                 slide.innerHTML = `
-                    <img src="${imgUrl}" alt="${officer.name}">
                     <div class="officer-info">
                         <strong>${officer.name}</strong><br>${officer.position}
                     </div>
+                    <img src="${imgUrl}" alt="${officer.name}">
                     <a href="${imgUrl}" target="_blank" class="full-screen-link">View Full Screen</a>
                 `;
                 // Alternate between the two carousels
@@ -164,7 +165,9 @@
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: getRandomInterval(),
-            arrows: true
+            arrows: true,
+            fade: true,
+            cssEase: 'linear'
         });
 
         $("#carousel2").slick({
@@ -175,7 +178,9 @@
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: getRandomInterval(),
-            arrows: true
+            arrows: true,
+            fade: true,
+            cssEase: 'linear'
         });
 
         // Change autoplay speed at random intervals
