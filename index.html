@@ -39,18 +39,30 @@
             z-index: 10;
         }
 
-        /* Image Container */
-        .image-container {
+        /* Existing Image Container */
+        .existing-image-container {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
         }
 
-        .image-container img {
+        .existing-image-container img {
             width: 100%;
-            max-width: 1200px; /* Prevents over-expansion */
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* New Image Container (From Google Drive) */
+        .new-image-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .new-image-container img {
+            width: 100%;
             height: auto;
             object-fit: contain;
             border-radius: 10px;
@@ -72,9 +84,14 @@
         <!-- Header Placeholder -->
         <div id="header-placeholder"></div>
 
-        <!-- Image Section (Before Footer) -->
-        <div class="image-container">
-            <img src="https://drive.google.com/uc?export=view&id=1tkI0dPrGbWD61e8mNjTGcr2PRnlpbEkB" alt="Lodge Image">
+        <!-- Existing Image (Above the New One) -->
+        <div class="existing-image-container">
+            <img src="EXISTING_IMAGE_URL_HERE" alt="Existing Lodge Image">
+        </div>
+
+        <!-- New Image (From Google Drive) -->
+        <div class="new-image-container">
+            <img src="https://drive.google.com/thumbnail?id=1tkI0dPrGbWD61e8mNjTGcr2PRnlpbEkB&sz=w1000" alt="Lodge Image">
         </div>
 
         <!-- Footer Placeholder -->
