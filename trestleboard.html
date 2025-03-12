@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 
     <style>
-        /* Ensure page scrolls correctly */
+        /* Ensure Page Scrolls Properly */
         html, body {
             margin: 0;
             padding: 0;
@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* Wrapper to enable scrolling */
+        /* Wrapper for Proper Layout */
         .content-wrapper {
             display: flex;
             flex-direction: column;
@@ -32,6 +32,14 @@
             align-items: center;
         }
 
+        /* Header Fix */
+        #header-placeholder {
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Trestleboard Container */
         .trestleboard-container {
             flex-grow: 1;
             display: flex;
@@ -43,6 +51,7 @@
             margin-top: 20px;
         }
 
+        /* Embed PowerPoint */
         iframe {
             width: 100%;
             height: 80vh;
@@ -50,7 +59,7 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* Menu Bar Beneath the PowerPoint */
+        /* Menu Bar Beneath PowerPoint */
         .menu-bar {
             display: flex;
             justify-content: space-between;
@@ -83,7 +92,7 @@
             font-weight: bold;
         }
 
-        /* Ensure Footer is Visible */
+        /* Footer */
         footer {
             text-align: center;
             padding: 10px;
@@ -112,7 +121,11 @@
         <!-- Menu Bar Beneath PowerPoint -->
         <div class="menu-bar">
             <button class="nav-arrow" onclick="prevSlide()">&#10094; Previous</button>
-            <button onclick="openFullScreen()">🔲 Full Screen (esc - to exit)</button>
+            <div>
+                <button onclick="openFullScreen()">🔲 Full Screen (esc - to exit)</button>
+                <br>
+                <small>Click Through Slides</small>
+            </div>
             <button class="nav-arrow" onclick="nextSlide()">Next &#10095;</button>
         </div>
 
@@ -128,7 +141,7 @@
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
                 
-                // Ensure Menu Works
+                // Ensure Menu Works Properly
                 document.querySelector('.hamburger-menu').addEventListener('click', function () {
                     document.getElementById('dropdownMenu').classList.toggle('active');
                 });
@@ -152,15 +165,18 @@
             }
         }
 
-        // Slide Navigation (Next & Previous)
-        function nextSlide() {
+        // Function to Navigate Google Slides
+        function postMessageToSlides(action) {
             let iframe = document.getElementById("trestleboard");
-            iframe.contentWindow.postMessage({ method: "nextSlide" }, "*");
+            iframe.contentWindow.postMessage({ method: action }, "*");
+        }
+
+        function nextSlide() {
+            postMessageToSlides("next");
         }
 
         function prevSlide() {
-            let iframe = document.getElementById("trestleboard");
-            iframe.contentWindow.postMessage({ method: "prevSlide" }, "*");
+            postMessageToSlides("prev");
         }
     </script>
 
