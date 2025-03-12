@@ -25,8 +25,6 @@
         .navbar a {
             text-decoration: none;
             color: #f5f0e6;
-            z-index: 3;
-            position: relative;
         }
 
         .navbar a:hover {
@@ -38,8 +36,6 @@
             max-height: 50px;
             border-radius: 50%;
             border: 2px solid #8d6e63;
-            position: relative;
-            z-index: 3;
         }
 
         .navbar-title {
@@ -51,7 +47,6 @@
             white-space: nowrap;
             padding: 0 10px;
             position: relative;
-            z-index: 3;
         }
 
         .hamburger-menu {
@@ -59,8 +54,6 @@
             flex-direction: column;
             cursor: pointer;
             padding: 10px;
-            z-index: 3;
-            position: relative;
         }
 
         .hamburger-menu div {
@@ -81,7 +74,7 @@
             width: 200px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
-            z-index: 5;
+            z-index: 20;
         }
 
         .menu a {
@@ -104,26 +97,24 @@
         /* Running Man Animation */
         .running-man {
             position: absolute;
-            top: 10px;
-            font-size: 1.2rem;
+            top: 15px;
+            font-size: 1.5rem;
             white-space: nowrap;
-            z-index: 1; /* Behind everything */
-            animation: runRight 10s linear infinite;
+            animation-timing-function: linear;
         }
 
+        /* Running Left to Right */
         @keyframes runRight {
-            0% { left: -50px; opacity: 0; }
-            10% { opacity: 1; }
-            90% { left: calc(100% + 50px); opacity: 1; }
-            100% { opacity: 0; }
+            0% { left: -50px; opacity: 1; }
+            100% { left: calc(100% + 50px); opacity: 1; }
         }
 
+        /* Running Right to Left */
         @keyframes runLeft {
-            0% { right: -50px; opacity: 0; }
-            10% { opacity: 1; }
-            90% { right: calc(100% + 50px); opacity: 1; }
-            100% { opacity: 0; }
+            0% { right: -50px; opacity: 1; }
+            100% { right: calc(100% + 50px); opacity: 1; }
         }
+
     </style>
 
     <!-- Navbar -->
@@ -132,8 +123,9 @@
             <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
         </a>
         <div class="navbar-title">
-            DOWNEY UNITED LODGE #220   -   THE SENSATION OF THE NATION
-            <span class="running-man" id="running-man-right">🏃🏾</span>
+            DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
+            <span class="running-man" id="running-man-right" style="display:none;">🏃🏾</span>
+            <span class="running-man" id="running-man-left" style="display:none;">🏃🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -182,19 +174,29 @@
 
             // Running Man Logic
             let runningManRight = document.getElementById("running-man-right");
+            let runningManLeft = document.getElementById("running-man-left");
 
             function runRight() {
                 runningManRight.style.display = "inline";
-                runningManRight.style.animation = "runRight 10s linear forwards";
-                setTimeout(runLeft, 20000);
+                runningManRight.style.left = "-50px"; // Start off-screen
+                runningManRight.style.animation = "runRight 5s linear forwards"; // Run right
+                setTimeout(() => {
+                    runningManRight.style.display = "none";
+                    setTimeout(runLeft, 10000); // Wait 10s before left runner starts
+                }, 5000);
             }
 
             function runLeft() {
-                runningManRight.style.animation = "runLeft 10s linear forwards";
-                setTimeout(runRight, 20000);
+                runningManLeft.style.display = "inline";
+                runningManLeft.style.right = "-50px"; // Start off-screen
+                runningManLeft.style.animation = "runLeft 5s linear forwards"; // Run left
+                setTimeout(() => {
+                    runningManLeft.style.display = "none";
+                    setTimeout(runRight, 10000); // Wait 10s before right runner starts again
+                }, 5000);
             }
 
-            setTimeout(runRight, 10000);
+            setTimeout(runRight, 10000); // Start the first run after 10s
         });
     </script>
 </div>
