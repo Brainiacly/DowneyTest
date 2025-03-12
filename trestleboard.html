@@ -139,7 +139,7 @@
         <!-- Google Slides Embed -->
         <div class="trestleboard-container">
             <iframe id="trestleboard" 
-                src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&delayms=5000&rm=minimal"
+                src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=false&delayms=5000"
                 allowfullscreen>
             </iframe>
         </div>
@@ -152,7 +152,6 @@
             </div>
             <button class="nav-arrow" onclick="nextSlide()">Next &#10095;</button>
         </div>
-        
 
         <!-- Footer Placeholder -->
         <div id="footer-placeholder"></div>
@@ -160,6 +159,9 @@
     </div>
 
     <script>
+        let currentSlide = 1; // Start from slide 1
+        const totalSlides = 20; // Adjust this based on the number of slides
+
         // Load Header and Footer Correctly
         fetch('header.html')
             .then(response => response.text())
@@ -190,18 +192,25 @@
             }
         }
 
-        // Function to Navigate Google Slides
-        function postMessageToSlides(action) {
+        // Navigate Google Slides by Modifying URL
+        function updateSlide(slideNumber) {
             let iframe = document.getElementById("trestleboard");
-            iframe.contentWindow.postMessage({ method: action }, "*");
+            let baseURL = "https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=false&delayms=5000";
+            iframe.src = `${baseURL}#slide=${slideNumber}`;
         }
 
         function nextSlide() {
-            postMessageToSlides("next");
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide(currentSlide);
+            }
         }
 
         function prevSlide() {
-            postMessageToSlides("prev");
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide(currentSlide);
+            }
         }
     </script>
 
