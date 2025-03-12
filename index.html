@@ -1,77 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downey United Lodge #220</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
-</head>
 
+    <!-- jQuery for Enhancements -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Pico CSS for Styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+
+    <style>
+        /* Ensure Page Scrolls Properly */
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: black;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* Wrapper for Proper Layout */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        /* Header Fix */
+        #header-placeholder {
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Image Container */
+        .image-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 1200px; /* Prevents over-expansion */
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer Fix */
+        #footer-placeholder {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
 <body>
 
-    <!-- Load Header -->
-    <div id="header-placeholder"></div>
+    <!-- Page Wrapper -->
+    <div class="content-wrapper">
 
-    <!-- Main Content -->
-    <div id="main-content">
-        <div id="header-container" style="
-            position: relative;
-            text-align: center;
-            background-image: url('https://lodge220.freemason.org/wp-content/uploads/sites/39/2016/09/main_image.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 500px;
-            border-bottom: 5px solid #8d6e63;
-            display: flex;
-            align-items: center;
-            justify-content: center;">
-            <div id="header-overlay" style="
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.3);">
-            </div>
-            <div id="header-text" style="
-                position: relative;
-                z-index: 2;
-                color: #f0e6d6;
-                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-                font-weight: bold;">
-                <h1 style="color: #e0d7c6;">DOWNEY UNITED LODGE #220</h1>
-                <h3 style="font-family: 'Merriweather', serif; font-size: 1.5rem; color: #f0e6d6;">"THE SENSATION OF THE NATION"</h3>
-            </div>
+        <!-- Header Placeholder -->
+        <div id="header-placeholder"></div>
+
+        <!-- Image Section (Before Footer) -->
+        <div class="image-container">
+            <img src="https://drive.google.com/uc?export=view&id=1tkI0dPrGbWD61e8mNjTGcr2PRnlpbEkB" alt="Lodge Image">
         </div>
+
+        <!-- Footer Placeholder -->
+        <div id="footer-placeholder"></div>
+
     </div>
 
-    <!-- Load Footer -->
-    <div id="footer-placeholder"></div>
-
     <script>
-        // Load header dynamically and reattach event listener for the menu
+        // Load Header and Footer Correctly
         fetch('header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
 
-                // Wait for the header to be loaded, then add event listener for menu toggle
-                const hamburgerMenu = document.querySelector('.hamburger-menu');
-                if (hamburgerMenu) {
-                    hamburgerMenu.addEventListener('click', function () {
-                        document.getElementById('dropdownMenu').classList.toggle('active');
-                    });
-                }
+                // Ensure Menu Works Properly
+                document.querySelector('.hamburger-menu').addEventListener('click', function () {
+                    document.getElementById('dropdownMenu').classList.toggle('active');
+                });
             })
             .catch(error => console.error('Error loading header:', error));
 
-        // Load footer dynamically
         fetch('footer.html')
             .then(response => response.text())
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
             .catch(error => console.error('Error loading footer:', error));
     </script>
 
