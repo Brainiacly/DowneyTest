@@ -17,8 +17,9 @@
             padding: 5px 20px;
             color: #f5f0e6;
             position: relative;
-            max-height: 60px;
+            height: 60px;
             border-bottom: 3px solid #8d6e63;
+            overflow: hidden;
         }
 
         .navbar a {
@@ -35,6 +36,17 @@
             max-height: 50px;
             border-radius: 50%;
             border: 2px solid #8d6e63;
+        }
+
+        .navbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            white-space: nowrap;
+            padding: 0 10px;
+            position: relative;
         }
 
         .hamburger-menu {
@@ -59,7 +71,7 @@
             right: 10px;
             background-color: #f5f0e6;
             color: #3e2723;
-            width: 180px;
+            width: 200px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
             z-index: 20;
@@ -81,13 +93,39 @@
         .menu.active {
             display: block;
         }
+
+        /* Running Man Animation */
+        .running-man {
+            position: absolute;
+            top: 15px;
+            font-size: 1.5rem;
+            white-space: nowrap;
+            animation-timing-function: linear;
+        }
+
+        /* Running Left to Right */
+        @keyframes runRight {
+            0% { left: -50px; opacity: 1; }
+            100% { left: calc(100% + 50px); opacity: 1; }
+        }
+
+        /* Running Right to Left */
+        @keyframes runLeft {
+            0% { right: -50px; opacity: 1; }
+            100% { right: calc(100% + 50px); opacity: 1; }
+        }
+
     </style>
 
-    <!-- Navbar -->
     <div class="navbar">
         <a href="index.html">
             <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
         </a>
+        <div class="navbar-title">
+            DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
+            <span class="running-man" id="running-man-right" style="display:none;">🏃🏾</span>
+            <span class="running-man" id="running-man-left" style="display:none;">🏃🏾</span>
+        </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -95,19 +133,17 @@
         </div>
     </div>
 
-    <!-- Dropdown Menu -->
     <div class="menu" id="dropdownMenu">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="calendar.html">Calendar</a>
         <a href="contactus.html">Contact Us</a>
-        <a href="trestleboard.html">Digital Trestleboard</a> <!-- New menu item added -->
+        <a href="trestleboard.html">Digital Trestleboard</a>
         <a href="events.html">Events</a>
-        <a href="https://freemason.org" target="_blank">Freemason.org</a>
+        <a href="https://freemason.org" target="_blank" onclick="closeMenuAfterClick()">Freemason.org</a>
         <a href="join.html">Join Us</a>
         <a href="meet.html">Meet the Officers</a>
         <a href="news.html">News</a>
-        
     </div>
 
     <script>
@@ -116,10 +152,11 @@
             menu.classList.toggle('active');
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const menuLinks = document.querySelectorAll('#dropdownMenu a');
+        function closeMenuAfterClick() {
+            document.getElementById('dropdownMenu').classList.remove('active');
+        }
 
+        document.addEventListener('DOMContentLoaded', () => {
             document.addEventListener('click', function (event) {
                 const menu = document.getElementById('dropdownMenu');
                 const hamburger = document.querySelector('.hamburger-menu');
@@ -132,6 +169,32 @@
                     menu.classList.remove('active');
                 }
             });
+
+            // Running Man Logic
+            let runningManRight = document.getElementById("running-man-right");
+            let runningManLeft = document.getElementById("running-man-left");
+
+            function runRight() {
+                runningManRight.style.display = "inline";
+                runningManRight.style.left = "-50px"; // Start off-screen
+                runningManRight.style.animation = "runRight 5s linear forwards"; // Run right
+                setTimeout(() => {
+                    runningManRight.style.display = "none";
+                    setTimeout(runLeft, 10000); // Wait 10s before left runner starts
+                }, 5000);
+            }
+
+            function runLeft() {
+                runningManLeft.style.display = "inline";
+                runningManLeft.style.right = "-50px"; // Start off-screen
+                runningManLeft.style.animation = "runLeft 5s linear forwards"; // Run left
+                setTimeout(() => {
+                    runningManLeft.style.display = "none";
+                    setTimeout(runRight, 10000); // Wait 10s before right runner starts again
+                }, 5000);
+            }
+
+            setTimeout(runRight, 10000); // Start the first run after 10s
         });
     </script>
 </div>
