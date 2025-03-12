@@ -134,7 +134,7 @@
         <a href="contactus.html">Contact Us</a>
         <a href="trestleboard.html">Digital Trestleboard</a>
         <a href="events.html">Events</a>
-        <a href="https://freemason.org" target="_blank">Freemason.org</a>
+        <a href="https://freemason.org" target="_blank" onclick="closeMenuAfterClick()">Freemason.org</a>
         <a href="join.html">Join Us</a>
         <a href="meet.html">Meet the Officers</a>
         <a href="news.html">News</a>
@@ -146,9 +146,11 @@
             menu.classList.toggle('active');
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuLinks = document.querySelectorAll('#dropdownMenu a');
+        function closeMenuAfterClick() {
+            document.getElementById('dropdownMenu').classList.remove('active');
+        }
 
+        document.addEventListener('DOMContentLoaded', () => {
             document.addEventListener('click', function (event) {
                 const menu = document.getElementById('dropdownMenu');
                 const hamburger = document.querySelector('.hamburger-menu');
