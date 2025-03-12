@@ -100,27 +100,26 @@
             display: block;
         }
 
-        /* Running Man Animation */
-        .running-man {
+        /* Fist Bump Animation */
+        .fist-bump {
             position: absolute;
             top: 15px;
             font-size: 1.5rem;
-            white-space: nowrap;
             opacity: 1;
         }
 
-        /* Running Left to Right */
-        @keyframes runRight {
+        /* Fist Moves from Left to Center */
+        @keyframes leftFist {
             0% { left: -50px; }
             50% { left: 50%; transform: translateX(-50%); } /* Middle fist bump */
-            100% { left: 100%; }
+            100% { left: 50%; transform: translateX(-50%); } /* Stay in the middle briefly */
         }
 
-        /* Running Right to Left */
-        @keyframes runLeft {
+        /* Fist Moves from Right to Center */
+        @keyframes rightFist {
             0% { right: -50px; }
             50% { right: 50%; transform: translateX(50%); } /* Middle fist bump */
-            100% { right: 100%; }
+            100% { right: 50%; transform: translateX(50%); } /* Stay in the middle briefly */
         }
 
     </style>
@@ -131,8 +130,8 @@
         </a>
         <div class="navbar-title">
             <span>DOWNEY UNITED LODGE #220</span> &nbsp;&nbsp; <span>THE SENSATION OF THE NATION</span>
-            <span class="running-man" id="running-man-right" style="display:none;">🤜🏾</span>
-            <span class="running-man" id="running-man-left" style="display:none;">🤛🏾</span>
+            <span class="fist-bump" id="left-fist" style="display:none;">🤛🏾</span>
+            <span class="fist-bump" id="right-fist" style="display:none;">🤜🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -178,31 +177,31 @@
                 }
             });
 
-            // Running Man Logic
-            let runningManRight = document.getElementById("running-man-right");
-            let runningManLeft = document.getElementById("running-man-left");
+            // Fist Bump Logic
+            let leftFist = document.getElementById("left-fist");
+            let rightFist = document.getElementById("right-fist");
 
             function getRandomFist() {
                 const fists = ["🤜", "🤛", "🤜🏾", "🤛🏾", "🤜🏻", "🤛🏻"];
                 return fists[Math.floor(Math.random() * fists.length)];
             }
 
-            function runRight() {
-                runningManRight.innerHTML = getRandomFist();
-                runningManLeft.innerHTML = getRandomFist();
-                runningManRight.style.display = "inline";
-                runningManLeft.style.display = "inline";
-                runningManRight.style.animation = "runRight 5s linear forwards";
-                runningManLeft.style.animation = "runLeft 5s linear forwards";
+            function fistBump() {
+                leftFist.innerHTML = getRandomFist();
+                rightFist.innerHTML = getRandomFist();
+                leftFist.style.display = "inline";
+                rightFist.style.display = "inline";
+                leftFist.style.animation = "leftFist 2.5s linear forwards";
+                rightFist.style.animation = "rightFist 2.5s linear forwards";
 
                 setTimeout(() => {
-                    runningManRight.style.display = "none";
-                    runningManLeft.style.display = "none";
-                    setTimeout(runRight, 10000); // Wait 10s before restarting
-                }, 5000);
+                    leftFist.style.display = "none";
+                    rightFist.style.display = "none";
+                    setTimeout(fistBump, 10000); // Wait 10s before restarting
+                }, 2500);
             }
 
-            setTimeout(runRight, 10000); // Start the first run after 10s
+            setTimeout(fistBump, 10000); // Start the first bump after 10s
         });
     </script>
 </div>
