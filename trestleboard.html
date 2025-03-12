@@ -72,6 +72,7 @@
             border-radius: 5px;
         }
 
+        /* Button Styling */
         .menu-bar button {
             background: none;
             border: none;
@@ -86,17 +87,19 @@
             opacity: 0.7;
         }
 
-        /* Proper Layout for Buttons */
+        /* Arrange Buttons Properly */
         .button-group {
+            flex-grow: 1;
             display: flex;
-            align-items: center;
-            gap: 20px;
+            justify-content: center;
         }
 
         /* Navigation Arrows */
         .nav-arrow {
             font-size: 1.2rem;
             font-weight: bold;
+            flex: 1;
+            text-align: center;
         }
 
         /* Fullscreen Button */
@@ -106,7 +109,7 @@
             cursor: pointer;
         }
 
-        /* Click Through Slides Text */
+        /* Secondary Line Below Menu */
         .menu-bar-text {
             font-size: 0.9rem;
             color: #ddd;
@@ -145,11 +148,11 @@
         <div class="menu-bar">
             <button class="nav-arrow" onclick="prevSlide()">&#10094; Previous</button>
             <div class="button-group">
-                <button class="fullscreen-btn" onclick="openFullScreen()">🔲 Full Screen (esc - to exit)</button>
+                <button class="fullscreen-btn" onclick="openFullScreen()">🔲 Full Screen</button>
             </div>
             <button class="nav-arrow" onclick="nextSlide()">Next &#10095;</button>
         </div>
-        <div class="menu-bar-text">Click Through Slides</div>
+        <div class="menu-bar-text">(Esc to exit full screen - click through slides.)</div>
 
         <!-- Footer Placeholder -->
         <div id="footer-placeholder"></div>
