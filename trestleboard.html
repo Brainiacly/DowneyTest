@@ -63,32 +63,6 @@
             opacity: 0.7;
         }
 
-        /* Arrows for Navigation */
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            color: white;
-            cursor: pointer;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 50%;
-            z-index: 1000;
-        }
-
-        .nav-arrow:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .prev-slide {
-            left: 5%;
-        }
-
-        .next-slide {
-            right: 5%;
-        }
-
         footer {
             text-align: center;
             padding: 10px;
@@ -110,16 +84,11 @@
 
             <!-- Maximize Button (Now Correctly Positioned in the Top-Right Corner) -->
             <button class="fullscreen-btn" onclick="toggleFullScreen()">🔲</button>
-
-            <!-- Navigation Arrows -->
-            <span class="nav-arrow prev-slide" onclick="prevSlide()">❮</span>
             
             <iframe id="trestleboard" 
                 src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&delayms=5000&slide=1"
                 allowfullscreen>
             </iframe>
-
-            <span class="nav-arrow next-slide" onclick="nextSlide()">❯</span>
         </div>
 
         <!-- Footer Placeholder -->
@@ -160,26 +129,6 @@
                     console.error(`Error trying to enable full-screen mode: ${err.message}`);
                 });
             }
-        }
-
-        // Slide Navigation for Google Slides
-        let currentSlide = 1; // Track current slide
-
-        function nextSlide() {
-            currentSlide++;
-            updateSlide();
-        }
-
-        function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateSlide();
-            }
-        }
-
-        function updateSlide() {
-            let iframe = document.getElementById("trestleboard");
-            iframe.src = `https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&delayms=5000&slide=${currentSlide}`;
         }
     </script>
 
