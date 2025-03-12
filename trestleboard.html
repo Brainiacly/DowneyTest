@@ -27,22 +27,6 @@
             min-height: 100vh;
         }
 
-        .header-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #800020;
-            padding: 10px 20px;
-            color: #f5f0e6;
-            position: relative;
-            border-bottom: 3px solid #8d6e63;
-        }
-
-        .header-bar .title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
         .trestleboard-container {
             flex-grow: 1;
             display: flex;
@@ -106,17 +90,6 @@
             color: white;
             background: #222;
         }
-
-        /* Fullscreen Mode */
-        .fullscreen {
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background: black;
-            z-index: 9999;
-        }
     </style>
 </head>
 <body>
@@ -124,7 +97,7 @@
     <!-- Page Wrapper -->
     <div class="content-wrapper">
 
-        <!-- Header -->
+        <!-- Header Placeholder -->
         <div id="header-placeholder"></div>
 
         <!-- Google Slides Embed (Auto-play & Loop) -->
@@ -142,21 +115,33 @@
         <!-- Fullscreen Link -->
         <a class="fullscreen-link" onclick="toggleFullScreen()">📺 Full Screen</a>
 
-        <!-- Footer -->
+        <!-- Footer Placeholder -->
         <div id="footer-placeholder"></div>
 
     </div>
 
     <script>
-        // Load Header and Footer
+        // Load Header and Footer Correctly
         fetch('header.html')
             .then(response => response.text())
-            .then(data => document.getElementById('header-placeholder').innerHTML = data)
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                
+                // Reattach the menu toggle function to ensure it works
+                const toggleMenu = () => {
+                    const menu = document.getElementById('dropdownMenu');
+                    menu.classList.toggle('active');
+                };
+                
+                document.querySelector('.hamburger-menu').onclick = toggleMenu;
+            })
             .catch(error => console.error('Error loading header:', error));
 
         fetch('footer.html')
             .then(response => response.text())
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
             .catch(error => console.error('Error loading footer:', error));
 
         // Fullscreen Toggle Function
