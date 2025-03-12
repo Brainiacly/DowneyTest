@@ -46,6 +46,7 @@
             color: white;
             white-space: nowrap;
             padding: 0 10px;
+            position: relative;
         }
 
         .hamburger-menu {
@@ -97,28 +98,23 @@
         .running-man {
             position: absolute;
             top: 10px;
-            left: 10px;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             white-space: nowrap;
-            animation: runBackForth 3s linear infinite alternate;
+            animation: runRight 5s linear infinite alternate;
         }
 
-        @keyframes runBackForth {
-            0% {
-                left: 10px;
-                content: "🏃🏾‍♂️➡️";
-            }
-            49% {
-                content: "🏃🏾‍♂️➡️";
-            }
-            50% {
-                left: calc(100% - 50px);
-                content: "🏃🏾‍♂️⬅️";
-            }
-            100% {
-                left: 10px;
-                content: "🏃🏾‍♂️➡️";
-            }
+        @keyframes runRight {
+            0%, 100% { left: -50px; opacity: 0; } /* Start off-screen */
+            10% { opacity: 1; } /* Fade in */
+            90% { left: calc(100% + 50px); opacity: 1; } /* Run across */
+            100% { opacity: 0; } /* Fade out */
+        }
+
+        @keyframes runLeft {
+            0%, 100% { right: -50px; opacity: 0; } /* Start off-screen */
+            10% { opacity: 1; } /* Fade in */
+            90% { right: calc(100% + 50px); opacity: 1; } /* Run across */
+            100% { opacity: 0; } /* Fade out */
         }
     </style>
 
@@ -127,16 +123,16 @@
         <a href="index.html">
             <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
         </a>
-        <div class="navbar-title">Downey United Lodge #220 - THE SENSATION OF THE NATION </div>
+        <div class="navbar-title">
+            Downey United Lodge #220 - The Sensation of the Nation
+            <span class="running-man" id="running-man">🏃🏾‍♂️</span>
+        </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
             <div></div>
             <div></div>
         </div>
     </div>
-
-    <!-- Running Man -->
-    <div class="running-man">🏃🏾‍♂️➡️</div>
 
     <!-- Dropdown Menu -->
     <div class="menu" id="dropdownMenu">
@@ -175,6 +171,23 @@
                     menu.classList.remove('active');
                 }
             });
+
+            // Running Man Logic
+            let runningMan = document.getElementById("running-man");
+
+            function runRight() {
+                runningMan.textContent = "🏃🏾‍♂️";
+                runningMan.style.animation = "runRight 5s linear forwards";
+                setTimeout(runLeft, 10000); // Wait 10s before running left
+            }
+
+            function runLeft() {
+                runningMan.textContent = "🏃🏾";
+                runningMan.style.animation = "runLeft 5s linear forwards";
+                setTimeout(runRight, 10000); // Wait 10s before running right
+            }
+
+            setTimeout(runRight, 10000); // Start running after 10s
         });
     </script>
 </div>
