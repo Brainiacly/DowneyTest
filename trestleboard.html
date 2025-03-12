@@ -19,7 +19,12 @@
             background-color: black;
             color: white;
             text-align: center;
-            overflow: hidden; /* Prevents scrolling */
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures page is full height */
         }
 
         .header {
@@ -30,37 +35,49 @@
         }
 
         .trestleboard-container {
-            width: 100vw;
-            height: 90vh; /* Takes full viewport height minus header/footer */
+            flex-grow: 1; /* Allows iframe to resize dynamically */
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 10px;
         }
 
         iframe {
             width: 100%;
-            height: 100%;
+            height: 75vh; /* Allows scrolling to footer */
             border: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            color: white;
+            background: #222;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <div id="header-placeholder"></div>
+    <!-- Page Wrapper (Ensures Proper Layout) -->
+    <div class="content-wrapper">
 
-    <div class="header">Digital Trestleboard</div>
+        <!-- Header -->
+        <div id="header-placeholder"></div>
 
-    <!-- Google Slides Embed (Auto-play & Loop) -->
-    <div class="trestleboard-container">
-        <iframe 
-            src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=true&delayms=5000"
-            allowfullscreen>
-        </iframe>
+        <div class="header">Digital Trestleboard</div>
+
+        <!-- Google Slides Embed (Auto-play & Loop) -->
+        <div class="trestleboard-container">
+            <iframe 
+                src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=true&delayms=5000"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Footer -->
+        <div id="footer-placeholder"></div>
+
     </div>
-
-    <!-- Footer -->
-    <div id="footer-placeholder"></div>
 
     <script>
         // Load Header and Footer
