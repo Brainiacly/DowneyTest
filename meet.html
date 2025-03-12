@@ -116,103 +116,99 @@
 
 <body>
 
-<!-- Header -->
-<div id="header-placeholder"></div>
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
 
-<div class="header">MEET THE OFFICERS</div>
+    <div class="header">MEET THE OFFICERS</div>
 
-<div class="carousel-container">
-    <!-- First Carousel -->
-    <div class="carousel" id="carousel1">
-        <!-- Images will be loaded dynamically -->
+    <div class="carousel-container">
+        <!-- First Carousel -->
+        <div class="carousel" id="carousel1"></div>
+
+        <!-- Second Carousel -->
+        <div class="carousel" id="carousel2"></div>
     </div>
 
-    <!-- Second Carousel -->
-    <div class="carousel" id="carousel2">
-        <!-- Images will be loaded dynamically -->
-    </div>
-</div>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
 
-<!-- Footer -->
-<div id="footer-placeholder"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-
-<script>
-    // List of Officer Data and Corresponding Google Drive Image Links
-    const officers = [
-        { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-        { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-        { name: "Junior Warden", position: "Junior Warden", img: "" },  // Leave space for Junior Warden
-        { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
-        { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-        { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
-        { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-        { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
-        { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-        { name: "Junior Deacon", position: "Junior Deacon", img: "" },
-        { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
-        { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
-        { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
-        { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
-    ];
-
-    function loadOfficerImages() {
-        const carousel1 = document.getElementById("carousel1");
-        const carousel2 = document.getElementById("carousel2");
-
-        officers.forEach((officer, index) => {
-            if (officer.img) {
-                let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
-                let slide = document.createElement("div");
-                slide.innerHTML = `
-                    <div class="officer-info">${officer.position}</div>
-                    <img src="${imgUrl}" alt="${officer.name}">
-                    <div class="officer-name">${officer.name}</div>
-                    <div class="view-button">
-                        <a href="${imgUrl}" target="_blank">Full Screen <img src="${imgUrl}" alt="Thumbnail"></a>
-                    </div>
-                `;
-                if (index % 2 === 0) {
-                    carousel1.appendChild(slide);
-                } else {
-                    carousel2.appendChild(slide);
+    <script>
+        // Load Header and Footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                
+                // Fix menu toggle for hamburger
+                let menuButton = document.querySelector('.hamburger-menu');
+                if (menuButton) {
+                    menuButton.addEventListener('click', function () {
+                        document.getElementById('dropdownMenu').classList.toggle('active');
+                    });
                 }
-            }
-        });
+            })
+            .catch(error => console.error('Error loading header:', error));
 
-        $("#carousel1").slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            arrows: true,
-            fade: true,
-            cssEase: 'linear'
-        });
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
 
-        $("#carousel2").slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 5000,
-            arrows: true,
-            fade: true,
-            cssEase: 'linear'
-        });
-    }
+        // List of Officer Data and Corresponding Google Drive Image Links
+        const officers = [
+            { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
+            { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
+            { name: "Junior Warden", position: "Junior Warden", img: "" },
+            { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
+            { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
+            { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
+            { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+            { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+            { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
+            { name: "Junior Deacon", position: "Junior Deacon", img: "" },
+            { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
+            { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+            { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
+            { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
+        ];
 
-    document.addEventListener("DOMContentLoaded", function () {
-        loadOfficerImages();
-    });
-</script>
+        function loadOfficerImages() {
+            const carousel1 = document.getElementById("carousel1");
+            const carousel2 = document.getElementById("carousel2");
+
+            officers.forEach((officer, index) => {
+                if (officer.img) {
+                    let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
+                    let slide = document.createElement("div");
+                    slide.innerHTML = `
+                        <div class="officer-info">${officer.position}</div>
+                        <img src="${imgUrl}" alt="${officer.name}">
+                        <div class="officer-name">${officer.name}</div>
+                        <div class="view-button">
+                            <a href="${imgUrl}" target="_blank">Full Screen <img src="${imgUrl}" alt="Thumbnail"></a>
+                        </div>
+                    `;
+                    if (index % 2 === 0) {
+                        carousel1.appendChild(slide);
+                    } else {
+                        carousel2.appendChild(slide);
+                    }
+                }
+            });
+
+            $("#carousel1").slick({ autoplay: true, autoplaySpeed: 3000, arrows: true });
+            $("#carousel2").slick({ autoplay: true, autoplaySpeed: 5000, arrows: true });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            loadOfficerImages();
+        });
+    </script>
 
 </body>
 </html>
