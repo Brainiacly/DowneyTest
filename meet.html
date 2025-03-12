@@ -106,6 +106,14 @@
             display: none;
         }
 
+        /* Adjust Logo Size */
+        .placeholder-logo {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel-container {
@@ -157,7 +165,7 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
-                attachMenuListener(); // Ensure menu works
+                attachMenuListener();
             })
             .catch(error => console.error('Error loading header:', error));
 
@@ -186,22 +194,25 @@
         // Placeholder Image for Junior Warden and Junior Deacon
         const lodgeLogo = "https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png";
 
-        // Officer Data Groups (Rotating in 3 Carousels)
+        // Officer Data Groups (Each set of 4 officers in rotation)
         const officerGroups = [
             [
                 { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-                { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
-                { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" }
+                { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
+                { name: "Alejandro Lopez", position: "Junior Warden", img: lodgeLogo },
+                { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" }
             ],
             [
-                { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
                 { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
+                { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+                { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
                 { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" }
             ],
             [
-                { name: "Junior Warden", position: "Junior Warden", img: lodgeLogo },
-                { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-                { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" }
+                { name: "Lionel Moreno", position: "Junior Deacon", img: lodgeLogo },
+                { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
+                { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
+                { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
             ]
         ];
 
