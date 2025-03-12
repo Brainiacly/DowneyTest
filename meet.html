@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet The Officers - Downey United Lodge #220</title>
 
-    <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
@@ -31,41 +29,34 @@
         }
 
         .carousel-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
             width: 90%;
             margin: auto;
             padding: 20px;
-            max-width: 1000px;
+            max-width: 900px;
+            display: flex;
+            gap: 20px;
         }
 
         .carousel {
-            width: 45%;
-            max-width: 450px;
+            width: 50%;
         }
 
         .carousel img {
             width: 100%;
-            max-height: 300px;
+            height: auto;
             border-radius: 10px;
-            object-fit: cover;
+            object-fit: contain;
         }
 
-        .carousel .officer-info {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 5px;
+        .officer-caption {
             font-size: 1rem;
-            text-align: center;
+            color: #ffcc00;
+            margin-top: 10px;
         }
 
-        /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel-container {
                 flex-direction: column;
-                align-items: center;
             }
 
             .carousel {
@@ -83,94 +74,117 @@
 <div class="header">MEET THE OFFICERS</div>
 
 <div class="carousel-container">
-    <div class="carousel" id="carousel-left"></div>
-    <div class="carousel" id="carousel-right"></div>
+    <!-- First Carousel -->
+    <div class="carousel" id="carousel-left">
+        <!-- Officer images will be loaded dynamically -->
+    </div>
+
+    <!-- Second Carousel -->
+    <div class="carousel" id="carousel-right">
+        <!-- Officer images will be loaded dynamically -->
+    </div>
 </div>
 
 <!-- Footer -->
 <div id="footer-placeholder"></div>
 
-<!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
 <script>
-    const officers = [
-        { name: "Paul Griffith", position: "Junior Steward", img: "https://drive.google.com/uc?export=view&id=1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
-        { name: "Officers", position: "Officers", img: "https://drive.google.com/uc?export=view&id=1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" },
-        { name: "Michael Strong", position: "Tiler", img: "https://drive.google.com/uc?export=view&id=1opGVdWz2YyXrulzz4JrPSaDDnng7L" },
-        { name: "Michael Barry", position: "Chaplain", img: "https://drive.google.com/uc?export=view&id=1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-        { name: "Howard Phillips", position: "Assistant Secretary", img: "https://drive.google.com/uc?export=view&id=1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
-        { name: "Gustavo Najera III", position: "Treasurer", img: "https://drive.google.com/uc?export=view&id=1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
-        { name: "Gary Phillips", position: "Secretary", img: "https://drive.google.com/uc?export=view&id=1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-        { name: "Edwin Velazquez", position: "Senior Steward", img: "https://drive.google.com/uc?export=view&id=1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
-        { name: "David Wehmeyer", position: "Marshal", img: "https://drive.google.com/uc?export=view&id=16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
-        { name: "David Olmedo", position: "Senior Deacon", img: "https://drive.google.com/uc?export=view&id=1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-        { name: "Brian Phillips", position: "Master", img: "https://drive.google.com/uc?export=view&id=1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-        { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "https://drive.google.com/uc?export=view&id=1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" }
-    ];
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                attachMenuListener();
+            })
+            .catch(error => console.error('Error loading header:', error));
 
-    function populateCarousel(carouselId, officerList) {
-        const carousel = document.getElementById(carouselId);
-        officerList.forEach(officer => {
-            const slide = document.createElement("div");
-            slide.innerHTML = `
-                <img src="${officer.img}" alt="${officer.name}">
-                <div class="officer-info">${officer.name} - ${officer.position}</div>
-            `;
-            carousel.appendChild(slide);
-        });
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+            .catch(error => console.error('Error loading footer:', error));
+
+        loadOfficers();
+    });
+
+    function attachMenuListener() {
+        const menuButton = document.querySelector('.hamburger-menu');
+        const menu = document.getElementById('dropdownMenu');
+
+        if (menuButton && menu) {
+            menuButton.addEventListener('click', function () {
+                menu.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
+                    menu.classList.remove('active');
+                }
+            });
+        }
     }
 
-    $(document).ready(function () {
-        const leftCarousel = $("#carousel-left");
-        const rightCarousel = $("#carousel-right");
+    function loadOfficers() {
+        const officers = [
+            { name: "Paul Griffith", position: "Junior Steward", img: "https://drive.google.com/uc?export=view&id=1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+            { name: "Officers", position: "Officers", img: "https://drive.google.com/uc?export=view&id=1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" },
+            { name: "Michael Strong", position: "Tiler", img: "https://drive.google.com/uc?export=view&id=1opGVdWz2YyXrulzz4JrPSaDDnng7L" },
+            { name: "Michael Barry", position: "Chaplain", img: "https://drive.google.com/uc?export=view&id=1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+            { name: "Howard Phillips", position: "Assistant Secretary", img: "https://drive.google.com/uc?export=view&id=1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+            { name: "Gustavo Najera III", position: "Treasurer", img: "https://drive.google.com/uc?export=view&id=1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
+            { name: "Gary Phillips", position: "Secretary", img: "https://drive.google.com/uc?export=view&id=1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
+            { name: "Edwin Velazquez", position: "Senior Steward", img: "https://drive.google.com/uc?export=view&id=1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
+            { name: "David Wehmeyer", position: "Marshal", img: "https://drive.google.com/uc?export=view&id=16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
+            { name: "David Olmedo", position: "Senior Deacon", img: "https://drive.google.com/uc?export=view&id=1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
+            { name: "Brian Phillips", position: "Master", img: "https://drive.google.com/uc?export=view&id=1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
+            { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "https://drive.google.com/uc?export=view&id=1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
+        ];
 
-        const leftOfficers = officers.slice(0, Math.ceil(officers.length / 2));
-        const rightOfficers = officers.slice(Math.ceil(officers.length / 2));
+        const carouselLeft = document.getElementById("carousel-left");
+        const carouselRight = document.getElementById("carousel-right");
 
-        populateCarousel("carousel-left", leftOfficers);
-        populateCarousel("carousel-right", rightOfficers);
+        officers.forEach((officer, index) => {
+            const slide = `<div>
+                <img src="${officer.img}" alt="${officer.name}">
+                <div class="officer-caption">${officer.name} - ${officer.position}</div>
+            </div>`;
 
-        let leftSpeed = 3000, rightSpeed = 5000;
+            if (index % 2 === 0) {
+                carouselLeft.innerHTML += slide;
+            } else {
+                carouselRight.innerHTML += slide;
+            }
+        });
 
-        function startCarousels() {
-            leftCarousel.slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: leftSpeed,
-                arrows: true
-            });
+        $("#carousel-left").slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: true
+        });
 
-            rightCarousel.slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: rightSpeed,
-                arrows: true
-            });
+        $("#carousel-right").slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            arrows: true
+        });
 
-            setInterval(() => {
-                leftSpeed = leftSpeed === 3000 ? 5000 : 3000;
-                rightSpeed = rightSpeed === 5000 ? 3000 : 5000;
-
-                leftCarousel.slick("slickSetOption", "autoplaySpeed", leftSpeed, true);
-                rightCarousel.slick("slickSetOption", "autoplaySpeed", rightSpeed, true);
-            }, 10000);
-        }
-
-        startCarousels();
-
-        fetch('header.html').then(response => response.text()).then(data => document.getElementById('header-placeholder').innerHTML = data);
-        fetch('footer.html').then(response => response.text()).then(data => document.getElementById('footer-placeholder').innerHTML = data);
-    });
+        setInterval(() => {
+            $("#carousel-left").slick("slickSetOption", "autoplaySpeed", 5000, true);
+            $("#carousel-right").slick("slickSetOption", "autoplaySpeed", 3000, true);
+        }, 8000);
+    }
 </script>
 
 </body>
