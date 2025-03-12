@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,6 +62,13 @@
             color: white;
         }
 
+        .full-screen-link {
+            display: block;
+            margin-top: 10px;
+            color: #fff;
+            text-decoration: underline;
+        }
+
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel-container {
@@ -103,38 +111,47 @@
 <script>
     // List of Officer Data and Corresponding Google Drive Image Links
     const officers = [
-        { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
-        { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" },
-        { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4JrPSaDDnng7L" },
-        { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-        { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+        { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
+        { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
+        { name: "Junior Warden", position: "Junior Warden", img: "" },  // Leave space for Junior Warden
         { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
         { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-        { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
         { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
+        { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+        { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
         { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-        { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-        { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" }
+        { name: "Junior Deacon", position: "Junior Deacon", img: "" },  // Leave space for Junior Deacon
+        { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
+        { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+        { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4JrPSaDDnng7L" },
+        { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
     ];
+
+    function getRandomInterval() {
+        return Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
+    }
 
     function loadOfficerImages() {
         const carousel1 = document.getElementById("carousel1");
         const carousel2 = document.getElementById("carousel2");
 
         officers.forEach((officer, index) => {
-            let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
-            let slide = document.createElement("div");
-            slide.innerHTML = `
-                <img src="${imgUrl}" alt="${officer.name}">
-                <div class="officer-info">
-                    <strong>${officer.name}</strong><br>${officer.position}
-                </div>
-            `;
-            // Alternate between the two carousels
-            if (index % 2 === 0) {
-                carousel1.appendChild(slide);
-            } else {
-                carousel2.appendChild(slide);
+            if (officer.img) {
+                let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
+                let slide = document.createElement("div");
+                slide.innerHTML = `
+                    <img src="${imgUrl}" alt="${officer.name}">
+                    <div class="officer-info">
+                        <strong>${officer.name}</strong><br>${officer.position}
+                    </div>
+                    <a href="${imgUrl}" target="_blank" class="full-screen-link">View Full Screen</a>
+                `;
+                // Alternate between the two carousels
+                if (index % 2 === 0) {
+                    carousel1.appendChild(slide);
+                } else {
+                    carousel2.appendChild(slide);
+                }
             }
         });
 
@@ -146,7 +163,7 @@
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 3000, // Starts with 3s
+            autoplaySpeed: getRandomInterval(),
             arrows: true
         });
 
@@ -157,15 +174,15 @@
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: 5000, // Starts with 5s
+            autoplaySpeed: getRandomInterval(),
             arrows: true
         });
 
-        // Swap speeds after first cycle
+        // Change autoplay speed at random intervals
         setInterval(() => {
-            $("#carousel1").slick("slickSetOption", "autoplaySpeed", 5000, true);
-            $("#carousel2").slick("slickSetOption", "autoplaySpeed", 3000, true);
-        }, 8000); // Swap every 8 seconds
+            $("#carousel1").slick("slickSetOption", "autoplaySpeed", getRandomInterval(), true);
+            $("#carousel2").slick("slickSetOption", "autoplaySpeed", getRandomInterval(), true);
+        }, 8000); // Change every 8 seconds
     }
 
     // Load header, footer, and images
@@ -205,4 +222,5 @@
 </script>
 
 </body>
+
 </html>
