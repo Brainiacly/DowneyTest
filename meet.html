@@ -47,13 +47,13 @@
             overflow: hidden;
         }
 
-    .carousel img {
-    width: 100%;
-    max-height: 500px;
-    height: auto;
-    border-radius: 10px;
-    object-fit: contain; /* Change from cover to contain */
-}
+        .carousel img {
+            width: 100%;
+            max-height: 500px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+        }
 
         .officer-info {
             background: rgba(255, 255, 255, 0.1);
@@ -61,6 +61,11 @@
             border-radius: 5px;
             text-align: center;
             color: white;
+        }
+
+        .officer-name {
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         .full-screen-link {
@@ -86,146 +91,94 @@
 
 <body>
 
-<!-- Header -->
-<div id="header-placeholder"></div>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-<div class="header">MEET THE OFFICERS</div>
+    <div class="header">MEET THE OFFICERS</div>
 
-<div class="carousel-container">
-    <!-- First Carousel -->
-    <div class="carousel" id="carousel1">
-        <!-- Images will be loaded dynamically -->
+    <div class="carousel-container">
+        <!-- First Carousel -->
+        <div class="carousel" id="carousel1">
+            <!-- Images will be loaded dynamically -->
+        </div>
+
+        <!-- Second Carousel -->
+        <div class="carousel" id="carousel2">
+            <!-- Images will be loaded dynamically -->
+        </div>
     </div>
 
-    <!-- Second Carousel -->
-    <div class="carousel" id="carousel2">
-        <!-- Images will be loaded dynamically -->
-    </div>
-</div>
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
 
-<!-- Footer -->
-<div id="footer-placeholder"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // List of Officer Data and Corresponding Google Drive Image Links
+        const officers = [
+            { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
+            { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
+            { name: "Junior Warden", position: "Junior Warden", img: "" },  // Leave space for Junior Warden
+            { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
+            { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
+            { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
+            { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+            { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+            { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
+            { name: "Junior Deacon", position: "Junior Deacon", img: "" },  // Leave space for Junior Deacon
+            { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
+            { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+            { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
+            { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
+        ];
 
-<script>
-    // List of Officer Data and Corresponding Google Drive Image Links
-    const officers = [
-        { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-        { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-        { name: "Junior Warden", position: "Junior Warden", img: "" },  // Leave space for Junior Warden
-        { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
-        { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-        { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
-        { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-        { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
-        { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-        { name: "Junior Deacon", position: "Junior Deacon", img: "" },  // Leave space for Junior Deacon
-        { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
-        { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
-        { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
-        { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
-    ];
-
-    function getRandomInterval() {
-        return Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
-    }
-
-    function loadOfficerImages() {
-        const carousel1 = document.getElementById("carousel1");
-        const carousel2 = document.getElementById("carousel2");
-
-        officers.forEach((officer, index) => {
-            if (officer.img) {
-                let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
-                let slide = document.createElement("div");
-                slide.innerHTML = `
-                    <div class="officer-info">
-                        <strong>${officer.name}</strong><br>${officer.position}
-                    </div>
-                    <img src="${imgUrl}" alt="${officer.name}">
-                    <a href="${imgUrl}" target="_blank" class="full-screen-link">View Full Screen</a>
-                `;
-                // Alternate between the two carousels
-                if (index % 2 === 0) {
-                    carousel1.appendChild(slide);
-                } else {
-                    carousel2.appendChild(slide);
-                }
-            }
-        });
-
-        // Initialize Slick Carousel for both
-        $("#carousel1").slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: getRandomInterval(),
-            arrows: true,
-            fade: true,
-            cssEase: 'linear'
-        });
-
-        $("#carousel2").slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: getRandomInterval(),
-            arrows: true,
-            fade: true,
-            cssEase: 'linear'
-        });
-
-        // Change autoplay speed at random intervals
-        setInterval(() => {
-            $("#carousel1").slick("slickSetOption", "autoplaySpeed", getRandomInterval(), true);
-            $("#carousel2").slick("slickSetOption", "autoplaySpeed", getRandomInterval(), true);
-        }, 8000); // Change every 8 seconds
-    }
-
-    // Load header, footer, and images
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-                attachMenuListener();
-            })
-            .catch(error => console.error('Error loading header:', error));
-
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-            .catch(error => console.error('Error loading footer:', error));
-
-        loadOfficerImages();
-    });
-
-    function attachMenuListener() {
-        const menuButton = document.querySelector('.hamburger-menu');
-        const menu = document.getElementById('dropdownMenu');
-
-        if (menuButton && menu) {
-            menuButton.addEventListener('click', function () {
-                menu.classList.toggle('active');
-            });
-
-            document.addEventListener('click', function (event) {
-                if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-            });
+        function getRandomInterval() {
+            return Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
         }
-    }
-</script>
 
-</body>
+        function loadOfficerImages() {
+            const carousel1 = document.getElementById("carousel1");
+            const carousel2 = document.getElementById("carousel2");
 
-</html>
+            officers.forEach((officer, index) => {
+                if (officer.img) {
+                    let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
+                    let slide = document.createElement("div");
+                    slide.innerHTML = `
+                        <div class="officer-info">
+                            ${officer.position}
+                        </div>
+                        <img src="${imgUrl}" alt="${officer.name}">
+                        <div class="officer-name">${officer.name}</div>
+                        <a href="${imgUrl}" target="_blank" class="full-screen-link">View Full Screen</a>
+                    `;
+                    // Alternate between the two carousels
+                    if (index % 2 === 0) {
+                        carousel1.appendChild(slide);
+                    } else {
+                        carousel2.appendChild(slide);
+                    }
+                }
+            });
+
+            // Initialize Slick Carousel for both
+            $("#carousel1").slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: getRandomInterval(),
+                arrows: true,
+                fade: true,
+                cssEase: 'linear'
+            });
+
+            $("#carousel2").slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1 ▋
