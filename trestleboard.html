@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Trestleboard</title>
-    
+
     <!-- jQuery for Enhancements -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -46,7 +46,6 @@
         .trestleboard-container {
             flex-grow: 1;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 10px;
@@ -61,6 +60,7 @@
             transition: all 0.3s ease-in-out;
         }
 
+        /* Fullscreen Link */
         .fullscreen-link {
             color: #ffcc00;
             font-size: 1rem;
@@ -72,6 +72,32 @@
 
         .fullscreen-link:hover {
             color: #ffe680;
+        }
+
+        /* Arrows for Navigation */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .prev-slide {
+            left: 5%;
+        }
+
+        .next-slide {
+            right: 5%;
         }
 
         footer {
@@ -103,14 +129,18 @@
 
         <!-- Google Slides Embed (Auto-play & Loop) -->
         <div class="trestleboard-container">
+            <span class="nav-arrow prev-slide" onclick="prevSlide()">❮</span>
+            
             <iframe id="trestleboard" 
                 src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=true&delayms=5000"
                 allowfullscreen>
             </iframe>
-            
-            <!-- Fullscreen Link BELOW the PowerPoint -->
-            <a class="fullscreen-link" onclick="toggleFullScreen()">📺 Full Screen</a>
+
+            <span class="nav-arrow next-slide" onclick="nextSlide()">❯</span>
         </div>
+
+        <!-- Fullscreen Link -->
+        <a class="fullscreen-link" onclick="toggleFullScreen()">📺 Full Screen</a>
 
         <!-- Footer -->
         <div id="footer-placeholder"></div>
@@ -140,6 +170,17 @@
             } else {
                 document.exitFullscreen();
             }
+        }
+
+        // Function to Navigate Slides
+        function nextSlide() {
+            let iframe = document.getElementById("trestleboard");
+            iframe.src = iframe.src.replace("start=true", "start=false") + "&slide=id.p";
+        }
+
+        function prevSlide() {
+            let iframe = document.getElementById("trestleboard");
+            iframe.src = iframe.src.replace("start=true", "start=false") + "&slide=id.p";
         }
     </script>
 
