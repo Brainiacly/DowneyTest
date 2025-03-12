@@ -152,19 +152,14 @@
             })
             .catch(error => console.error('Error loading footer:', error));
 
-        // Fullscreen Toggle Function
+        // Fullscreen Toggle Function (Only Maximize)
         function toggleFullScreen() {
             let iframe = document.getElementById("trestleboard");
-            let fullscreenBtn = document.querySelector(".fullscreen-btn");
 
             if (!document.fullscreenElement) {
                 iframe.requestFullscreen().catch(err => {
                     console.error(`Error trying to enable full-screen mode: ${err.message}`);
                 });
-                fullscreenBtn.textContent = "❌"; // Minimize Button
-            } else {
-                document.exitFullscreen();
-                fullscreenBtn.textContent = "🔲"; // Fullscreen Button
             }
         }
 
