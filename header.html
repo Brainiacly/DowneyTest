@@ -1,6 +1,7 @@
 <div id="site-header">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
+    
     <style>
         body, html {
             margin: 0;
@@ -47,6 +48,11 @@
             white-space: nowrap;
             padding: 0 10px;
             position: relative;
+        }
+
+        .navbar-title span {
+            display: inline-block;
+            margin: 0 20px;
         }
 
         .hamburger-menu {
@@ -100,21 +106,20 @@
             top: 15px;
             font-size: 1.5rem;
             white-space: nowrap;
-            animation-timing-function: linear;
+            opacity: 1;
         }
 
         /* Running Left to Right */
         @keyframes runRight {
-            0% { left: -50px; opacity: 1; }
-            100% { left: calc(100% + 50px); opacity: 1; }
+            from { left: -50px; }
+            to { left: 100%; }
         }
 
         /* Running Right to Left */
         @keyframes runLeft {
-            0% { right: -50px; opacity: 1; }
-            100% { right: calc(100% + 50px); opacity: 1; }
+            from { right: -50px; }
+            to { right: 100%; }
         }
-
     </style>
 
     <div class="navbar">
@@ -122,7 +127,7 @@
             <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
         </a>
         <div class="navbar-title">
-            DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
+            <span>DOWNEY UNITED LODGE #220</span> &nbsp;&nbsp; <span>THE SENSATION OF THE NATION</span>
             <span class="running-man" id="running-man-right" style="display:none;">🏃🏾</span>
             <span class="running-man" id="running-man-left" style="display:none;">🏃🏾</span>
         </div>
@@ -176,7 +181,6 @@
 
             function runRight() {
                 runningManRight.style.display = "inline";
-                runningManRight.style.left = "-50px"; // Start off-screen
                 runningManRight.style.animation = "runRight 5s linear forwards"; // Run right
                 setTimeout(() => {
                     runningManRight.style.display = "none";
@@ -186,7 +190,6 @@
 
             function runLeft() {
                 runningManLeft.style.display = "inline";
-                runningManLeft.style.right = "-50px"; // Start off-screen
                 runningManLeft.style.animation = "runLeft 5s linear forwards"; // Run left
                 setTimeout(() => {
                     runningManLeft.style.display = "none";
