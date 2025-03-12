@@ -10,7 +10,204 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+<div id="site-header">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
 
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #800020;
+            padding: 5px 20px;
+            color: #f5f0e6;
+            position: relative;
+            height: 60px;
+            border-bottom: 3px solid #8d6e63;
+            overflow: hidden;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #f5f0e6;
+        }
+
+        .navbar a:hover {
+            color: #d7ccc8;
+        }
+
+        .navbar img {
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 50%;
+            border: 2px solid #8d6e63;
+        }
+
+        .navbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            white-space: nowrap;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        .hamburger-menu {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: #f5f0e6;
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            background-color: #f5f0e6;
+            color: #3e2723;
+            width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 20;
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #5d4037;
+            border-bottom: 1px solid #8d6e63;
+            font-size: 0.9rem;
+        }
+
+        .menu a:hover {
+            background-color: #d7ccc8;
+        }
+
+        .menu.active {
+            display: block;
+        }
+
+        /* Running Man Animation */
+        .running-man {
+            position: absolute;
+            top: 15px;
+            font-size: 1.5rem;
+            white-space: nowrap;
+            animation-timing-function: linear;
+        }
+
+        /* Running Left to Right */
+        @keyframes runRight {
+            0% { left: -50px; transform: scaleX(1); opacity: 1; }
+            100% { left: calc(100% + 50px); transform: scaleX(1); opacity: 1; }
+        }
+
+        /* Running Right to Left */
+        @keyframes runLeft {
+            0% { right: -50px; transform: scaleX(-1); opacity: 1; }
+            100% { right: calc(100% + 50px); transform: scaleX(-1); opacity: 1; }
+        }
+
+    </style>
+
+    <div class="navbar">
+        <a href="index.html">
+            <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
+        </a>
+        <div class="navbar-title">
+            DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
+            <span class="running-man" id="running-man" style="display:none;">🏃🏾</span>
+        </div>
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="menu" id="dropdownMenu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="trestleboard.html">Digital Trestleboard</a>
+        <a href="events.html">Events</a>
+        <a href="https://freemason.org" target="_blank" onclick="closeMenuAfterClick()">Freemason.org</a>
+        <a href="join.html">Join Us</a>
+        <a href="meet.html">Meet the Officers</a>
+        <a href="news.html">News</a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('active');
+        }
+
+        function closeMenuAfterClick() {
+            document.getElementById('dropdownMenu').classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('click', function (event) {
+                const menu = document.getElementById('dropdownMenu');
+                const hamburger = document.querySelector('.hamburger-menu');
+
+                if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                    menu.classList.remove('active');
+                }
+
+                if (menu.contains(event.target) && event.target.tagName === 'A') {
+                    menu.classList.remove('active');
+                }
+            });
+
+            // Running Man Logic
+            let runningMan = document.getElementById("running-man");
+
+            function runRight() {
+                runningMan.style.display = "inline";
+                runningMan.style.left = "-50px"; // Start off-screen
+                runningMan.style.animation = "runRight 5s linear forwards"; // Run right
+                setTimeout(() => {
+                    runningMan.style.display = "none";
+                    setTimeout(runLeft, 10000); // Wait 10s before left runner starts
+                }, 5000);
+            }
+
+            function runLeft() {
+                runningMan.style.display = "inline";
+                runningMan.style.right = "-50px"; // Start off-screen
+                runningMan.style.animation = "runLeft 5s linear forwards"; // Run left
+                setTimeout(() => {
+                    runningMan.style.display = "none";
+                    setTimeout(runRight, 10000); // Wait 10s before right runner starts again
+                }, 5000);
+            }
+
+            setTimeout(runRight, 10000); // Start the first run after 10s
+        });
+    </script>
+</div>
     <style>
         /* Global Scale Adjustments - 95% */
         body {
