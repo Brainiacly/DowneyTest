@@ -94,27 +94,38 @@
             display: block;
         }
 
-        /* Running Man Animation */
+        /* Running Man Styles */
         .running-man {
             position: absolute;
-            top: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 1.2rem;
             white-space: nowrap;
-            animation: runRight 10s linear infinite alternate;
+            opacity: 0;
+        }
+
+        /* Right-running man */
+        .running-man-right {
+            left: -50px;
+        }
+
+        /* Left-running man */
+        .running-man-left {
+            right: -50px;
         }
 
         @keyframes runRight {
-            0%, 100% { left: -50px; opacity: 0; } /* Start off-screen */
-            10% { opacity: 1; } /* Fade in */
-            90% { left: calc(100% + 50px); opacity: 1; } /* Run across */
-            100% { opacity: 0; } /* Fade out */
+            0% { left: -50px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { left: calc(100% + 50px); opacity: 1; }
+            100% { left: calc(100% + 50px); opacity: 0; }
         }
 
         @keyframes runLeft {
-            0%, 100% { right: -50px; opacity: 0; } /* Start off-screen */
-            10% { opacity: 1; } /* Fade in */
-            90% { right: calc(100% + 50px); opacity: 1; } /* Run across */
-            100% { opacity: 0; } /* Fade out */
+            0% { right: -50px; opacity: 0; }
+            10% { opacity: 1; }
+            90% { right: calc(100% + 50px); opacity: 1; }
+            100% { right: calc(100% + 50px); opacity: 0; }
         }
     </style>
 
@@ -125,8 +136,8 @@
         </a>
         <div class="navbar-title">
             DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
-            <span class="running-man" id="running-man-right">🏃🏾‍➡️</span>
-            <span class="running-man" id="running-man-left" style="display: none;">🏃🏾</span>
+            <span class="running-man running-man-right" id="running-man-right">🏃🏾‍♂️</span>
+            <span class="running-man running-man-left" id="running-man-left">🏃🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -178,20 +189,28 @@
             let runningManLeft = document.getElementById("running-man-left");
 
             function runRight() {
-                runningManRight.style.display = "inline";
-                runningManLeft.style.display = "none";
                 runningManRight.style.animation = "runRight 10s linear forwards";
-                setTimeout(runLeft, 20000); // Wait 20s before running left
+                runningManRight.style.opacity = "1";
+                runningManLeft.style.opacity = "0";
+
+                setTimeout(() => {
+                    runningManRight.style.opacity = "0";
+                    setTimeout(runLeft, 10000); // Wait 10s before running left
+                }, 10000);
             }
 
             function runLeft() {
-                runningManRight.style.display = "none";
-                runningManLeft.style.display = "inline";
                 runningManLeft.style.animation = "runLeft 10s linear forwards";
-                setTimeout(runRight, 20000); // Wait 20s before running right
+                runningManLeft.style.opacity = "1";
+                runningManRight.style.opacity = "0";
+
+                setTimeout(() => {
+                    runningManLeft.style.opacity = "0";
+                    setTimeout(runRight, 10000); // Wait 10s before running right
+                }, 10000);
             }
 
-            setTimeout(runRight, 10000); // Start running after 10s
+            setTimeout(runRight, 10000); // Start after 10s
         });
     </script>
 </div>
