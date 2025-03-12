@@ -100,7 +100,7 @@
             top: 10px;
             font-size: 1.2rem;
             white-space: nowrap;
-            animation: runRight 5s linear infinite alternate;
+            animation: runRight 10s linear infinite alternate;
         }
 
         @keyframes runRight {
@@ -125,7 +125,7 @@
         </a>
         <div class="navbar-title">
             Downey United Lodge #220 - The Sensation of the Nation
-            <span class="running-man" id="running-man">🏃🏾‍♂️</span>
+            <span class="running-man" id="running-man">🏃🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -176,15 +176,15 @@
             let runningMan = document.getElementById("running-man");
 
             function runRight() {
-                runningMan.textContent = "🏃🏾‍♂️";
-                runningMan.style.animation = "runRight 5s linear forwards";
-                setTimeout(runLeft, 10000); // Wait 10s before running left
+                runningMan.textContent = "🏃🏾";
+                runningMan.style.animation = "runRight 10s linear forwards";
+                setTimeout(runLeft, 20000); // Wait 20s before running left
             }
 
             function runLeft() {
                 runningMan.textContent = "🏃🏾";
-                runningMan.style.animation = "runLeft 5s linear forwards";
-                setTimeout(runRight, 10000); // Wait 10s before running right
+                runningMan.style.animation = "runLeft 10s linear forwards";
+                setTimeout(runRight, 20000); // Wait 20s before running right
             }
 
             setTimeout(runRight, 10000); // Start running after 10s
