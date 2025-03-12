@@ -19,6 +19,7 @@
             position: relative;
             height: 60px;
             border-bottom: 3px solid #8d6e63;
+            overflow: hidden;
         }
 
         .navbar a {
@@ -95,19 +96,28 @@
         /* Running Man Animation */
         .running-man {
             position: absolute;
-            top: 65px;
-            left: -50px;
-            font-size: 2rem;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
             white-space: nowrap;
-            animation: runBackForth 4s linear infinite alternate;
+            animation: runBackForth 3s linear infinite alternate;
         }
 
         @keyframes runBackForth {
             0% {
-                left: -50px;
+                left: 10px;
+                content: "🏃🏾‍♂️➡️";
+            }
+            49% {
+                content: "🏃🏾‍♂️➡️";
+            }
+            50% {
+                left: calc(100% - 50px);
+                content: "🏃🏾‍♂️⬅️";
             }
             100% {
-                left: calc(100% - 30px);
+                left: 10px;
+                content: "🏃🏾‍♂️➡️";
             }
         }
     </style>
@@ -126,7 +136,7 @@
     </div>
 
     <!-- Running Man -->
-    <div class="running-man">🏃🏾‍♂️➡️🏃🏾‍♂️</div>
+    <div class="running-man">🏃🏾‍♂️➡️</div>
 
     <!-- Dropdown Menu -->
     <div class="menu" id="dropdownMenu">
