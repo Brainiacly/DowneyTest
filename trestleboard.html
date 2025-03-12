@@ -50,36 +50,10 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* Navigation Arrows */
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 2rem;
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .nav-arrow:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .left-arrow {
-            left: -50px;
-        }
-
-        .right-arrow {
-            right: -50px;
-        }
-
         /* Menu Bar Beneath the PowerPoint */
         .menu-bar {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             width: 90%;
             max-width: 900px;
@@ -103,6 +77,12 @@
             opacity: 0.7;
         }
 
+        /* Navigation Arrows */
+        .nav-arrow {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
         /* Ensure Footer is Visible */
         footer {
             text-align: center;
@@ -123,23 +103,17 @@
 
         <!-- Google Slides Embed -->
         <div class="trestleboard-container">
-            
-            <!-- Left Arrow -->
-            <button class="nav-arrow left-arrow" onclick="prevSlide()">&#10094;</button>
-
             <iframe id="trestleboard" 
                 src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=false&loop=false&delayms=5000&rm=minimal"
                 allowfullscreen>
             </iframe>
-
-            <!-- Right Arrow -->
-            <button class="nav-arrow right-arrow" onclick="nextSlide()">&#10095;</button>
-
         </div>
 
         <!-- Menu Bar Beneath PowerPoint -->
         <div class="menu-bar">
+            <button class="nav-arrow" onclick="prevSlide()">&#10094; Previous</button>
             <button onclick="openFullScreen()">🔲 Full Screen (esc - to exit)</button>
+            <button class="nav-arrow" onclick="nextSlide()">Next &#10095;</button>
         </div>
 
         <!-- Footer Placeholder -->
