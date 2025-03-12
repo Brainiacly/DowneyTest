@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 
     <style>
-        /* Keep Header & Footer Normal */
         body {
             background-color: #000;
             color: #fff;
@@ -22,7 +21,6 @@
             overflow-x: hidden;
         }
 
-        /* Scale All Content Except Header/Footer */
         .content-wrapper {
             transform: scale(0.85);
             transform-origin: top center;
@@ -64,57 +62,33 @@
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             height: 500px;
         }
 
         .officer-card img {
-            max-height: 350px;
-            max-width: 100%;
+            width: 100%;
+            height: 350px;
             object-fit: contain;
             cursor: pointer;
+            border-radius: 5px;
+            background-color: black;
         }
 
         .officer-name {
             font-size: 1.2rem;
             font-weight: bold;
             color: #ffcc00;
+            margin-bottom: 8px;
         }
 
         .officer-position {
             font-size: 1rem;
             color: #ccc;
+            margin-top: 8px;
         }
 
-        .gallery-toggle {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: white;
-            text-decoration: none;
-        }
-
-        .gallery-toggle:hover {
-            color: #ffcc00;
-        }
-
-        /* Hide Full List Initially */
-        .full-list {
-            display: none;
-        }
-
-        /* Adjust Logo Size */
-        .placeholder-logo {
-            width: 200px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel-container {
                 flex-direction: column;
@@ -126,34 +100,18 @@
 
 <body>
 
-    <!-- Header -->
     <div id="header-placeholder"></div>
 
-    <!-- Content Wrapper (85% Scale) -->
     <div class="content-wrapper">
         <div class="header">MEET THE OFFICERS</div>
 
-        <!-- Toggle Link for Show All -->
-        <a href="#" class="gallery-toggle" id="toggleView">
-            <i class="fas fa-th"></i> Show All
-        </a>
-
-        <!-- Carousel View -->
-        <div class="carousel-container" id="carousel-view">
+        <div class="carousel-container">
             <div class="carousel" id="carousel1"></div>
             <div class="carousel" id="carousel2"></div>
             <div class="carousel" id="carousel3"></div>
         </div>
-
-        <!-- Full List View (Hidden Initially) -->
-        <div class="full-list" id="full-list-view">
-            <div class="carousel-container">
-                <div id="full-list"></div>
-            </div>
-        </div>
     </div>
 
-    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -163,10 +121,7 @@
         // Load Header and Footer
         fetch('header.html')
             .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-                attachMenuListener();
-            })
+            .then(data => document.getElementById('header-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading header:', error));
 
         fetch('footer.html')
@@ -174,52 +129,36 @@
             .then(data => document.getElementById('footer-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading footer:', error));
 
-        function attachMenuListener() {
-            const menuButton = document.querySelector('.hamburger-menu');
-            const menu = document.getElementById('dropdownMenu');
-
-            if (menuButton && menu) {
-                menuButton.addEventListener('click', function () {
-                    menu.classList.toggle('active');
-                });
-
-                document.addEventListener('click', function (event) {
-                    if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
-                        menu.classList.remove('active');
-                    }
-                });
-            }
-        }
-
-        // Placeholder Image for Junior Warden and Junior Deacon
         const lodgeLogo = "https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png";
 
-        // Officer Data Groups (Each set of 4 officers in rotation)
-        const officerGroups = [
-            [
-                { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-                { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-                { name: "Alejandro Lopez", position: "Junior Warden", img: lodgeLogo },
-                { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" }
-            ],
-            [
-                { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-                { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-                { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
-                { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" }
-            ],
-            [
-                { name: "Lionel Moreno", position: "Junior Deacon", img: lodgeLogo },
-                { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-                { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
-                { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
-            ]
+        const officerList = [
+            { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
+            { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
+            { name: "Alejandro Lopez", position: "Junior Warden", img: lodgeLogo },
+            { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
+            { name: "Worshipful Gary Phillips, PM", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
+            { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+            { name: "Worshipful Howard Phillips, PM", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+            { name: "Worshipful David Olmedo, PM", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
+            { name: "Lionel Moreno", position: "Junior Deacon", img: lodgeLogo },
+            { name: "Worshipful David Wehmeyer, PM", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
+            { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
+            { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+            { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
+            { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
+        ];
+
+        const carouselOrders = [
+            [1, 4, 7, 10, 13, 2, 5, 8, 11, 14, 3, 6, 9, 12],
+            [2, 5, 8, 11, 14, 3, 6, 9, 12, 1, 4, 7, 10, 13],
+            [3, 6, 9, 12, 1, 4, 7, 10, 13, 2, 5, 8, 11, 14]
         ];
 
         function loadCarousels() {
-            officerGroups.forEach((group, i) => {
+            carouselOrders.forEach((order, i) => {
                 let carousel = document.getElementById(`carousel${i + 1}`);
-                group.forEach(officer => {
+                order.forEach(index => {
+                    let officer = officerList[index - 1];
                     let imgUrl = officer.img.startsWith("http") ? officer.img : `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
                     carousel.innerHTML += `<div class="officer-card">
                         <div class="officer-name">${officer.name}</div>
@@ -227,8 +166,7 @@
                         <div class="officer-position">${officer.position}</div>
                     </div>`;
                 });
-
-                $(`#carousel${i + 1}`).slick({ slidesToShow: 1, autoplay: true, autoplaySpeed: Math.random() * 2000 + 3000, arrows: true });
+                $(`#carousel${i + 1}`).slick({ slidesToShow: 1, autoplay: true, autoplaySpeed: 3000 + i * 0.00000001, arrows: true, pauseOnHover: false });
             });
         }
 
