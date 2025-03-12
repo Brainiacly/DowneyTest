@@ -39,8 +39,9 @@
             z-index: 10;
         }
 
-        /* Lodge Header Image Container */
+        /* Lodge Name Image with Text */
         .lodge-header-container {
+            position: relative;
             width: 100%;
             max-width: 1200px;
             margin: 20px auto;
@@ -52,6 +53,21 @@
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Overlay Text to Ensure Visibility */
+        .lodge-header-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #f0e6d6;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
         }
 
         /* New Image Container (From Google Drive) */
@@ -84,9 +100,13 @@
         <!-- Header Placeholder -->
         <div id="header-placeholder"></div>
 
-        <!-- Lodge Name Image (Existing) -->
+        <!-- Lodge Name Image with Overlay Text -->
         <div class="lodge-header-container">
             <img src="https://lodge220.freemason.org/wp-content/uploads/sites/39/2016/09/main_image.jpg" alt="Downey United Lodge #220">
+            <div class="lodge-header-text">
+                DOWNEY UNITED LODGE #220 <br>
+                "THE SENSATION OF THE NATION"
+            </div>
         </div>
 
         <!-- New Image (From Google Drive) -->
@@ -107,9 +127,12 @@
                 document.getElementById('header-placeholder').innerHTML = data;
 
                 // Ensure Menu Works Properly
-                document.querySelector('.hamburger-menu').addEventListener('click', function () {
-                    document.getElementById('dropdownMenu').classList.toggle('active');
-                });
+                let menuButton = document.querySelector('.hamburger-menu');
+                if (menuButton) {
+                    menuButton.addEventListener('click', function () {
+                        document.getElementById('dropdownMenu').classList.toggle('active');
+                    });
+                }
             })
             .catch(error => console.error('Error loading header:', error));
 
