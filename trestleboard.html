@@ -10,22 +10,25 @@
 
     <!-- Pico CSS for Styling -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    
+
     <style>
-        body, html {
+        /* Ensure page scrolls correctly */
+        html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             background-color: black;
             color: white;
             text-align: center;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
+        /* Wrapper to enable scrolling */
         .content-wrapper {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            justify-content: flex-start;
         }
 
         .trestleboard-container {
@@ -36,6 +39,7 @@
             justify-content: center;
             padding: 10px;
             position: relative;
+            margin-bottom: 20px; /* Prevents overlap with footer */
         }
 
         iframe {
@@ -73,11 +77,13 @@
             opacity: 0.7;
         }
 
+        /* Ensure Footer is Visible */
         footer {
             text-align: center;
             padding: 10px;
             color: white;
             background: #222;
+            margin-top: auto;
         }
     </style>
 </head>
@@ -117,12 +123,9 @@
                 document.getElementById('header-placeholder').innerHTML = data;
                 
                 // Ensure Menu Works
-                const toggleMenu = () => {
-                    const menu = document.getElementById('dropdownMenu');
-                    menu.classList.toggle('active');
-                };
-                
-                document.querySelector('.hamburger-menu').onclick = toggleMenu;
+                document.querySelector('.hamburger-menu').addEventListener('click', function () {
+                    document.getElementById('dropdownMenu').classList.toggle('active');
+                });
             })
             .catch(error => console.error('Error loading header:', error));
 
@@ -133,7 +136,7 @@
             })
             .catch(error => console.error('Error loading footer:', error));
 
-        // Fullscreen Toggle Function (Using Built-in Google Slides Fullscreen)
+        // Fullscreen Toggle Function
         function openFullScreen() {
             let iframe = document.getElementById("trestleboard");
             if (!document.fullscreenElement) {
