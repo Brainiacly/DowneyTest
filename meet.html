@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 
     <style>
+        /* Your existing CSS remains unchanged */
         body {
             background-color: #000;
             color: #fff;
@@ -35,7 +36,7 @@
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
-	    margin-bottom: 20px;
+            margin-bottom: 20px;
             color: #ffcc00;
         }
 
@@ -86,10 +87,10 @@
 
         .officer-position {
             font-size: 1.2rem;
-	    font-weight: bold;
+            font-weight: bold;
             color: #ffcc00;
             margin-top: 15px;
-	    margin-bottom: 15px;
+            margin-bottom: 15px;
         }
 
         @media only screen and (max-width: 768px) {
@@ -121,14 +122,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        // Load Header and Footer
-        fetch('header.html')
-            .then(response => response.text())
+        // Load Header and Footer with improved error handling
+        fetch('header.html?nocache=' + new Date().getTime())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then(data => document.getElementById('header-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading header:', error));
 
-        fetch('footer.html')
-            .then(response => response.text())
+        fetch('footer.html?nocache=' + new Date().getTime())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then(data => document.getElementById('footer-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading footer:', error));
 
@@ -170,11 +181,3 @@
                     </div>`;
                 });
                 $(`#carousel${i + 1}`).slick({ slidesToShow: 1, autoplay: true, autoplaySpeed: 3000 + i * 0.00000001, arrows: true, pauseOnHover: false });
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", loadCarousels);
-    </script>
-
-</body>
-</html>
