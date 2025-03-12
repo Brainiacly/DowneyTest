@@ -104,24 +104,25 @@
         .fist-bump {
             position: absolute;
             top: 15px;
-            font-size: 1.5rem;
+            font-size: 2rem;
             opacity: 1;
+            transition: all 0.5s ease-in-out;
         }
 
-        /* Fist Moves from Left to Center */
-        @keyframes leftFist {
-            0% { left: -50px; }
-            50% { left: 50%; transform: translateX(-50%); } /* Middle fist bump */
-            100% { left: 50%; transform: translateX(-50%); } /* Stay in the middle briefly */
+        .left-fist {
+            left: -50px;
         }
 
-        /* Fist Moves from Right to Center */
-        @keyframes rightFist {
-            0% { right: -50px; }
-            50% { right: 50%; transform: translateX(50%); } /* Middle fist bump */
-            100% { right: 50%; transform: translateX(50%); } /* Stay in the middle briefly */
+        .right-fist {
+            right: -50px;
         }
 
+        @keyframes fistBump {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(50vw); }
+            55% { transform: translateX(50vw) scale(1.2); }
+            100% { transform: translateX(100vw); opacity: 0; }
+        }
     </style>
 
     <div class="navbar">
@@ -129,9 +130,9 @@
             <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
         </a>
         <div class="navbar-title">
-            <span>DOWNEY UNITED LODGE #220&nbsp;THE SENSATION OF THE NATION</span>
-            <span class="fist-bump" id="left-fist" style="display:none;">🤛🏾</span>
-            <span class="fist-bump" id="right-fist" style="display:none;">🤜🏾</span>
+            <span>DOWNEY UNITED LODGE #220&nbsp;&nbsp;THE SENSATION OF THE NATION</span>
+            <span class="fist-bump left-fist" id="left-fist">🤛🏾</span>
+            <span class="fist-bump right-fist" id="right-fist">🤜🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -177,31 +178,22 @@
                 }
             });
 
-            // Fist Bump Logic
-            let leftFist = document.getElementById("left-fist");
-            let rightFist = document.getElementById("right-fist");
+            function animateFists() {
+                let leftFist = document.getElementById("left-fist");
+                let rightFist = document.getElementById("right-fist");
 
-            function getRandomFist() {
-                const fists = ["🤜", "🤛", "🤜🏾", "🤛🏾", "🤜🏻", "🤛🏻"];
-                return fists[Math.floor(Math.random() * fists.length)];
-            }
-
-            function fistBump() {
-                leftFist.innerHTML = getRandomFist();
-                rightFist.innerHTML = getRandomFist();
-                leftFist.style.display = "inline";
-                rightFist.style.display = "inline";
-                leftFist.style.animation = "leftFist 2.5s linear forwards";
-                rightFist.style.animation = "rightFist 2.5s linear forwards";
+                leftFist.style.animation = "fistBump 2.5s linear forwards";
+                rightFist.style.animation = "fistBump 2.5s linear forwards";
 
                 setTimeout(() => {
-                    leftFist.style.display = "none";
-                    rightFist.style.display = "none";
-                    setTimeout(fistBump, 10000); // Wait 10s before restarting
+                    leftFist.style.animation = "none";
+                    rightFist.style.animation = "none";
                 }, 2500);
+
+                setTimeout(animateFists, 10000);
             }
 
-            setTimeout(fistBump, 10000); // Start the first bump after 10s
+            setTimeout(animateFists, 10000);
         });
     </script>
 </div>
