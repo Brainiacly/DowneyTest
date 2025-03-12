@@ -1,198 +1,211 @@
-<div id="site-header">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet The Officers - Downey United Lodge #220</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+
     <style>
-        body, html {
+        /* Global Scale Adjustments - 95% of Original */
+        body {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
             margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: Arial, sans-serif;
             overflow-x: hidden;
+            transform: scale(0.95);
+            transform-origin: top center;
         }
 
-        .navbar {
+        .header {
+            font-size: 34px;
+            font-weight: bold;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .carousel-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #800020;
-            padding: 5px 20px;
-            color: #f5f0e6;
-            position: relative;
-            height: 60px;
-            border-bottom: 3px solid #8d6e63;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            max-width: 1200px;
+        }
+
+        .carousel {
+            width: 46%;
+            max-width: 475px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
-        .navbar a {
-            text-decoration: none;
-            color: #f5f0e6;
+        .carousel img {
+            width: 100%;
+            max-height: 475px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
         }
 
-        .navbar a:hover {
-            color: #d7ccc8;
-        }
-
-        .navbar img {
-            max-width: 50px;
-            max-height: 50px;
-            border-radius: 50%;
-            border: 2px solid #8d6e63;
-        }
-
-        .navbar-title {
-            flex-grow: 1;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            white-space: nowrap;
-            padding: 0 10px;
-            position: relative;
-        }
-
-        .hamburger-menu {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .hamburger-menu div {
-            width: 25px;
-            height: 3px;
-            background-color: #f5f0e6;
-            margin: 4px 0;
-            transition: 0.3s;
-        }
-
-        .menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 10px;
-            background-color: #f5f0e6;
-            color: #3e2723;
-            width: 200px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .officer-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
             border-radius: 5px;
-            z-index: 20;
+            text-align: center;
+            color: white;
+            font-size: 1.1rem;
         }
 
-        .menu a {
-            display: block;
-            padding: 10px;
+        .officer-name {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .view-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .view-button a {
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            color: #5d4037;
-            border-bottom: 1px solid #8d6e63;
-            font-size: 0.9rem;
+            color: white;
+            background-color: #800020;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
         }
 
-        .menu a:hover {
-            background-color: #d7ccc8;
+        .view-button a:hover {
+            background-color: #a00028;
         }
 
-        .menu.active {
-            display: block;
+        .view-button img {
+            width: 28px;
+            height: 28px;
+            margin-left: 6px;
+            border-radius: 5px;
+            border: 1px solid #fff;
         }
 
-        /* Running Man Animation */
-        .running-man {
-            position: absolute;
-            top: 15px;
-            font-size: 1.5rem;
-            white-space: nowrap;
-            animation-timing-function: linear;
-        }
+        /* Mobile Adjustments */
+        @media only screen and (max-width: 768px) {
+            .carousel-container {
+                flex-direction: column;
+                align-items: center;
+            }
 
-        /* Running Left to Right */
-        @keyframes runRight {
-            0% { left: -50px; transform: scaleX(1); opacity: 1; }
-            100% { left: calc(100% + 50px); transform: scaleX(1); opacity: 1; }
+            .carousel {
+                width: 90%;
+            }
         }
-
-        /* Running Right to Left */
-        @keyframes runLeft {
-            0% { right: -50px; transform: scaleX(-1); opacity: 1; }
-            100% { right: calc(100% + 50px); transform: scaleX(-1); opacity: 1; }
-        }
-
     </style>
+</head>
 
-    <div class="navbar">
-        <a href="index.html">
-            <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
-        </a>
-        <div class="navbar-title">
-            DOWNEY UNITED LODGE #220 - THE SENSATION OF THE NATION
-            <span class="running-man" id="running-man" style="display:none;">🏃🏾</span>
-        </div>
-        <div class="hamburger-menu" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+<body>
+
+    <!-- Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <div class="header">MEET THE OFFICERS</div>
+
+    <div class="carousel-container">
+        <!-- First Carousel -->
+        <div class="carousel" id="carousel1"></div>
+
+        <!-- Second Carousel -->
+        <div class="carousel" id="carousel2"></div>
     </div>
 
-    <div class="menu" id="dropdownMenu">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="calendar.html">Calendar</a>
-        <a href="contactus.html">Contact Us</a>
-        <a href="trestleboard.html">Digital Trestleboard</a>
-        <a href="events.html">Events</a>
-        <a href="https://freemason.org" target="_blank" onclick="closeMenuAfterClick()">Freemason.org</a>
-        <a href="join.html">Join Us</a>
-        <a href="meet.html">Meet the Officers</a>
-        <a href="news.html">News</a>
-    </div>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('dropdownMenu');
-            menu.classList.toggle('active');
-        }
-
-        function closeMenuAfterClick() {
-            document.getElementById('dropdownMenu').classList.remove('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('dropdownMenu');
-                const hamburger = document.querySelector('.hamburger-menu');
-
-                if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                    menu.classList.remove('active');
+        // Load Header and Footer
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+                
+                // Fix menu toggle for hamburger
+                let menuButton = document.querySelector('.hamburger-menu');
+                if (menuButton) {
+                    menuButton.addEventListener('click', function () {
+                        document.getElementById('dropdownMenu').classList.toggle('active');
+                    });
                 }
+            })
+            .catch(error => console.error('Error loading header:', error));
 
-                if (menu.contains(event.target) && event.target.tagName === 'A') {
-                    menu.classList.remove('active');
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+
+        // List of Officer Data and Corresponding Google Drive Image Links
+        const officers = [
+            { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
+            { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
+            { name: "Junior Warden", position: "Junior Warden", img: "" },
+            { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
+            { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
+            { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
+            { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+            { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+            { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
+            { name: "Junior Deacon", position: "Junior Deacon", img: "" },
+            { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
+            { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+            { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
+            { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
+        ];
+
+        function loadOfficerImages() {
+            const carousel1 = document.getElementById("carousel1");
+            const carousel2 = document.getElementById("carousel2");
+
+            officers.forEach((officer, index) => {
+                if (officer.img) {
+                    let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
+                    let slide = document.createElement("div");
+                    slide.innerHTML = `
+                        <div class="officer-name">${officer.name}</div>
+                        <img src="${imgUrl}" alt="${officer.name}">
+                        <div class="officer-info">${officer.position}</div>
+                        <div class="view-button">
+                            <a href="${imgUrl}" target="_blank">Full Screen <img src="${imgUrl}" alt="Thumbnail"></a>
+                        </div>
+                    `;
+                    (index % 2 === 0) ? carousel1.appendChild(slide) : carousel2.appendChild(slide);
                 }
             });
 
-            // Running Man Logic
-            let runningMan = document.getElementById("running-man");
+            $("#carousel1, #carousel2").slick({ autoplay: true, autoplaySpeed: 4000, arrows: true });
+        }
 
-            function runRight() {
-                runningMan.style.display = "inline";
-                runningMan.style.left = "-50px"; // Start off-screen
-                runningMan.style.animation = "runRight 5s linear forwards"; // Run right
-                setTimeout(() => {
-                    runningMan.style.display = "none";
-                    setTimeout(runLeft, 10000); // Wait 10s before left runner starts
-                }, 5000);
-            }
-
-            function runLeft() {
-                runningMan.style.display = "inline";
-                runningMan.style.right = "-50px"; // Start off-screen
-                runningMan.style.animation = "runLeft 5s linear forwards"; // Run left
-                setTimeout(() => {
-                    runningMan.style.display = "none";
-                    setTimeout(runRight, 10000); // Wait 10s before right runner starts again
-                }, 5000);
-            }
-
-            setTimeout(runRight, 10000); // Start the first run after 10s
-        });
+        document.addEventListener("DOMContentLoaded", loadOfficerImages);
     </script>
-</div>
+
+</body>
+</html>
