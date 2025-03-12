@@ -1,7 +1,7 @@
 <div id="site-header">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap">
-    
+
     <style>
         body, html {
             margin: 0;
@@ -52,7 +52,7 @@
 
         .navbar-title span {
             display: inline-block;
-            margin: 0 20px;
+            margin: 0 40px; /* Creates two tab spaces */
         }
 
         .hamburger-menu {
@@ -111,15 +111,18 @@
 
         /* Running Left to Right */
         @keyframes runRight {
-            from { left: -50px; }
-            to { left: 100%; }
+            0% { left: -50px; }
+            50% { left: 50%; transform: translateX(-50%); } /* Middle fist bump */
+            100% { left: 100%; }
         }
 
         /* Running Right to Left */
         @keyframes runLeft {
-            from { right: -50px; }
-            to { right: 100%; }
+            0% { right: -50px; }
+            50% { right: 50%; transform: translateX(50%); } /* Middle fist bump */
+            100% { right: 100%; }
         }
+
     </style>
 
     <div class="navbar">
@@ -128,8 +131,8 @@
         </a>
         <div class="navbar-title">
             <span>DOWNEY UNITED LODGE #220</span> &nbsp;&nbsp; <span>THE SENSATION OF THE NATION</span>
-            <span class="running-man" id="running-man-right" style="display:none;">🏃🏾</span>
-            <span class="running-man" id="running-man-left" style="display:none;">🏃🏾</span>
+            <span class="running-man" id="running-man-right" style="display:none;">🤜🏾</span>
+            <span class="running-man" id="running-man-left" style="display:none;">🤛🏾</span>
         </div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
@@ -179,21 +182,23 @@
             let runningManRight = document.getElementById("running-man-right");
             let runningManLeft = document.getElementById("running-man-left");
 
-            function runRight() {
-                runningManRight.style.display = "inline";
-                runningManRight.style.animation = "runRight 5s linear forwards"; // Run right
-                setTimeout(() => {
-                    runningManRight.style.display = "none";
-                    setTimeout(runLeft, 10000); // Wait 10s before left runner starts
-                }, 5000);
+            function getRandomFist() {
+                const fists = ["🤜", "🤛", "🤜🏾", "🤛🏾", "🤜🏻", "🤛🏻"];
+                return fists[Math.floor(Math.random() * fists.length)];
             }
 
-            function runLeft() {
+            function runRight() {
+                runningManRight.innerHTML = getRandomFist();
+                runningManLeft.innerHTML = getRandomFist();
+                runningManRight.style.display = "inline";
                 runningManLeft.style.display = "inline";
-                runningManLeft.style.animation = "runLeft 5s linear forwards"; // Run left
+                runningManRight.style.animation = "runRight 5s linear forwards";
+                runningManLeft.style.animation = "runLeft 5s linear forwards";
+
                 setTimeout(() => {
+                    runningManRight.style.display = "none";
                     runningManLeft.style.display = "none";
-                    setTimeout(runRight, 10000); // Wait 10s before right runner starts again
+                    setTimeout(runRight, 10000); // Wait 10s before restarting
                 }, 5000);
             }
 
