@@ -130,26 +130,26 @@
         fetch('header.html?nocache=' + new Date().getTime())
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.text();
             })
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
-
-                // Call initialization function after loading header
-                initializeHeaderFeatures();
+                initializeHeaderFeatures(); // Call after header is loaded
             })
             .catch(error => console.error('Error loading header:', error));
 
         fetch('footer.html?nocache=' + new Date().getTime())
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.text();
             })
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            })
             .catch(error => console.error('Error loading footer:', error));
 
         const lodgeLogo = "https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png";
@@ -173,8 +173,7 @@
 
         const carouselOrders = [
             [1, 4, 7, 10, 13, 2, 5, 8, 11, 14, 3, 6, 9, 12],
-            [2, 5, 8, 11, 14, 3, 6, 9, 12, 1, 4, 7, 10, 13],
-            [3, 6, 9, 12, 1, 4, 7, 10, 13, 2, 5, 8, 11, 14]
+            [2, 5, 8, 1[3, 6, 9, 12, 1, 4, 7, 10, 13, 2, 5, 8, 11, 14]
         ];
 
         function loadCarousels() {
