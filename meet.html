@@ -24,7 +24,7 @@
 
         /* Scale Everything Below Header & Above Footer */
         .content-wrapper {
-            transform: scale(0.90);
+            transform: scale(0.85);
             transform-origin: top center;
             width: 100%;
             display: flex;
@@ -52,18 +52,19 @@
         }
 
         .carousel {
-            width: 46%;
-            max-width: 475px;
+            width: 30%;
+            max-width: 400px;
             border-radius: 10px;
             overflow: hidden;
         }
 
         .carousel img {
             width: 100%;
-            max-height: 475px;
+            max-height: 400px;
             height: auto;
             border-radius: 10px;
             object-fit: contain;
+            cursor: pointer;
         }
 
         .officer-card {
@@ -87,36 +88,6 @@
             color: #ccc;
         }
 
-        .view-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .view-button a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-        }
-
-        .view-button a:hover {
-            background-color: #a00028;
-        }
-
-        .view-button img {
-            width: 28px;
-            height: 28px;
-            margin-left: 6px;
-            border-radius: 5px;
-            border: 1px solid #fff;
-        }
-
         /* Mobile Adjustments */
         @media only screen and (max-width: 768px) {
             .carousel-container {
@@ -136,16 +107,30 @@
     <!-- Header (Full Size) -->
     <div id="header-placeholder"></div>
 
-    <!-- Content Wrapper (Shrinks to 90%) -->
+    <!-- Content Wrapper (Shrinks to 85%) -->
     <div class="content-wrapper">
         <div class="header">MEET THE OFFICERS</div>
 
         <div class="carousel-container">
-            <!-- First Carousel -->
+            <!-- First Row -->
             <div class="carousel" id="carousel1"></div>
-
-            <!-- Second Carousel -->
             <div class="carousel" id="carousel2"></div>
+            <div class="carousel" id="carousel3"></div>
+
+            <!-- Second Row -->
+            <div class="carousel" id="carousel4"></div>
+            <div class="carousel" id="carousel5"></div>
+            <div class="carousel" id="carousel6"></div>
+
+            <!-- Third Row -->
+            <div class="carousel" id="carousel7"></div>
+            <div class="carousel" id="carousel8"></div>
+            <div class="carousel" id="carousel9"></div>
+
+            <!-- Fourth Row -->
+            <div class="carousel" id="carousel10"></div>
+            <div class="carousel" id="carousel11"></div>
+            <div class="carousel" id="carousel12"></div>
         </div>
     </div>
 
@@ -159,64 +144,52 @@
         // Load Header and Footer
         fetch('header.html')
             .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-
-                // Fix menu toggle for hamburger
-                let menuButton = document.querySelector('.hamburger-menu');
-                if (menuButton) {
-                    menuButton.addEventListener('click', function () {
-                        document.getElementById('dropdownMenu').classList.toggle('active');
-                    });
-                }
-            })
+            .then(data => document.getElementById('header-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading header:', error));
 
         fetch('footer.html')
             .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            })
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
             .catch(error => console.error('Error loading footer:', error));
 
-        // List of Officer Data and Corresponding Google Drive Image Links
+        // Officer Data
         const officers = [
             { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
             { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-            { name: "Junior Warden", position: "Junior Warden", img: "" },
+            { name: "Junior Warden", position: "Junior Warden", img: "" }, // Placeholder
+
             { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
             { name: "Gary Phillips", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-            { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
             { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
+
             { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
+            { name: "David Wehmeyer", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
             { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-            { name: "Junior Deacon", position: "Junior Deacon", img: "" },
-            { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
-            { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
+
+            { name: "Junior Deacon", position: "Junior Deacon", img: "" }, // Placeholder
             { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
             { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
         ];
 
+        function getRandomSpeed() {
+            return Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
+        }
+
         function loadOfficerImages() {
-            const carousel1 = document.getElementById("carousel1");
-            const carousel2 = document.getElementById("carousel2");
-
             officers.forEach((officer, index) => {
-                if (officer.img) {
-                    let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
-                    let slide = document.createElement("div");
-                    slide.innerHTML = `
-                        <div class="officer-card">
-                            <div class="officer-name">${officer.name}</div>
-                            <img src="${imgUrl}" alt="${officer.name}">
-                            <div class="officer-position">${officer.position}</div>
-                        </div>
-                    `;
-                    (index % 2 === 0) ? carousel1.appendChild(slide) : carousel2.appendChild(slide);
-                }
-            });
+                let carousel = document.getElementById(`carousel${index + 1}`);
+                let imgUrl = officer.img ? `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000` : "https://via.placeholder.com/400";
 
-            $("#carousel1, #carousel2").slick({ autoplay: true, autoplaySpeed: 4000, arrows: true });
+                let slide = document.createElement("div");
+                slide.innerHTML = `<div class="officer-card">
+                    <div class="officer-name">${officer.name}</div>
+                    <img src="${imgUrl}" alt="${officer.name}" onclick="window.open('${imgUrl}', '_blank')">
+                    <div class="officer-position">${officer.position}</div>
+                </div>`;
+
+                carousel.appendChild(slide);
+                $(`#carousel${index + 1}`).slick({ autoplay: true, autoplaySpeed: getRandomSpeed(), arrows: true });
+            });
         }
 
         document.addEventListener("DOMContentLoaded", loadOfficerImages);
