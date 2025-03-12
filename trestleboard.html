@@ -43,34 +43,35 @@
             font-weight: bold;
         }
 
-        .fullscreen-btn {
-            background-color: #ffcc00;
-            color: #000;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .fullscreen-btn:hover {
-            background-color: #ffea80;
-        }
-
         .trestleboard-container {
             flex-grow: 1;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 10px;
             position: relative;
         }
 
         iframe {
-            width: 100%;
+            width: 90%;
+            max-width: 900px;
             height: 75vh;
             border: none;
             transition: all 0.3s ease-in-out;
+        }
+
+        .fullscreen-link {
+            color: #ffcc00;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: underline;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .fullscreen-link:hover {
+            color: #ffe680;
         }
 
         footer {
@@ -97,11 +98,8 @@
     <!-- Page Wrapper -->
     <div class="content-wrapper">
 
-        <!-- Header with Fullscreen Button -->
-        <div class="header-bar">
-            <div class="title">Digital Trestleboard</div>
-            <button class="fullscreen-btn" onclick="toggleFullScreen()">Full Screen</button>
-        </div>
+        <!-- Header -->
+        <div id="header-placeholder"></div>
 
         <!-- Google Slides Embed (Auto-play & Loop) -->
         <div class="trestleboard-container">
@@ -109,6 +107,9 @@
                 src="https://docs.google.com/presentation/d/1wgrqs4MPx2IZgWi5ycEdjFsrdJTRBlw4/embed?start=true&loop=true&delayms=5000"
                 allowfullscreen>
             </iframe>
+            
+            <!-- Fullscreen Link BELOW the PowerPoint -->
+            <a class="fullscreen-link" onclick="toggleFullScreen()">📺 Full Screen</a>
         </div>
 
         <!-- Footer -->
