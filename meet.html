@@ -47,13 +47,13 @@
             overflow: hidden;
         }
 
-    .carousel img {
-    width: 100%;
-    max-height: 500px;
-    height: auto;
-    border-radius: 10px;
-    object-fit: contain; /* Change from cover to contain */
-}
+        .carousel img {
+            width: 100%;
+            max-height: 500px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: contain;
+        }
 
         .officer-info {
             background: rgba(255, 255, 255, 0.1);
@@ -61,13 +61,43 @@
             border-radius: 5px;
             text-align: center;
             color: white;
+            font-size: 1.2rem;
         }
 
-        .full-screen-link {
-            display: block;
+        .officer-name {
+            font-size: 1rem;
+            margin-top: 5px;
+            color: #ffcc00;
+        }
+
+        .view-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-top: 10px;
-            color: #fff;
-            text-decoration: underline;
+        }
+
+        .view-button a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            background-color: #800020;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .view-button a:hover {
+            background-color: #a00028;
+        }
+
+        .view-button img {
+            width: 30px;
+            height: 30px;
+            margin-left: 8px;
+            border-radius: 5px;
+            border: 1px solid #fff;
         }
 
         /* Mobile Adjustments */
@@ -121,16 +151,12 @@
         { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
         { name: "Howard Phillips", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
         { name: "David Olmedo", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-        { name: "Junior Deacon", position: "Junior Deacon", img: "" },  // Leave space for Junior Deacon
+        { name: "Junior Deacon", position: "Junior Deacon", img: "" },
         { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
         { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
         { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
         { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
     ];
-
-    function getRandomInterval() {
-        return Math.floor(Math.random() * (5000 - 3000 + 1)) + 3000;
-    }
 
     function loadOfficerImages() {
         const carousel1 = document.getElementById("carousel1");
@@ -141,13 +167,13 @@
                 let imgUrl = `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
                 let slide = document.createElement("div");
                 slide.innerHTML = `
-                    <div class="officer-info">
-                        <strong>${officer.name}</strong><br>${officer.position}
-                    </div>
+                    <div class="officer-info">${officer.position}</div>
                     <img src="${imgUrl}" alt="${officer.name}">
-                    <a href="${imgUrl}" target="_blank" class="full-screen-link">View Full Screen</a>
+                    <div class="officer-name">${officer.name}</div>
+                    <div class="view-button">
+                        <a href="${imgUrl}" target="_blank">Full Screen <img src="${imgUrl}" alt="Thumbnail"></a>
+                    </div>
                 `;
-                // Alternate between the two carousels
                 if (index % 2 === 0) {
                     carousel1.appendChild(slide);
                 } else {
@@ -156,7 +182,6 @@
             }
         });
 
-        // Initialize Slick Carousel for both
         $("#carousel1").slick({
             dots: true,
             infinite: true,
@@ -164,7 +189,7 @@
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: getRandomInterval(),
+            autoplaySpeed: 3000,
             arrows: true,
             fade: true,
             cssEase: 'linear'
@@ -177,55 +202,17 @@
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: true,
-            autoplaySpeed: getRandomInterval(),
+            autoplaySpeed: 5000,
             arrows: true,
             fade: true,
             cssEase: 'linear'
         });
-
-        // Change autoplay speed at random intervals
-        setInterval(() => {
-            $("#carousel1").slick("slickSetOption", "autoplaySpeed", getRandomInterval(), true);
-            $("#carousel2").slick("slickSetOption", "autoplaySpeed", getRandomInterval(), true);
-        }, 8000); // Change every 8 seconds
     }
 
-    // Load header, footer, and images
     document.addEventListener("DOMContentLoaded", function () {
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-                attachMenuListener();
-            })
-            .catch(error => console.error('Error loading header:', error));
-
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-            .catch(error => console.error('Error loading footer:', error));
-
         loadOfficerImages();
     });
-
-    function attachMenuListener() {
-        const menuButton = document.querySelector('.hamburger-menu');
-        const menu = document.getElementById('dropdownMenu');
-
-        if (menuButton && menu) {
-            menuButton.addEventListener('click', function () {
-                menu.classList.toggle('active');
-            });
-
-            document.addEventListener('click', function (event) {
-                if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-            });
-        }
-    }
 </script>
 
 </body>
-
 </html>
