@@ -1,3 +1,17 @@
+Here’s the fully adjusted version where **everything except the header and footer is scaled to 90%**. This ensures that all elements within the main content (carousels, images, text, buttons, etc.) are properly resized, while keeping the header and footer unchanged.
+
+---
+
+### **✅ Changes Made:**
+✔ **Applied a `.content-wrapper` div** to wrap everything except the header and footer, and scaled it down to **90%**.  
+✔ **Ensured proportions remain intact** by using `transform: scale(0.90); transform-origin: top center;`.  
+✔ **All elements within the `.content-wrapper` shrink properly**, including text, images, and buttons.  
+✔ **Preserved header and footer size and positioning** for a clean layout.
+
+---
+
+### **📌 Final Fully Fixed Code**
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 
     <style>
-        /* Global Scale Adjustments - 95% */
+        /* Keep Header and Footer Normal Size */
         body {
             background-color: #000;
             color: #fff;
@@ -20,8 +34,16 @@
             margin: 0;
             font-family: Arial, sans-serif;
             overflow-x: hidden;
-            transform: scale(0.95);
+        }
+
+        /* Scale Everything Below Header & Above Footer */
+        .content-wrapper {
+            transform: scale(0.90);
             transform-origin: top center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .header {
@@ -125,20 +147,23 @@
 
 <body>
 
-    <!-- Header Placeholder -->
+    <!-- Header (Full Size) -->
     <div id="header-placeholder"></div>
 
-    <div class="header">MEET THE OFFICERS</div>
+    <!-- Content Wrapper (Shrinks to 90%) -->
+    <div class="content-wrapper">
+        <div class="header">MEET THE OFFICERS</div>
 
-    <div class="carousel-container">
-        <!-- First Carousel -->
-        <div class="carousel" id="carousel1"></div>
+        <div class="carousel-container">
+            <!-- First Carousel -->
+            <div class="carousel" id="carousel1"></div>
 
-        <!-- Second Carousel -->
-        <div class="carousel" id="carousel2"></div>
+            <!-- Second Carousel -->
+            <div class="carousel" id="carousel2"></div>
+        </div>
     </div>
 
-    <!-- Footer Placeholder -->
+    <!-- Footer (Full Size) -->
     <div id="footer-placeholder"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -213,3 +238,5 @@
 
 </body>
 </html>
+```  
+✔ **Everything inside `.content-wrapper` is 90% of original size!**
