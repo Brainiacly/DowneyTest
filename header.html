@@ -37,6 +37,15 @@
             border: 2px solid #8d6e63;
         }
 
+        .navbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            white-space: nowrap;
+            padding: 0 10px;
+        }
+
         .hamburger-menu {
             display: flex;
             flex-direction: column;
@@ -81,6 +90,24 @@
         .menu.active {
             display: block;
         }
+
+        /* Running Man Animation */
+        .running-man {
+            position: absolute;
+            top: 65px;
+            left: -50px;
+            font-size: 2rem;
+            animation: runBackForth 4s linear infinite alternate;
+        }
+
+        @keyframes runBackForth {
+            0% {
+                left: -50px;
+            }
+            100% {
+                left: calc(100% - 30px);
+            }
+        }
     </style>
 
     <!-- Navbar -->
@@ -88,6 +115,7 @@
         <a href="index.html">
             <img src="https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png" alt="Lodge Logo">
         </a>
+        <div class="navbar-title">Downey United Lodge #220 - The Sensation of the Nation</div>
         <div class="hamburger-menu" onclick="toggleMenu()">
             <div></div>
             <div></div>
@@ -95,19 +123,21 @@
         </div>
     </div>
 
+    <!-- Running Man -->
+    <div class="running-man">🏃‍♂️</div>
+
     <!-- Dropdown Menu -->
     <div class="menu" id="dropdownMenu">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="calendar.html">Calendar</a>
         <a href="contactus.html">Contact Us</a>
-        <a href="trestleboard.html">Digital Trestleboard</a> <!-- New menu item added -->
+        <a href="trestleboard.html">Digital Trestleboard</a>
         <a href="events.html">Events</a>
         <a href="https://freemason.org" target="_blank">Freemason.org</a>
         <a href="join.html">Join Us</a>
         <a href="meet.html">Meet the Officers</a>
         <a href="news.html">News</a>
-        
     </div>
 
     <script>
@@ -117,7 +147,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
             const menuLinks = document.querySelectorAll('#dropdownMenu a');
 
             document.addEventListener('click', function (event) {
