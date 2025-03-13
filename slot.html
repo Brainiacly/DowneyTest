@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Officer Slots - Downey United Lodge #220</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
     <style>
         body {
             background-color: #000;
@@ -14,6 +15,8 @@
             font-family: Arial, sans-serif;
             overflow-x: hidden;
         }
+
+        /* Slot Machine Styling */
         .slot-machine {
             display: flex;
             flex-direction: column;
@@ -29,6 +32,7 @@
             position: relative;
             box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.8);
         }
+
         .slot-machine::before {
             content: 'OFFICER SLOTS';
             font-size: 2rem;
@@ -37,14 +41,19 @@
             position: absolute;
             top: -40px;
             background: #222;
-            padding: 0 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.6);
         }
+
+        /* Reels */
         .slot-reels {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-bottom: 20px;
         }
+
         .reel {
             width: 200px;
             height: 200px;
@@ -57,32 +66,39 @@
             justify-content: center;
             position: relative;
         }
+
         .reel img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             transition: transform 1s ease-out;
         }
+
+        /* Slot Machine Handle */
         .handle {
             position: absolute;
             right: -60px;
             top: 50%;
             transform: translateY(-50%);
-            width: 30px;
-            height: 100px;
+            width: 40px;
+            height: 120px;
             background: #ffcc00;
-            border-radius: 10px;
+            border-radius: 15px;
             cursor: pointer;
             transition: transform 0.3s;
+            box-shadow: inset 0px -4px 6px rgba(0, 0, 0, 0.5);
         }
+
         .handle:active {
             transform: translateY(-50%) rotate(15deg);
         }
+
+        /* Slot Mouth - Coin Drop Area */
         .slot-mouth {
             width: 80%;
-            height: 40px;
+            height: 50px;
             background: #444;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 10px;
             display: flex;
             align-items: center;
@@ -91,11 +107,14 @@
             color: #ffcc00;
             box-shadow: inset 0px -5px 10px rgba(0, 0, 0, 0.5);
         }
+
+        /* Coin Drop Animation */
         .coin-animation {
             display: none;
             font-size: 2rem;
             animation: dropCoins 1s linear forwards;
         }
+
         @keyframes dropCoins {
             0% { opacity: 1; transform: translateY(0); }
             100% { opacity: 0; transform: translateY(50px); }
@@ -103,8 +122,11 @@
     </style>
 </head>
 <body>
+    
+    <!-- Load Header -->
     <div id="header-placeholder"></div>
 
+    <!-- Slot Machine -->
     <div class="slot-machine">
         <div class="slot-reels">
             <div class="reel" id="reel1"><img src="" alt=""></div>
@@ -115,6 +137,7 @@
         <div class="slot-mouth" id="slot-mouth">TRY AGAIN</div>
     </div>
 
+    <!-- Load Footer -->
     <div id="footer-placeholder"></div>
 
     <script>
@@ -142,7 +165,7 @@
             let results = [];
             for (let i = 1; i <= 3; i++) {
                 let randomIndex = Math.floor(Math.random() * officerImages.length);
-                let imgUrl = `https://drive.google.com/thumbnail?id=${officerImages[randomIndex                ]}&sz=w300`;
+                let imgUrl = `https://drive.google.com/thumbnail?id=${officerImages[randomIndex]}&sz=w300`;
                 results.push(randomIndex);
 
                 let reel = document.getElementById(`reel${i}`).querySelector("img");
@@ -163,24 +186,23 @@
             setTimeout(() => {
                 if (results[0] === results[1] && results[1] === results[2]) {
                     document.getElementById("slot-mouth").innerHTML = "💰 WINNER! 💰";
-
-                    // Coin animation effect
-                    let coinAnimation = document.createElement("div");
-                    coinAnimation.classList.add("coin-animation");
-                    coinAnimation.innerHTML = "🪙🪙🪙";
-                    document.getElementById("slot-mouth").appendChild(coinAnimation);
-
-                    setTimeout(() => {
-                        coinAnimation.style.display = "none";
-                    }, 2000);
                 } else {
                     document.getElementById("slot-mouth").innerHTML = "TRY AGAIN";
                 }
             }, 2500);
         }
+
+        // Load Header and Footer
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('header-placeholder').innerHTML = data);
+
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('footer-placeholder').innerHTML = data);
+        });
     </script>
+
 </body>
 </html>
-
-
- 
