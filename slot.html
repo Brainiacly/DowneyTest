@@ -148,9 +148,6 @@
         <div class="slot-mouth" id="slot-mouth">Pull Lever</div>
     </div>
 
-    <!-- Load Footer -->
-    <div id="footer-placeholder"></div>
-
     <script>
         const officerImages = [
             "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O",
@@ -173,18 +170,16 @@
                 document.querySelector(".handle").style.transform = "translateY(-50%) rotate(0)";
             }, 300);
 
-            const scrolls = [3, 4, 5]; // Number of images to scroll for each reel
+            const scrolls = [3, 4, 5];
             document.querySelectorAll('.reel').forEach((reel, index) => {
-                reel.innerHTML = ""; // Clear previous images
+                reel.innerHTML = "";
 
-                // Populate the reel with the appropriate number of images
                 for (let i = 0; i < scrolls[index]; i++) {
                     const randomImage = officerImages[Math.floor(Math.random() * officerImages.length)];
                     reel.innerHTML += `<img src="https://drive.google.com/thumbnail?id=${randomImage}&sz=w300" alt="Officer Image">`;
                 }
 
-                // Animate the reel
-                const scrollAmount = 200 * scrolls[index]; // 200px per image height
+                const scrollAmount = 200 * scrolls[index];
                 reel.style.transition = `transform ${1 + index}s ease-out`;
                 reel.style.transform = `translateY(-${scrollAmount}px)`;
 
@@ -196,22 +191,15 @@
                 }, (index + 1) * 1000);
             });
 
-            // Set the result message
             setTimeout(() => {
-                const message = "TRY AGAIN"; // Replace this with win/lose logic if needed
-                document.getElementById("slot-mouth").innerHTML = message;
+                document.getElementById("slot-mouth").innerHTML = "TRY AGAIN";
             }, 4000);
         }
 
-        // Load Header and Footer
         document.addEventListener('DOMContentLoaded', () => {
             fetch('header.html')
                 .then(response => response.text())
                 .then(data => document.getElementById('header-placeholder').innerHTML = data);
-
-            fetch('footer.html')
-                .then(response => response.text())
-                .then(data => document.getElementById('footer-placeholder').innerHTML = data);
         });
     </script>
 </body>
