@@ -30,13 +30,25 @@
             align-items: center;
         }
 
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
         .header {
             font-size: 38px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-            margin-top: 20px;
-            margin-bottom: 20px;
             color: #ffcc00;
+            margin-right: 20px;
+        }
+
+        .header a {
+            color: #ffcc00;
+            text-decoration: none;
         }
 
         .carousel-container {
@@ -105,7 +117,10 @@
     <div id="header-placeholder">Loading header...</div>
 
     <div class="content-wrapper">
-        <div class="header">MEET THE OFFICERS</div>
+        <div class="header-container">
+            <div class="header">MEET THE OFFICERS</div>
+            <div class="header"><a href="slot.html">Play Officer Slots 🎰</a></div>
+        </div>
 
         <div class="carousel-container">
             <div class="carousel" id="carousel1"></div>
@@ -120,11 +135,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        // Function to initialize the menu or other JavaScript features after loading the header
         function initializeHeaderFeatures() {
             console.log("Header features initialized!");
 
-            // Attach menu toggle functionality after loading the header
             const hamburger = document.querySelector('.hamburger-menu');
             const menu = document.getElementById('dropdownMenu');
 
@@ -141,7 +154,6 @@
             }
         }
 
-        // Load Header and Footer with detailed error logging
         fetch('header.html?nocache=' + new Date().getTime())
             .then(response => {
                 if (!response.ok) {
@@ -151,8 +163,6 @@
             })
             .then(data => {
                 document.getElementById('header-placeholder').innerHTML = data;
-
-                // Call initialization function after loading header
                 initializeHeaderFeatures();
             })
             .catch(error => console.error('Error loading header:', error));
@@ -216,7 +226,6 @@
             });
         }
 
-        // Ensure carousels are loaded after DOM is fully ready
         document.addEventListener("DOMContentLoaded", loadCarousels);
     </script>
 
