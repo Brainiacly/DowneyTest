@@ -176,7 +176,14 @@
 
                 for (let i = 0; i < scrolls[index]; i++) {
                     const randomImage = officerImages[Math.floor(Math.random() * officerImages.length)];
-                    reel.innerHTML += `<img src="https://drive.google.com/thumbnail?id=${randomImage}&sz=w300" alt="Officer Image">`;
+                    const imgElement = document.createElement("img");
+                    imgElement.src = `https://drive.google.com/thumbnail?id=${randomImage}&sz=w300`;
+                    imgElement.alt = "Loading...";
+                    imgElement.onerror = () => {
+                        imgElement.alt = "Image Failed to Load";
+                        imgElement.src = "https://via.placeholder.com/200"; // Placeholder image
+                    };
+                    reel.appendChild(imgElement);
                 }
 
                 const scrollAmount = 200 * scrolls[index];
@@ -185,7 +192,7 @@
 
                 setTimeout(() => {
                     const finalImage = officerImages[Math.floor(Math.random() * officerImages.length)];
-                    reel.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${finalImage}&sz=w300" alt="Final Image">`;
+                    reel.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${finalImage}&sz=w300" alt="Final Image" onerror="this.src='https://via.placeholder.com/200'; this.alt='Image Failed to Load';">`;
                     reel.style.transition = "none";
                     reel.style.transform = "translateY(0)";
                 }, (index + 1) * 1000);
