@@ -101,8 +101,7 @@
 </head>
 
 <body>
-
-    <div id="header-placeholder">Loading header...</div>
+    <div id="header-placeholder"></div>
 
     <div class="content-wrapper">
         <div class="header">MEET THE OFFICERS</div>
@@ -114,95 +113,34 @@
         </div>
     </div>
 
-    <div id="footer-placeholder">Loading footer...</div>
+    <div id="footer-placeholder"></div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <script>
-        // Function to initialize the menu or other JavaScript features after loading the header
         function initializeHeaderFeatures() {
-            console.log("Header features initialized!");
-            // Add any custom JavaScript for your header menu here
+            if (typeof toggleMenu === "function") {
+                console.log("Header features initialized!");
+            }
         }
 
-        // Load Header and Footer with detailed error logging
-        fetch('header.html?nocache=' + new Date().getTime())
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
+        // Load Header and Footer
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    initializeHeaderFeatures();
+                })
+                .catch(error => console.error('Error loading header:', error));
 
-                // Call initialization function after loading header
-                initializeHeaderFeatures();
-            })
-            .catch(error => console.error('Error loading header:', error));
-
-        fetch('footer.html?nocache=' + new Date().getTime())
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(data => document.getElementById('footer-placeholder').innerHTML = data)
-            .catch(error => console.error('Error loading footer:', error));
-
-        const lodgeLogo = "https://lodge220.freemason.org/wp-content/themes/californialodges/images/logo.png";
-
-        const officerList = [
-            { name: "Brian Phillips", position: "Master", img: "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O" },
-            { name: "Arthur Gallardo Jr.", position: "Senior Warden", img: "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR" },
-            { name: "Alejandro Lopez", position: "Junior Warden", img: lodgeLogo },
-            { name: "Gustavo Najera III", position: "Treasurer", img: "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92" },
-            { name: "Worshipful Gary Phillips, PM", position: "Secretary", img: "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4" },
-            { name: "Michael Barry", position: "Chaplain", img: "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M" },
-            { name: "Worshipful Howard Phillips, PM", position: "Assistant Secretary", img: "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx" },
-            { name: "Worshipful David Olmedo, PM", position: "Senior Deacon", img: "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST" },
-            { name: "Lionel Moreno", position: "Junior Deacon", img: lodgeLogo },
-            { name: "Worshipful David Wehmeyer, PM", position: "Marshal", img: "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH" },
-            { name: "Edwin Velazquez", position: "Senior Steward", img: "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n" },
-            { name: "Paul Griffith", position: "Junior Steward", img: "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt" },
-            { name: "Michael Strong", position: "Tiler", img: "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L" },
-            { name: "Officers", position: "Officers", img: "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh" }
-        ];
-
-        const carouselOrders = [
-            [1, 4, 7, 10, 13, 2, 5, 8, 11, 14, 3, 6, 9, 12],
-            [2, 5, 8, 11, 14, 3, 6, 9, 12, 1, 4, 7, 10, 13],
-            [3, 6, 9, 12, 1, 4, 7, 10, 13, 2, 5, 8, 11, 14]
-        ];
-
-        function loadCarousels() {
-            carouselOrders.forEach((order, i) => {
-                let carousel = document.getElementById(`carousel${i + 1}`);
-                order.forEach(index => {
-                    let officer = officerList[index - 1];
-                    let imgUrl = officer.img.startsWith("http") ? officer.img : `https://drive.google.com/thumbnail?id=${officer.img}&sz=w1000`;
-                    carousel.innerHTML += `<div class="officer-card">
-                        <div class="officer-name">${officer.name}</div>
-                        <img src="${imgUrl}" alt="${officer.name}" onclick="window.open('${imgUrl}', '_blank')">
-                        <div class="officer-position">${officer.position}</div>
-                    </div>`;
-                });
-                $(`#carousel${i + 1}`).slick({
-                    slidesToShow: 1,
-                    autoplay: true,
-                    autoplaySpeed: 3000 + i,
-                    arrows: true,
-                    pauseOnHover: false
-                });
-            });
-        }
-
-        // Ensure carousels are loaded after DOM is fully ready
-        document.addEventListener("DOMContentLoaded", loadCarousels);
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('footer-placeholder').innerHTML = data)
+                .catch(error => console.error('Error loading footer:', error));
+        });
     </script>
-
 </body>
 
 </html>
