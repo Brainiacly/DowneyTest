@@ -137,113 +137,117 @@
 
     <script>
         const officerImages = [
-            "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O",
-            "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR",
-            "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92",
-            "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4",
+            "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt",
+            "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh",
+            "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L",
             "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M",
             "1KkVp-6_uRXfd6XRt00RS-RhPdV8qx",
-            "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST",
-            "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH",
+            "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92",
+            "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4",
             "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n",
-            "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt",
-            "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L",
-            "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh",
-            ""
+            "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH",
+            "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST",
+            "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O",
+            "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR",
+            "1tkI0dPrGbWD61e8mNjTGcr2PRnlpbEkB"
         ];
 
-        function pullLever() {
-            document.querySelector(".handle").style.transform = "translateY(-50%) rotate(30deg)";
-            setTimeout(() => {
-                document.querySelector(".handle").style.transform = "translateY(-50%) rotate(0)";
-            }, 300);
+function pullLever() {
+    document.querySelector(".handle").style.transform = "translateY(-50%) rotate(30deg)";
+    setTimeout(() => {
+        document.querySelector(".handle").style.transform = "translateY(-50%) rotate(0)";
+    }, 300);
 
-            const scrolls = [3, 4, 5];
-            document.querySelectorAll('.reel').forEach((reel, index) => {
-                reel.innerHTML = "";
-                for (let i = 0; i < scrolls[index]; i++) {
-                    let randomImage;
-                    do {
-                        randomImage = officerImages[Math.floor(Math.random() * officerImages.length)];
-                    } while (randomImage === "");
-                    const imgElement = document.createElement("img");
-                    if (randomImage) {
-                        imgElement.src = `https://drive.google.com/thumbnail?id=${randomImage}&sz=w300`;
-                        imgElement.alt = "Loading...";
-                        imgElement.onerror = () => {
-                            imgElement.alt = "Image Failed to Load";
-                            imgElement.src = "https://via.placeholder.com/200";
-                        };
-                        reel.appendChild(imgElement);
-                    }
-                }
-                const scrollAmount = 200 * scrolls[index];
-                reel.style.transition = `transform ${1 + index}s ease-out`;
-                reel.style.transform = `translateY(-${scrollAmount}px)`;
-                setTimeout(() => {
-                    let finalImage;
-                    do {
-                        finalImage = officerImages[Math.floor(Math.random() * officerImages.length)];
-                    } while (finalImage === "");
-                    if (finalImage) {
-                        reel.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${finalImage}&sz=w300" alt="Final Image" onerror="this.onerrottps'https://via.placeholder.com/200'; this.alt='Image Failed to Load';">`;
-} else {
-reel.innerHTML = "";
-}
-reel.style.transition = "none";
-reel.style.transform = "translateY(0)";
-}, (index + 1) * 1000);
-});
-setTimeout(() => {
-document.getElementById("slot-mouth").innerHTML = "TRY AGAIN";
-}, 4000);
-}
-
-    function attachMenuToggle() {
-        const hamburger = document.querySelector('.hamburger-menu');
-        const menu = document.getElementById('dropdownMenu');
-        if (hamburger && menu) {
-            hamburger.addEventListener('click', () => {
-                menu.classList.toggle('active');
-            });
-            document.addEventListener('click', (event) => {
-                if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
-                    menu.classList.remove('active');
-                }
-            });
+    const scrolls = [3, 4, 5];
+    document.querySelectorAll('.reel').forEach((reel, index) => {
+        reel.innerHTML = "";
+        for (let i = 0; i < scrolls[index]; i++) {
+            let randomImage;
+            do {
+                randomImage = officerImages[Math.floor(Math.random() * officerImages.length)];
+            } while (randomImage === "");
+            const imgElement = document.createElement("img");
+            if (randomImage) {
+                imgElement.src = `https://drive.google.com/thumbnail?id=${randomImage}&sz=w300`;
+                imgElement.alt = "Loading...";
+                imgElement.onerror = () => {
+                    imgElement.alt = "Image Failed to Load";
+                    imgElement.src = "https://via.placeholder.com/200";
+                };
+                reel.appendChild(imgElement);
+            }
         }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('header.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch header.html");
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('header-placeholder').innerHTML = data;
-                attachMenuToggle();
-            })
-            .catch(error => {
-                console.error("Error loading header:", error);
-            });
-
-        fetch('footer.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch footer.html");
-                }
-                return response.text();
-            })
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            })
-            .catch(error => {
-                console.error("Error loading footer:", error);
-            });
+        const scrollAmount = 200 * scrolls[index];
+        reel.style.transition = `transform ${1 + index}s ease-out`;
+        reel.style.transform = `translateY(-${scrollAmount}px)`;
+        setTimeout(() => {
+            let finalImage;
+            do {
+                finalImage = officerImages[Math.floor(Math.random() * officerImages.length)];
+            } while (finalImage === "");
+            if (finalImage) {
+                reel.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${finalImage}&sz=w300" alt="Final Image" onerror="this.onerror = function() {
+                        this.onerror = null; // Prevent infinite loops
+                        this.src = 'https://via.placeholder.com/200';
+                        this.alt = 'Image Failed to Load';
+                    };">`;
+            } else {
+                reel.innerHTML = "";
+            }
+            reel.style.transition = "none";
+            reel.style.transform = "translateY(0)";
+        }, (index + 1) * 1000);
     });
-</script>
+    setTimeout(() => {
+        document.getElementById("slot-mouth").innerHTML = "TRY AGAIN";
+    }, 4000);
+}
+
+        function attachMenuToggle() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const menu = document.getElementById('dropdownMenu');
+            if (hamburger && menu) {
+                hamburger.addEventListener('click', () => {
+                    menu.classList.toggle('active');
+                });
+                document.addEventListener('click', (event) => {
+                    if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                        menu.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('header.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch header.html");
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    attachMenuToggle();
+                })
+                .catch(error => {
+                    console.error("Error loading header:", error);
+                });
+
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch footer.html");
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error("Error loading footer:", error);
+                });
+        });
+    </script>
 </body>
 </html>
