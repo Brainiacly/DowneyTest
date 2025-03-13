@@ -1,0 +1,39 @@
+                ]}&sz=w300`;
+                results.push(randomIndex);
+
+                let reel = document.getElementById(`reel${i}`).querySelector("img");
+
+                // Reset spin effect
+                reel.style.transition = "none";
+                reel.style.transform = "translateY(-200%)";
+                reel.src = imgUrl;
+
+                // Add a delay for a rolling effect
+                setTimeout(() => {
+                    reel.style.transition = "transform 1s ease-out";
+                    reel.style.transform = "translateY(0)";
+                }, i * 700);
+            }
+
+            // Determine win condition
+            setTimeout(() => {
+                if (results[0] === results[1] && results[1] === results[2]) {
+                    document.getElementById("slot-mouth").innerHTML = "💰 WINNER! 💰";
+
+                    // Coin animation effect
+                    let coinAnimation = document.createElement("div");
+                    coinAnimation.classList.add("coin-animation");
+                    coinAnimation.innerHTML = "🪙🪙🪙";
+                    document.getElementById("slot-mouth").appendChild(coinAnimation);
+
+                    setTimeout(() => {
+                        coinAnimation.style.display = "none";
+                    }, 2000);
+                } else {
+                    document.getElementById("slot-mouth").innerHTML = "TRY AGAIN";
+                }
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
