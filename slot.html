@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Officer Slots - Downey United Lodge #220</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    
+
     <style>
         body {
             background-color: #000;
@@ -54,24 +54,29 @@
             margin-bottom: 20px;
         }
 
-        .reel {
+        .reel-container {
             width: 200px;
             height: 200px;
             background: #000;
             border: 3px solid #fff;
             border-radius: 10px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
+        }
+
+        .reel {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .reel img {
             width: 100%;
-            height: 100%;
+            height: 200px;
             object-fit: contain;
-            transition: transform 1s ease-out;
         }
 
         /* Slot Machine Handle */
@@ -87,6 +92,19 @@
             cursor: pointer;
             transition: transform 0.3s;
             box-shadow: inset 0px -4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .handle::after {
+            content: "";
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.8);
         }
 
         .handle:active {
@@ -107,34 +125,27 @@
             color: #ffcc00;
             box-shadow: inset 0px -5px 10px rgba(0, 0, 0, 0.5);
         }
-
-        /* Coin Drop Animation */
-        .coin-animation {
-            display: none;
-            font-size: 2rem;
-            animation: dropCoins 1s linear forwards;
-        }
-
-        @keyframes dropCoins {
-            0% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(50px); }
-        }
     </style>
 </head>
 <body>
-    
     <!-- Load Header -->
     <div id="header-placeholder"></div>
 
     <!-- Slot Machine -->
     <div class="slot-machine">
         <div class="slot-reels">
-            <div class="reel" id="reel1"><img src="" alt=""></div>
-            <div class="reel" id="reel2"><img src="" alt=""></div>
-            <div class="reel" id="reel3"><img src="" alt=""></div>
+            <div class="reel-container">
+                <div class="reel" id="reel1"></div>
+            </div>
+            <div class="reel-container">
+                <div class="reel" id="reel2"></div>
+            </div>
+            <div class="reel-container">
+                <div class="reel" id="reel3"></div>
+            </div>
         </div>
         <div class="handle" onclick="pullLever()"></div>
-        <div class="slot-mouth" id="slot-mouth">TRY AGAIN</div>
+        <div class="slot-mouth" id="slot-mouth">Pull Lever</div>
     </div>
 
     <!-- Load Footer -->
@@ -147,7 +158,7 @@
             "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92",
             "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4",
             "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M",
-            "1KkVp-6_uRXfd6lt6XRt00RS-RhPdV8qx",
+            "1KkVp-6_uRXfd6XRt00RS-RhPdV8qx",
             "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST",
             "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH",
             "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n",
@@ -161,35 +172,35 @@
             setTimeout(() => {
                 document.querySelector(".handle").style.transform = "translateY(-50%) rotate(0)";
             }, 300);
-            
-            let results = [];
-            for (let i = 1; i <= 3; i++) {
-                let randomIndex = Math.floor(Math.random() * officerImages.length);
-                let imgUrl = `https://drive.google.com/thumbnail?id=${officerImages[randomIndex]}&sz=w300`;
-                results.push(randomIndex);
 
-                let reel = document.getElementById(`reel${i}`).querySelector("img");
+            const scrolls = [3, 4, 5]; // Number of images to scroll for each reel
+            document.querySelectorAll('.reel').forEach((reel, index) => {
+                reel.innerHTML = ""; // Clear previous images
 
-                // Reset spin effect
-                reel.style.transition = "none";
-                reel.style.transform = "translateY(-200%)";
-                reel.src = imgUrl;
-
-                // Add a delay for a rolling effect
-                setTimeout(() => {
-                    reel.style.transition = "transform 1s ease-out";
-                    reel.style.transform = "translateY(0)";
-                }, i * 700);
-            }
-
-            // Determine win condition
-            setTimeout(() => {
-                if (results[0] === results[1] && results[1] === results[2]) {
-                    document.getElementById("slot-mouth").innerHTML = "💰 WINNER! 💰";
-                } else {
-                    document.getElementById("slot-mouth").innerHTML = "TRY AGAIN";
+                // Populate the reel with the appropriate number of images
+                for (let i = 0; i < scrolls[index]; i++) {
+                    const randomImage = officerImages[Math.floor(Math.random() * officerImages.length)];
+                    reel.innerHTML += `<img src="https://drive.google.com/thumbnail?id=${randomImage}&sz=w300" alt="Officer Image">`;
                 }
-            }, 2500);
+
+                // Animate the reel
+                const scrollAmount = 200 * scrolls[index]; // 200px per image height
+                reel.style.transition = `transform ${1 + index}s ease-out`;
+                reel.style.transform = `translateY(-${scrollAmount}px)`;
+
+                setTimeout(() => {
+                    const finalImage = officerImages[Math.floor(Math.random() * officerImages.length)];
+                    reel.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${finalImage}&sz=w300" alt="Final Image">`;
+                    reel.style.transition = "none";
+                    reel.style.transform = "translateY(0)";
+                }, (index + 1) * 1000);
+            });
+
+            // Set the result message
+            setTimeout(() => {
+                const message = "TRY AGAIN"; // Replace this with win/lose logic if needed
+                document.getElementById("slot-mouth").innerHTML = message;
+            }, 4000);
         }
 
         // Load Header and Footer
@@ -203,6 +214,5 @@
                 .then(data => document.getElementById('footer-placeholder').innerHTML = data);
         });
     </script>
-
 </body>
 </html>
