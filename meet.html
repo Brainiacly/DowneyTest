@@ -104,7 +104,11 @@
     <div id="header-placeholder"></div>
 
     <div class="content-wrapper">
-        <div class="header">MEET THE OFFICERS</div>
+        <div class="header">
+            MEET THE OFFICERS
+            <br>
+            <a href="slot.html" style="color: #ffcc00; text-decoration: underline; font-size: 1.2rem;">Play Officer Slots</a>
+        </div>
 
         <div class="carousel-container">
             <div class="carousel" id="carousel1"></div>
@@ -121,7 +125,7 @@
     <script>
         function initializeHeaderFeatures() {
             if (typeof toggleMenu === "function") {
-                console.log("Header features initialized!");
+                toggleMenu();
             }
         }
 
@@ -142,5 +146,4 @@
         });
     </script>
 </body>
-
 </html>
