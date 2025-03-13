@@ -71,6 +71,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            transition: transform 2s ease-out;
         }
 
         .reel img {
@@ -134,15 +135,9 @@
     <!-- Slot Machine -->
     <div class="slot-machine">
         <div class="slot-reels">
-            <div class="reel-container">
-                <div class="reel" id="reel1"></div>
-            </div>
-            <div class="reel-container">
-                <div class="reel" id="reel2"></div>
-            </div>
-            <div class="reel-container">
-                <div class="reel" id="reel3"></div>
-            </div>
+            <div class="reel-container"><div class="reel" id="reel1"></div></div>
+            <div class="reel-container"><div class="reel" id="reel2"></div></div>
+            <div class="reel-container"><div class="reel" id="reel3"></div></div>
         </div>
         <div class="handle" onclick="pullLever()"></div>
         <div class="slot-mouth" id="slot-mouth">Pull Lever</div>
@@ -152,58 +147,6 @@
     <div id="footer-placeholder"></div>
 
     <script>
-        const officerImages = [
-            "1d-LaSwz35dcUJPz_mFQvWcvjKoF6Js3O",
-            "1BvhrwKLLYBMJjjrml6rqdgdBB5Q-bGHR",
-            "1_fM4AABoXP1dn9eFEVf9bbHzH8sy6Y92",
-            "1QIeydF8ZnBpkUTUy3C8bdCqAyZyTT9f4",
-            "1I3p7WrxGelLntjSw0KPaAGk_YRBwvM3M",
-            "1KkVp-6_uRXfd6XRt00RS-RhPdV8qx",
-            "1JGKH3oqQe9p0tBqJccgSgMT4rFpbnfST",
-            "16B1oBID7rgAp7NEAqtydwa9Wfrr8GIcH",
-            "1GkMUFg4oub-JZK2BCTpodhjan_rRKw8n",
-            "1aDWv5ls_x_puQqMK00j0TEqLHoTP89qt",
-            "1opGVdWz2YyXrulzz4Jr3AEPSaDDnng7L",
-            "1kvoHR3wBPSjLgIcypk2ui6VoqlwG9Hmh"
-        ];
-
-        function pullLever() {
-            document.querySelector(".handle").style.transform = "translateY(-50%) rotate(30deg)";
-            setTimeout(() => {
-                document.querySelector(".handle").style.transform = "translateY(-50%) rotate(0)";
-            }, 300);
-
-            const scrolls = [3, 4, 5]; // Number of images to scroll for each reel
-            document.querySelectorAll('.reel').forEach((reel, index) => {
-                reel.innerHTML = ""; // Clear previous images
-
-                // Populate the reel with the appropriate number of images
-                for (let i = 0; i < scrolls[index]; i++) {
-                    const randomImage = officerImages[Math.floor(Math.random() * officerImages.length)];
-                    reel.innerHTML += `<img src="https://drive.google.com/thumbnail?id=${randomImage}&sz=w300" alt="Officer Image">`;
-                }
-
-                // Animate the reel
-                const scrollAmount = 200 * scrolls[index]; // 200px per image height
-                reel.style.transition = `transform ${1 + index}s ease-out`;
-                reel.style.transform = `translateY(-${scrollAmount}px)`;
-
-                setTimeout(() => {
-                    const finalImage = officerImages[Math.floor(Math.random() * officerImages.length)];
-                    reel.innerHTML = `<img src="https://drive.google.com/thumbnail?id=${finalImage}&sz=w300" alt="Final Image">`;
-                    reel.style.transition = "none";
-                    reel.style.transform = "translateY(0)";
-                }, (index + 1) * 1000);
-            });
-
-            // Set the result message
-            setTimeout(() => {
-                const message = "TRY AGAIN"; // Replace this with win/lose logic if needed
-                document.getElementById("slot-mouth").innerHTML = message;
-            }, 4000);
-        }
-
-        // Load Header and Footer
         document.addEventListener('DOMContentLoaded', () => {
             fetch('header.html')
                 .then(response => response.text())
